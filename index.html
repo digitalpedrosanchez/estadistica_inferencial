@@ -1098,8 +1098,9 @@ DESCRIPTIVES VARIABLES=PBARRA EE LIMINF LIMSUP
   <p class="lede">Las pelotas de golf de MaxFlight deben recorrer 295 yardas en promedio. Si recorren menos, se venden mal; si recorren más, la USGA las rechaza. Cualquier desviación en <strong>cualquier dirección</strong> es problema, así que la prueba es de dos colas. Muestra de 50 pelotas, σ = 12 yardas conocida por el control de calidad.</p>
 
   <div class="cols c2">
+    <div class="cols">
     <div class="card spss">
-      <h3>La sintaxis</h3>
+      <h3>SPSS · la sintaxis</h3>
       <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
   /XBARRA = MEAN(Yardas)
   /NCASOS = NU(Yardas).
@@ -1113,6 +1114,18 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
   /STATISTICS=MEAN.</pre>
       <p class="fine" style="color:var(--amber)"><strong>Nombre provisional:</strong> <span class="mono">Yardas</span>. Verifica el real en <span class="mono">GolfTest.sav</span>.</p>
       <p class="fine">El 295 es μ₀ y el 12 es σ. <span class="mono">ABS</span> y el 2 son lo que vuelve bilateral la prueba: se suman las dos colas.</p>
+    </div>
+    <div class="card spss">
+      <h3>Minitab · aquí sí hay diálogo</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li><span class="mono">Stat &gt; Basic Statistics &gt; 1-Sample Z…</span></li>
+        <li>Pasa la columna de datos, o elige <em>Summarized data</em> con tamaño 50 y media 297.6.</li>
+        <li><strong>Known standard deviation:</strong> <span class="mono">12</span></li>
+        <li>Marca <strong>Perform hypothesis test</strong> y en <em>Hypothesized mean</em> escribe <span class="mono">295</span>.</li>
+        <li><span class="mono">Options…</span> → <em>Alternative hypothesis:</em> <strong>Mean ≠ hypothesized mean</strong>. OK y OK.</li>
+      </ol>
+      <p>La salida da <span class="mono">Z = 1.53</span> y <span class="mono">P = 0.126</span>, lo mismo que la sintaxis.</p>
+    </div>
     </div>
     <div class="cols">
       <div class="card">
@@ -1145,8 +1158,9 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
   <p class="lede">La etiqueta dice 3 libras. A la autoridad del consumidor solo le preocupa que traigan <strong>de menos</strong>; que traigan de más no es una infracción. Por eso la prueba es de una cola, la inferior. Muestra de 36 latas, σ = 0.18 libras, y <strong>α = 0.01</strong>.</p>
 
   <div class="cols c2">
+    <div class="cols">
     <div class="card spss">
-      <h3>La sintaxis</h3>
+      <h3>SPSS · la sintaxis</h3>
       <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
   /XBARRA = MEAN(Peso)
   /NCASOS = NU(Peso).
@@ -1159,6 +1173,18 @@ EXECUTE.
 DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
   /STATISTICS=MEAN.</pre>
       <p class="fine">Compara con el ejercicio 1: desapareció el <span class="mono">ABS</span> y desapareció el 2. <strong>Eso es todo lo que distingue una cola de dos.</strong> Para la cola superior sería <span class="mono">1 - CDF.NORMAL(ZOBS,0,1)</span>.</p>
+    </div>
+    <div class="card spss">
+      <h3>Minitab · el mismo diálogo, otra opción</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li><span class="mono">Stat &gt; Basic Statistics &gt; 1-Sample Z…</span></li>
+        <li><strong>Known standard deviation:</strong> <span class="mono">0.18</span></li>
+        <li><strong>Perform hypothesis test</strong>, <em>Hypothesized mean</em> <span class="mono">3</span>.</li>
+        <li><span class="mono">Options…</span> → <em>Confidence level</em> <strong>99</strong> y <em>Alternative hypothesis:</em> <strong>Mean &lt; hypothesized mean</strong>. OK y OK.</li>
+      </ol>
+      <p>Da <span class="mono">Z = −2.67</span> y <span class="mono">P = 0.004</span>.</p>
+      <p class="fine">Todo el cambio entre una cola y dos está en un solo menú desplegable. En la sintaxis estaba en el <span class="mono">ABS</span> y el 2; aquí, en <em>Alternative hypothesis</em>. Y como la prueba es unilateral, Minitab reporta una <strong>cota</strong> de confianza en lugar de un intervalo.</p>
+    </div>
     </div>
     <div class="cols">
       <div class="card">
@@ -1288,8 +1314,9 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
   <p class="lede">Históricamente el 20 % de quienes jugaban en el campo eran mujeres. Tras una campaña de promoción, se toma una muestra de 400 jugadores y 100 son mujeres. La pregunta tiene dirección: se busca un <strong>aumento</strong>. Cola superior, H₀: p ≤ 0.20.</p>
 
   <div class="cols c2">
+    <div class="cols">
     <div class="card spss">
-      <h3>La sintaxis</h3>
+      <h3>SPSS · la sintaxis</h3>
       <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
   /PBARRA = MEAN(Mujer)
   /NCASOS = NU(Mujer).
@@ -1302,6 +1329,18 @@ EXECUTE.
 DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   /STATISTICS=MEAN.</pre>
       <p class="fine" style="color:var(--amber)"><strong>Nombre provisional:</strong> <span class="mono">Mujer</span>, codificada 1 y 0.</p>
+    </div>
+    <div class="card spss">
+      <h3>Minitab · y una casilla que hay que marcar</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li><span class="mono">Stat &gt; Basic Statistics &gt; 1 Proportion…</span></li>
+        <li>Elige <em>Summarized data</em>: <em>Number of events</em> <span class="mono">100</span>, <em>Number of trials</em> <span class="mono">400</span>.</li>
+        <li>Marca <strong>Perform hypothesis test</strong>, <em>Hypothesized proportion</em> <span class="mono">0.20</span>.</li>
+        <li><span class="mono">Options…</span> → <em>Alternative hypothesis:</em> <strong>Proportion &gt; hypothesized proportion</strong>.</li>
+        <li>En el mismo cuadro, <em>Method:</em> elige <strong>Normal approximation</strong>. Continuar y OK.</li>
+      </ol>
+      <p>Con esa configuración da <span class="mono">Z = 2.50</span> y <span class="mono">P = 0.006</span>, igual que la sintaxis y que el libro.</p>
+    </div>
     </div>
     <div class="cols">
       <div class="card warn">
@@ -1321,6 +1360,11 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
           </tbody>
         </table>
         <p class="fine">0.0062 &lt; 0.05: se rechaza H₀. La campaña funcionó.</p>
+      </div>
+      <div class="card warn">
+        <h3>Si no marcas «Normal approximation», da otro número</h3>
+        <p>Minitab usa por omisión la <strong>prueba exacta binomial</strong>, que no aproxima nada: calcula directamente la probabilidad de observar 100 mujeres o más entre 400 si la proporción real fuera 0.20. Ese cálculo da <strong>0.0086</strong>, no 0.0062.</p>
+        <p>Ninguno de los dos está mal. La exacta es más precisa; la normal es la que enseña el libro y la que aparece en la literatura. La conclusión no cambia, pero <strong>el número que reportes sí</strong>, y hay que saber cuál estás usando.</p>
       </div>
       <p class="src">Anderson, sección 9.5 · archivo WomenGolf.sav</p>
     </div>
