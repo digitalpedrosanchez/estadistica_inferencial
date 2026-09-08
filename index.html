@@ -843,6 +843,12 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
         <h3>Por qué p̄ aparece en su propio error estándar</h3>
         <p>En una variable de sí o no, la dispersión no es independiente de la media: está determinada por ella. Una proporción cercana a 0.5 es la más variable; cerca de 0 o de 1 casi no varía. Por eso no hace falta una σ aparte.</p>
       </div>
+      <div class="card key">
+        <h3>¿Y la versión con la distribución t?</h3>
+        <p><strong>No existe, y por una razón de fondo.</strong> La t hizo falta con la media porque había que estimar σ aparte, con <em>s</em>, y esa segunda estimación cuesta grados de libertad.</p>
+        <p>Aquí no hay nada aparte que estimar: la dispersión de una variable de sí o no ya está contenida en p. Sin parámetro extra no hay grados de libertad que perder y no hay t.</p>
+        <p class="fine">Por eso las proporciones tienen un solo caso y no dos. Si alguna vez ves un intervalo para una proporción calculado con t, casi siempre es porque el software trató la variable binaria como si fuera continua.</p>
+      </div>
       <div class="card warn">
         <h3>El margen de error de las encuestas</h3>
         <p>Cuando una nota periodística dice «margen de error de ±3 %», el número viene de esta misma lógica, casi siempre al 95 % y suponiendo p̄ = 0.5, que es el caso más desfavorable.</p><p class="fine">En encuestas reales la cuenta suele ser más complicada: intervienen ponderaciones, conglomerados, efectos de diseño y corrección por población finita. Pero la estructura de fondo es la que acabas de ver.</p>
@@ -864,14 +870,27 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
   </div>
 
   <div class="cols c2">
+    <div class="cols">
     <div class="card spss">
-      <h3>Paso 1 · La estimación puntual</h3>
+      <h3>SPSS · paso 1 · la estimación puntual</h3>
       <ol style="padding-left:1.15em;line-height:1.6">
         <li>Abre <span class="mono">TeeTimes.sav</span>.</li>
         <li><span class="mono">Analizar &gt; Estadísticos descriptivos &gt; Frecuencias…</span> con <span class="mono">Satisfecha</span>.</li>
         <li><strong>Aceptar.</strong> Debes ver <strong>396</strong> respuestas afirmativas, el <strong>44.0 %</strong>.</li>
       </ol>
       <p class="fine" style="color:var(--amber)"><strong>Nombre provisional:</strong> <span class="mono">Satisfecha</span> es el nombre del libro. Además de verificarlo, confirma que esté codificada <strong>1 para sí y 0 para no</strong>: la sintaxis del paso 2 depende de las dos cosas.</p>
+    </div>
+    <div class="card spss">
+      <h3>Minitab · en un solo cuadro</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li><span class="mono">Stat &gt; Basic Statistics &gt; 1 Proportion…</span></li>
+        <li>Elige <em>Summarized data</em>: <em>Number of events</em> <span class="mono">396</span>, <em>Number of trials</em> <span class="mono">900</span>.</li>
+        <li>Deja <strong>sin marcar</strong> <em>Perform hypothesis test</em>: aquí solo queremos el intervalo, no una prueba.</li>
+        <li><span class="mono">Options…</span> → <em>Confidence level</em> <strong>95</strong> y <em>Method:</em> <strong>Normal approximation</strong>. Continuar y OK.</li>
+      </ol>
+      <p>Da <span class="mono">Sample p = 0.44</span> y el intervalo <span class="mono">(0.4076, 0.4724)</span>, idéntico al del libro y al de la sintaxis.</p>
+      <p class="fine">Dos programas, dos caminos muy distintos para lo mismo: SPSS 25 obliga a escribir la fórmula; Minitab lo tiene en un cuadro de diálogo. No es que uno sea mejor: es que cada uno decidió qué procedimientos merecían menú.</p>
+    </div>
     </div>
     <div class="card spss">
       <h3>Paso 2 · El intervalo</h3>
@@ -905,10 +924,11 @@ DESCRIPTIVES VARIABLES=PBARRA EE LIMINF LIMSUP
       <p class="fine">Coincide con el libro: entre 40.76 % y 47.24 %.</p>
     </div>
     <div class="card edge">
-      <h3>Una comparación, no un método</h3>
+      <h3>Dos atajos, y por qué no dan lo mismo</h3>
       <p>Si corres una Prueba T sobre la variable 0-1 con valor de prueba 0, obtienes <strong>40.75 % a 47.25 %</strong>: una centésima de punto porcentual de diferencia.</p>
       <p>El desajuste tiene explicación. SPSS divide entre n − 1 y usa la t; la fórmula del libro divide entre n y usa la z.</p>
       <p><strong>Esto se muestra para entender de dónde viene la diferencia, no como procedimiento recomendado.</strong> La prueba t supone una variable continua y aquí la variable es binaria. Con n = 900 el atropello no cambia ninguna conclusión; con muestras pequeñas sí, y ahí el atajo es sencillamente incorrecto.</p>
+      <p>Y si en Minitab olvidas cambiar <em>Method</em>, el programa usa el <strong>intervalo exacto</strong> y devuelve <strong>40.73 % a 47.31 %</strong>. Tampoco está mal: es más preciso que la aproximación normal. Pero no es el número del libro, y hay que saber cuál estás reportando.</p>
     </div>
   </div>
 </section>
