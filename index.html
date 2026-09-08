@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estadística inferencial: muestreo, intervalos y pruebas de hipótesis</title>
+<meta name="description" content="Sesión doctoral sobre estadística inferencial. Capítulos 7, 8 y 9 de Anderson, ejercicios en SPSS.">
+<style>
+:root{
+  --bg:#f4f3ef;
+  --surface:#ffffff;
+  --ink:#14161c;
+  --ink-soft:#4c525e;
+  --ink-faint:#858c99;
+  --rule:#dcdad4;
+  --accent:#1e46a4;
+  --accent-soft:#e7edfa;
+  --gold:#e2a900;
+  --green:#0f7a5a;
+  --green-soft:#e6f4ef;
+  --amber:#b26a00;
+  --amber-soft:#fdf1de;
+  --shadow:0 1px 2px rgba(20,22,28,.06), 0 8px 24px rgba(20,22,28,.05);
+  --sans:"Helvetica Neue",Helvetica,Arial,"Segoe UI",system-ui,sans-serif;
+  --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
+}
+html[data-theme="dark"]{
+  --bg:#14161c;
+  --surface:#1c1f27;
+  --ink:#f0f1f3;
+  --ink-soft:#b4bac6;
+  --ink-faint:#7d8492;
+  --rule:#2e323c;
+  --accent:#7ea4ff;
+  --accent-soft:#1e2739;
+  --gold:#f0bf3c;
+  --green:#4ecfa4;
+  --green-soft:#152a24;
+  --amber:#e0a44a;
+  --amber-soft:#2a2113;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+/* ---------- estructura de lámina ---------- */
+.deck{height:100vh;width:100vw;position:relative}
+.slide{
+  position:absolute;inset:0;
+  padding:clamp(24px,3.4vw,56px) clamp(24px,4vw,72px) 76px;
+  overflow-y:auto;
+  display:none;
+  animation:in .22s ease-out;
+}
+.slide.active{display:block}
+@keyframes in{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.slide{animation:none}}
+
+.eyebrow{
+  font-size:clamp(11px,1.05vw,13px);font-weight:700;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 10px;
+}
+.eyebrow .tag{
+  display:inline-block;background:var(--accent-soft);color:var(--accent);
+  border-radius:4px;padding:3px 8px;margin:0 4px;letter-spacing:.09em;font-size:.92em;
+}
+h1.title{
+  font-size:clamp(28px,3.5vw,50px);line-height:1.08;letter-spacing:-.022em;
+  font-weight:800;margin:0 0 6px;max-width:22ch;
+}
+h2.title{
+  font-size:clamp(24px,2.9vw,42px);line-height:1.1;letter-spacing:-.02em;
+  font-weight:800;margin:0 0 4px;max-width:26ch;
+}
+.rule{width:62px;height:5px;border-radius:3px;margin:14px 0 22px;
+  background:linear-gradient(90deg,var(--accent) 0 55%,var(--gold) 55% 100%);}
+.lede{font-size:clamp(15px,1.35vw,19px);line-height:1.55;color:var(--ink-soft);max-width:66ch;margin:0 0 18px}
+p{line-height:1.55;margin:0 0 12px}
+strong{font-weight:700;color:var(--ink)}
+em{font-style:italic}
+
+.cols{display:grid;gap:clamp(16px,1.8vw,28px)}
+.c2{grid-template-columns:1fr 1fr}
+.c2w{grid-template-columns:1.35fr 1fr}
+.c2n{grid-template-columns:1fr 1.3fr}
+.c3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){.cols{grid-template-columns:1fr !important}}
+
+.card{
+  background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:clamp(14px,1.4vw,22px);box-shadow:var(--shadow);
+}
+.card h3{margin:0 0 8px;font-size:clamp(15px,1.35vw,19px);font-weight:700;letter-spacing:-.01em}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card.info{background:var(--accent-soft);border-color:transparent}
+.card.edge{border-left:5px solid var(--accent)}
+.card.spss{border-left:5px solid var(--green)}
+.card.warn{background:var(--amber-soft);border-left:5px solid var(--amber);border-top-color:transparent;border-right-color:transparent;border-bottom-color:transparent}
+.card.key{border-left:5px solid var(--gold)}
+.card ul{margin:0 0 12px;padding-left:1.15em}
+.card li{line-height:1.5;margin-bottom:7px}
+.fine{font-size:clamp(12px,1.02vw,14px);color:var(--ink-faint);line-height:1.5;font-style:italic}
+.src{margin-top:18px;font-size:clamp(11px,.95vw,13px);color:var(--ink-faint);font-style:italic}
+code,.mono{font-family:var(--mono);font-size:.92em;background:var(--accent-soft);
+  color:var(--ink);padding:2px 6px;border-radius:4px}
+
+/* ---------- tablas ---------- */
+table{border-collapse:collapse;width:100%;font-size:clamp(12.5px,1.08vw,15px)}
+th{
+  text-align:right;font-size:clamp(10px,.9vw,11.5px);letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:700;
+  padding:0 8px 7px;border-bottom:1px solid var(--rule);
+}
+th:first-child,td:first-child{text-align:left}
+td{padding:7px 8px;border-bottom:1px solid var(--rule);color:var(--ink-soft)}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:700;color:var(--ink);border-top:2px solid var(--rule)}
+
+/* ---------- cifra grande ---------- */
+.stat{display:flex;gap:clamp(18px,2.4vw,40px);flex-wrap:wrap;margin:6px 0 14px}
+.stat .n{font-size:clamp(30px,3.6vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.stat .lbl{font-size:clamp(11.5px,1vw,13.5px);color:var(--ink-faint);line-height:1.35;margin-top:8px;max-width:19ch}
+.stat .ok{color:var(--green)}
+.stat .no{color:var(--amber)}
+
+/* ---------- ecuaciones ---------- */
+.eq{
+  background:var(--surface);border:1px solid var(--rule);border-radius:8px;
+  padding:14px 16px;margin:10px 0;text-align:center;
+  font-size:clamp(15px,1.5vw,21px);font-variant-numeric:tabular-nums;line-height:1.7;
+}
+.eq.plain{background:transparent;border:none;padding:6px 0;text-align:left}
+.eq .lab{display:block;font-size:clamp(11px,.92vw,12.5px);letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin-bottom:6px}
+.eq .bad{color:var(--amber)}
+.eq .good{color:var(--green);font-weight:700}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;
+  margin:0 .25em;line-height:1.25}
+.frac .den{border-top:1.5px solid currentColor;padding-top:2px}
+.rad{border-top:1.5px solid currentColor;padding:0 .2em}
+
+/* ---------- población ---------- */
+.pop{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 14px}
+.unit{
+  flex:1 1 110px;min-width:96px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:9px;padding:12px 10px;text-align:center;transition:background .15s,border-color .15s;
+}
+.unit .id{font-size:clamp(10px,.88vw,11.5px);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:700}
+.unit .v{font-size:clamp(24px,2.5vw,34px);font-weight:800;letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;margin-top:4px}
+.unit .u{font-size:clamp(10.5px,.9vw,12px);color:var(--ink-faint)}
+.unit.on{background:var(--accent);border-color:var(--accent)}
+.unit.on .id,.unit.on .u{color:rgba(255,255,255,.82)}
+.unit.on .v{color:#fff}
+
+/* ---------- tabla de muestras ---------- */
+.samples tbody tr{cursor:pointer}
+.samples tbody tr:hover td{background:var(--accent-soft)}
+.samples tbody tr.on td{background:var(--accent-soft);color:var(--ink);font-weight:700}
+.samples td:first-child{font-variant-numeric:tabular-nums}
+
+/* ---------- controles ---------- */
+.ctrls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 16px}
+.btn{
+  font:inherit;font-size:clamp(12.5px,1.05vw,14.5px);font-weight:600;
+  background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  border-radius:7px;padding:8px 14px;cursor:pointer;transition:.15s;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:focus-visible,a:focus-visible,tr:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+/* ---------- gráfica ---------- */
+.plot{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+  padding:14px 16px 8px;box-shadow:var(--shadow)}
+.plot h4{margin:0 0 2px;font-size:clamp(13.5px,1.2vw,16px);font-weight:700}
+.plot .sub{margin:0 0 8px;font-size:clamp(11.5px,1vw,13px);color:var(--ink-faint)}
+.plot svg{width:100%;height:auto;display:block}
+.dot{fill:var(--accent)}
+.axis{stroke:var(--rule);stroke-width:1.5}
+.tick{fill:var(--ink-faint);font-size:11px;font-family:var(--sans)}
+.muline{stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4}
+.mulabel{fill:var(--gold);font-size:11px;font-weight:700;font-family:var(--sans)}
+
+/* ---------- portada ---------- */
+.cover{display:flex;flex-direction:column;justify-content:center;min-height:calc(100vh - 130px);max-width:60ch}
+.cover .inst{font-size:clamp(12px,1.05vw,14.5px);color:var(--ink-soft);line-height:1.6;margin-bottom:26px}
+.cover h1{font-size:clamp(32px,4.6vw,64px);line-height:1.05;letter-spacing:-.028em;font-weight:800;margin:0}
+.cover .sub{font-size:clamp(15px,1.5vw,21px);color:var(--ink-soft);line-height:1.45;margin:16px 0 30px;max-width:44ch}
+.cover .by{font-size:clamp(13px,1.15vw,16px);line-height:1.7;color:var(--ink-soft)}
+.cover .keys{margin-top:30px;font-size:clamp(11.5px,1vw,13.5px);color:var(--ink-faint)}
+kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px solid var(--rule);
+  border-bottom-width:2px;border-radius:4px;padding:1px 6px;color:var(--ink-soft)}
+
+/* ---------- barra inferior ---------- */
+.bar{
+  position:fixed;left:0;right:0;bottom:0;height:52px;
+  display:flex;align-items:center;gap:14px;
+  padding:0 clamp(16px,3vw,40px);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(8px);border-top:1px solid var(--rule);z-index:40;
+}
+.bar .where{font-size:12.5px;color:var(--ink-faint);flex:1;overflow:hidden;
+  white-space:nowrap;text-overflow:ellipsis}
+.bar button{
+  font:inherit;font-size:13px;background:none;border:1px solid var(--rule);color:var(--ink-soft);
+  border-radius:6px;width:34px;height:32px;cursor:pointer;transition:.15s;
+}
+.bar button.wide{width:auto;padding:0 12px}
+.bar button:hover{border-color:var(--accent);color:var(--accent)}
+.progress{position:fixed;left:0;bottom:52px;height:3px;background:var(--accent);z-index:41;transition:width .2s}
+
+/* ---------- menú ---------- */
+.menu{
+  position:fixed;inset:0;background:var(--bg);z-index:60;display:none;
+  padding:clamp(28px,4vw,60px);overflow-y:auto;
+}
+.menu.open{display:block}
+.menu h2{font-size:clamp(24px,3vw,40px);font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+.menu .hint{color:var(--ink-faint);font-size:14px;margin:0 0 26px}
+.blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.blk{
+  background:var(--surface);border:1px solid var(--rule);border-left:5px solid var(--accent);
+  border-radius:9px;padding:14px 16px;cursor:pointer;text-align:left;font:inherit;transition:.15s;
+}
+.blk:hover{border-color:var(--rule);border-left-color:var(--gold);transform:translateY(-2px)}
+.blk .k{font-size:11px;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.blk .t{font-size:16px;font-weight:700;margin:5px 0 7px;color:var(--ink)}
+.blk .m{font-size:12.5px;color:var(--ink-faint)}
+.blk[disabled]{opacity:.45;cursor:not-allowed;border-left-color:var(--ink-faint)}
+.blk[disabled]:hover{transform:none}
+
+@media (max-width:760px){
+  .slide{padding:20px 18px 74px}
+  .stat{gap:20px}
+  .pop .unit{flex:1 1 60px;min-width:60px;padding:9px 5px}
+}
+@media print{
+  body{overflow:visible}
+  .slide{display:block !important;position:static;page-break-after:always;height:auto;min-height:0}
+  .bar,.menu,.progress{display:none !important}
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+<!-- ============ 0 · PORTADA ============ -->
+<section class="slide" data-block="apertura" data-label="Apertura">
+  <div class="cover">
+    <div class="inst">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas<br>Procesamiento y análisis de datos</div>
+    <h1>Estadística inferencial: de la muestra a la población</h1>
+    <p class="sub">Qué tan lejos puede estar tu muestra de la verdad, y cómo se calcula esa distancia.</p>
+    <div class="by">Dr. Sergio Ramón Rossetti López<br>Presenta: <strong>David</strong><br>Septiembre 2026</div>
+    <p class="keys">Navega con <kbd>→</kbd> <kbd>←</kbd> · Bloques con <kbd>M</kbd> · Tema con <kbd>T</kbd> · Pantalla completa con <kbd>F</kbd></p>
+  </div>
+</section>
+
+<!-- ============ 1 · RUTA ============ -->
+<section class="slide" data-block="apertura" data-label="Ruta de la sesión">
+  <p class="eyebrow">Ruta de la sesión</p>
+  <h2 class="title">Noventa minutos, tres capítulos</h2>
+  <div class="rule"></div>
+  <div class="cols c2w">
+    <div>
+      <table>
+        <thead><tr><th>Bloque</th><th>Contenido</th><th class="num">Min</th></tr></thead>
+        <tbody>
+          <tr><td><strong>7</strong></td><td>Muestreo y distribuciones muestrales</td><td class="num">15</td></tr>
+          <tr><td><strong>8</strong></td><td>Intervalos de confianza <span class="mono">SPSS 1–4</span></td><td class="num">40</td></tr>
+          <tr><td><strong>8b</strong></td><td>Tamaño de muestra <span class="mono">SurveyMonkey</span></td><td class="num">10</td></tr>
+          <tr><td><strong>9</strong></td><td>Prueba de hipótesis <span class="mono">SPSS 5–8</span></td><td class="num">25</td></tr>
+        </tbody>
+      </table>
+      <p class="src">Anderson, Sweeney y Williams · capítulos 7, 8 y 9</p>
+    </div>
+    <div class="cols">
+      <div class="card info">
+        <h3>Abre SPSS ahora</h3>
+        <p>Ocho ejercicios de esta sesión son prácticos y los haremos al mismo tiempo. Ten SPSS abierto y descarga las bases antes de que empecemos.</p>
+      </div>
+      <div class="card edge">
+        <h3>La pregunta que ordena todo</h3>
+        <p>El capítulo 2 preguntaba qué dicen tus datos. De aquí en adelante la pregunta es otra: <strong>qué tienes derecho a decir sobre lo que no observaste</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2 · L1 EL GIRO ============ -->
+<section class="slide" data-block="b7" data-label="El giro">
+  <p class="eyebrow">Bloque 7 · Muestreo</p>
+  <h2 class="title">Hoy vamos a hacerlo al revés</h2>
+  <div class="rule"></div>
+  <div class="cols c2">
+    <div class="card">
+      <h3>Lo que hace el libro</h3>
+      <p>Toma los 2 500 administradores de Electronics Associates, extrae 500 muestras de 30 y grafica las 500 medias. Sale una campana centrada en <span class="mono">$51 800</span>.</p>
+      <p>El problema pedagógico: esa figura es <strong>una aproximación</strong>. Con 2 500 elementos, las muestras posibles de 30 son un número de 70 cifras. Nadie las enumera. El alumno ve la campana y tiene que <em>creer</em> que las fórmulas son ciertas.</p>
+    </div>
+    <div class="card edge">
+      <h3>Lo que haremos aquí</h3>
+      <p>Una población de <strong>cinco</strong> empresas. Muestras de <strong>dos</strong>. Diez muestras posibles, todas visibles en una sola lámina.</p>
+      <p>Nada se aproxima: la distribución muestral queda <strong>completa y exacta</strong> sobre la pantalla. La media de las medias no es «cercana» al parámetro, <strong>es</strong> el parámetro. El error estándar coincide con la fórmula en el cuarto decimal.</p>
+      <p>Se pasa de creer a verificar.</p>
+    </div>
+  </div>
+  <div class="cols c3" style="margin-top:18px">
+    <div class="card">
+      <h3>Población y muestra</h3>
+      <p>La <strong>población</strong> es el conjunto de todos los elementos que interesan. La <strong>muestra</strong> es un subconjunto de ella.</p>
+    </div>
+    <div class="card">
+      <h3>Parámetro y estadístico</h3>
+      <p>Un <strong>parámetro</strong> describe a la población: μ, σ, p. Un <strong>estadístico</strong> describe a la muestra: x̄, s, p̄. Se calculan igual; no significan lo mismo.</p>
+    </div>
+    <div class="card">
+      <h3>Estimador puntual</h3>
+      <p>Usar x̄ como estimación de μ, o p̄ como estimación de p. Un solo número, sin margen. Todo el capítulo consiste en preguntarse qué tan confiable es ese número.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 · L2 LA POBLACIÓN ============ -->
+<section class="slide" data-block="b7" data-label="La población entera">
+  <p class="eyebrow">Bloque 7 · Muestreo</p>
+  <h2 class="title">Cinco empresas, y las conocemos todas</h2>
+  <div class="rule"></div>
+  <p class="lede">Un parque industrial tiene exactamente cinco MIPYMES. Registramos el número de empleados de cada una. No hay muestreo todavía: esto es el censo.</p>
+
+  <div class="pop">
+    <div class="unit"><div class="id">A</div><div class="v">2</div><div class="u">empleados</div></div>
+    <div class="unit"><div class="id">B</div><div class="v">4</div><div class="u">empleados</div></div>
+    <div class="unit"><div class="id">C</div><div class="v">6</div><div class="u">empleados</div></div>
+    <div class="unit"><div class="id">D</div><div class="v">8</div><div class="u">empleados</div></div>
+    <div class="unit"><div class="id">E</div><div class="v">10</div><div class="u">empleados</div></div>
+  </div>
+
+  <div class="cols c2n">
+    <div>
+      <div class="stat">
+        <div><div class="n">μ = 6</div><div class="lbl">media poblacional</div></div>
+        <div><div class="n">σ = 2.8284</div><div class="lbl">desviación estándar poblacional</div></div>
+      </div>
+      <div class="card warn">
+        <h3>Estos dos números son parámetros</h3>
+        <p>Los conocemos porque vemos la población completa. <strong>En investigación real eso no ocurre nunca.</strong> Si pudieras ver toda la población no necesitarías estadística inferencial: contarías. Toda la maquinaria de los capítulos 8 y 9 existe porque estos dos números están ocultos.</p>
+      </div>
+      <p class="fine">σ se calcula dividiendo entre N = 5, no entre N − 1: es una población, no una muestra.</p>
+    </div>
+    <div class="card edge">
+      <h3>El diseño de muestreo, declarado</h3>
+      <p>Vamos a extraer muestras de tamaño <strong>n = 2</strong> bajo muestreo aleatorio simple:</p>
+      <ul>
+        <li><strong>Sin reemplazo.</strong> Una empresa no puede salir dos veces en la misma muestra.</li>
+        <li><strong>No ordenadas.</strong> La muestra {A, B} y la muestra {B, A} son la misma muestra.</li>
+        <li><strong>Equiprobables.</strong> Cada muestra posible tiene la misma probabilidad de ser elegida: 1/10.</li>
+      </ul>
+      <p>Con esas tres condiciones el número de muestras posibles es la combinación de 5 en 2, que son <strong>diez</strong>.</p>
+      <p class="fine">Si el muestreo fuera con reemplazo habría 25 pares ordenados, no se usaría la corrección por población finita, y las muestras sin orden dejarían de ser equiprobables. El diseño no es un detalle administrativo: cambia el resultado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · L3 LAS DIEZ MUESTRAS ============ -->
+<section class="slide" data-block="b7" data-label="Las diez muestras posibles">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Lámina central</span></p>
+  <h2 class="title">Dos muestras válidas, dos respuestas distintas</h2>
+  <div class="rule"></div>
+
+  <div class="pop" id="popStrip">
+    <div class="unit" data-v="2"><div class="id">A</div><div class="v">2</div><div class="u">empleados</div></div>
+    <div class="unit" data-v="4"><div class="id">B</div><div class="v">4</div><div class="u">empleados</div></div>
+    <div class="unit" data-v="6"><div class="id">C</div><div class="v">6</div><div class="u">empleados</div></div>
+    <div class="unit" data-v="8"><div class="id">D</div><div class="v">8</div><div class="u">empleados</div></div>
+    <div class="unit" data-v="10"><div class="id">E</div><div class="v">10</div><div class="u">empleados</div></div>
+  </div>
+
+  <div class="cols c2">
+    <div>
+      <table class="samples" id="sampleTable">
+        <thead><tr><th>#</th><th>Muestra</th><th class="num">Empleados</th><th class="num">x̄</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <p class="fine">Pulsa cualquier renglón para ver qué dos empresas contiene.</p>
+    </div>
+    <div class="cols">
+      <div class="card warn">
+        <h3>El rango va de 3 a 9</h3>
+        <p>La muestra {A, B} reporta una media de <strong>3</strong> empleados. La muestra {D, E} reporta <strong>9</strong>. Las dos son muestras aleatorias simples legítimas de la misma población, tomadas con el mismo método, y difieren en un factor de tres.</p>
+      </div>
+      <div class="card edge">
+        <h3>Esto tiene nombre</h3>
+        <p>Se llama <strong>variabilidad muestral</strong> y no es un error del investigador: es una propiedad inevitable de trabajar con muestras. Ningún cuidado en el trabajo de campo la elimina.</p>
+        <p>Lo que sí se puede hacer es <strong>medirla</strong>. Eso es lo que sigue.</p>
+      </div>
+      <div class="card">
+        <h3>En la vida real ves un renglón</h3>
+        <p>Tú levantas <em>una</em> muestra y obtienes <em>un</em> número. Esta tabla completa es un lujo que solo existe porque la población tiene cinco elementos. La pregunta del capítulo es: sin ver la tabla, ¿qué tan lejos puede estar tu renglón de la verdad?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5 · L4 DISTRIBUCIÓN MUESTRAL ============ -->
+<section class="slide" data-block="b7" data-label="La distribución muestral exacta">
+  <p class="eyebrow">Bloque 7 · Distribución muestral</p>
+  <h2 class="title">Las diez medias, ordenadas</h2>
+  <div class="rule"></div>
+
+  <div class="cols c2w">
+    <div>
+      <div class="plot">
+        <h4>Distribución muestral de x̄ · n = 2</h4>
+        <p class="sub">Cada punto es una de las diez muestras posibles. Distribución exacta, no aproximada.</p>
+        <svg id="dotPlot" viewBox="0 0 620 250" role="img" aria-label="Diagrama de puntos apilados de las diez medias muestrales"></svg>
+      </div>
+      <div class="card warn" style="margin-top:14px">
+        <h3>Esto no es un histograma</h3>
+        <p>Un histograma resume frecuencias observadas y aproxima una distribución. Aquí tenemos la distribución de probabilidad <strong>exacta</strong> de una variable discreta, así que cada observación se conserva visible. La figura 7.1 del libro sí es un histograma, y por eso mismo es una aproximación: la forma de la gráfica delata la naturaleza del objeto.</p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>Primer hallazgo · insesgadez</h3>
+        <p>La media de las diez medias es <strong>exactamente 6</strong>, el valor de μ. No aproximadamente: exactamente. Eso significa que x̄ es un <strong>estimador insesgado</strong> de μ.</p>
+        <p class="fine">No dice que tu muestra vaya a acertar. Dice que el método no está torcido hacia arriba ni hacia abajo.</p>
+      </div>
+      <div class="card edge">
+        <h3>Segundo hallazgo · menos dispersión</h3>
+        <p>Los datos individuales se dispersan con σ = 2.8284. Las medias muestrales se dispersan con <strong>1.7321</strong>, apenas el 61 % de aquello.</p>
+        <p class="fine">Promediar dos observaciones ya estabiliza: los extremos se cancelan entre sí. Esa es toda la intuición del error estándar.</p>
+      </div>
+      <div class="card edge">
+        <h3>Tercer hallazgo · se concentra</h3>
+        <p>Seis de las diez muestras caen entre 5 y 7, a un empleado o menos de la verdad. Solo dos caen en los extremos. Sin haber supuesto nada, la mala suerte es minoría.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6 · L5 ERROR ESTÁNDAR ============ -->
+<section class="slide" data-block="b7" data-label="Error estándar y corrección finita">
+  <p class="eyebrow">Bloque 7 · Error estándar</p>
+  <h2 class="title">De dónde sale ese 1.7321</h2>
+  <div class="rule"></div>
+  <p class="lede">A la desviación estándar de la distribución muestral se le llama <strong>error estándar de la media</strong>. Aquí podemos comprobar la fórmula contra la enumeración, algo que con 2 500 administradores es imposible.</p>
+
+  <div class="cols c2">
+    <div>
+      <div class="eq">
+        <span class="lab">Error estándar con población finita</span>
+        σ<sub>x̄</sub> =
+        <span class="rad">√</span><span class="frac"><span>N − n</span><span class="den">N − 1</span></span>
+        ·
+        <span class="frac"><span>σ</span><span class="den"><span class="rad">√</span>n</span></span>
+      </div>
+      <div class="stat">
+        <div><div class="n no">2.0000</div><div class="lbl">sin la corrección: σ/√n = 2.8284/1.4142</div></div>
+        <div><div class="n ok">1.7321</div><div class="lbl">con la corrección: 0.8660 × 2.0000</div></div>
+      </div>
+      <div class="card key">
+        <h3>Y la enumeración dice 1.7321</h3>
+        <p>El número que salió de contar las diez medias a mano coincide con el que produce la fórmula. <strong>Nadie tuvo que creer nada.</strong> Ese es el pago del enfoque inverso: en el ejemplo del libro esta comprobación no se puede hacer.</p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>Por qué aquí la corrección sí pesa</h3>
+        <p>La fracción de muestreo es n/N = 2/5 = <strong>0.40</strong>. Estamos observando el 40 % de la población, así que cada elemento extraído reduce mucho la incertidumbre restante.</p>
+        <p>El libro trabaja casi siempre sin el factor porque en sus ejemplos <strong>n/N ≤ 0.05</strong>: con 30 de 2 500 administradores la corrección vale 0.994 y no cambia nada. Aquí vale 0.866 y cambia todo.</p>
+      </div>
+      <div class="card">
+        <h3>Qué controla el error estándar</h3>
+        <ul>
+          <li><strong>σ</strong>, que no puedes cambiar: es la población.</li>
+          <li><strong>n</strong>, que sí controlas, y entra bajo raíz: para reducir el error a la mitad necesitas cuadruplicar la muestra.</li>
+        </ul>
+        <p>Esa raíz es la razón económica de que las encuestas nacionales no crezcan indefinidamente.</p>
+      </div>
+      <div class="card warn">
+        <h3>Si lo verificas en SPSS te va a dar otro número</h3>
+        <p>SPSS calculará <span class="mono">1.8257</span> si le pegas las diez medias, porque divide entre 9 suponiendo que son <em>una muestra</em>. Nuestro 1.7321 divide entre 10, porque las diez medias <strong>son la población completa</strong> de muestras posibles. No es un error de ninguno de los dos: son dos objetos distintos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 · L6 EFECTO DE n ============ -->
+<section class="slide" data-block="b7" data-label="Qué pasa al aumentar n">
+  <p class="eyebrow">Bloque 7 · Tamaño de muestra</p>
+  <h2 class="title">Qué pasa si muestreamos tres empresas</h2>
+  <div class="rule"></div>
+
+  <div class="ctrls" role="group" aria-label="Tamaño de muestra">
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Tamaño de muestra:</span>
+    <button class="btn on" data-n="2">n = 2</button>
+    <button class="btn" data-n="3">n = 3</button>
+    <button class="btn" data-n="4">n = 4</button>
+  </div>
+
+  <div class="cols c2w">
+    <div class="plot">
+      <h4 id="plotTitle">Distribución muestral de x̄ · n = 2</h4>
+      <p class="sub" id="plotSub">10 muestras posibles · error estándar 1.7321</p>
+      <svg id="dotPlot2" viewBox="0 0 620 250" role="img" aria-label="Distribución muestral según el tamaño de muestra"></svg>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <table>
+          <thead><tr><th>n</th><th class="num">Muestras</th><th class="num">Media</th><th class="num">Error est.</th></tr></thead>
+          <tbody>
+            <tr><td>2</td><td class="num">10</td><td class="num">6.0000</td><td class="num">1.7321</td></tr>
+            <tr><td>3</td><td class="num">10</td><td class="num">6.0000</td><td class="num">1.1547</td></tr>
+            <tr><td>4</td><td class="num">5</td><td class="num">6.0000</td><td class="num">0.7071</td></tr>
+            <tr class="tot"><td>5</td><td class="num">1</td><td class="num">6.0000</td><td class="num">0.0000</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Con n = 5 solo hay una muestra posible, que es la población. El error estándar se anula: es el censo.</p>
+      </div>
+      <div class="card edge">
+        <h3>Dos cosas cambian y una no</h3>
+        <p>La distribución se <strong>estrecha</strong> y el peor caso posible se acerca a μ. Pero el centro <strong>no se mueve</strong>: la insesgadez no depende del tamaño de muestra. Aumentar n no corrige un sesgo, solo reduce la dispersión.</p>
+      </div>
+      <div class="card key">
+        <h3>Aquí empieza el capítulo 8</h3>
+        <p>Si un error estándar más chico significa estimaciones más apretadas, la pregunta gerencial es obvia: <strong>¿qué tan grande tiene que ser n para el margen que necesito?</strong> Esa cuenta es el cálculo del tamaño de muestra, y la haremos en la segunda parte de la sesión.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8 · L7 PUENTE ============ -->
+<section class="slide" data-block="b7" data-label="Qué demuestra y qué no">
+  <p class="eyebrow">Bloque 7 · Cierre</p>
+  <h2 class="title">Qué demuestra este ejemplo y qué no</h2>
+  <div class="rule"></div>
+
+  <div class="cols c2">
+    <div class="card edge">
+      <h3>Lo que quedó demostrado, exacto</h3>
+      <ul>
+        <li>La <strong>variabilidad muestral</strong> existe y se puede acotar.</li>
+        <li>x̄ es <strong>insesgado</strong>: la media de todas las muestras posibles es μ.</li>
+        <li>El <strong>error estándar</strong> de la fórmula coincide con el de la enumeración.</li>
+        <li>Aumentar n <strong>estrecha</strong> la distribución sin mover su centro.</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>Lo que este ejemplo no demuestra</h3>
+      <p>Con cinco elementos <strong>no se puede ver una distribución normal</strong>, y no la vimos. Nuestra distribución es discreta y tiene siete valores posibles.</p>
+      <p>El <strong>Teorema del Límite Central</strong> dice algo que aquí no cabe: cuando n crece, la distribución muestral de x̄ se aproxima a la normal <em>sea cual sea la forma de la población</em>. Para verlo hay que volver a una población grande, y esa es exactamente la figura 7.1 del libro, con sus 2 500 administradores y sus 500 muestras.</p>
+      <p class="fine">Regla operativa del capítulo: con n ≥ 30 la aproximación normal se considera adecuada.</p>
+    </div>
+  </div>
+
+  <div class="cols c2" style="margin-top:18px">
+    <div class="card key">
+      <h3>El puente al capítulo 8</h3>
+      <div class="eq plain">Intervalo = estimación puntual ± valor crítico × error estándar</div>
+      <p>Todo intervalo de confianza que veremos tiene esta forma. Lo único que cambia entre casos es de dónde sale el valor crítico: de la normal cuando σ es conocida, de la <em>t</em> de Student cuando hay que estimarla.</p>
+    </div>
+    <div class="card key">
+      <h3>El puente al capítulo 9</h3>
+      <div class="eq plain">
+        Estadístico de prueba =
+        <span class="frac"><span>estimación − valor planteado en H₀</span><span class="den">error estándar</span></span>
+      </div>
+      <p>Una prueba de hipótesis pregunta a cuántos errores estándar está tu estimación del valor que alguien afirmó. Si la distancia es grande, la afirmación no se sostiene.</p>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:18px">
+    <h3>Y lo mismo aplica a una proporción</h3>
+    <p>Todo lo anterior se repite con p̄ en lugar de x̄: también es insesgada, también tiene su error estándar, también se estrecha al crecer n. Lo vamos a necesitar, porque la calculadora de tamaño de muestra que usaremos trabaja con proporciones.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- ============ BARRA ============ -->
+<div class="progress" id="progress"></div>
+<div class="bar">
+  <span class="where" id="where"></span>
+  <button id="btnMenu" class="wide" title="Bloques (M)">Bloques</button>
+  <button id="btnPrev" title="Anterior (←)" aria-label="Lámina anterior">←</button>
+  <button id="btnNext" title="Siguiente (→)" aria-label="Lámina siguiente">→</button>
+  <button id="btnTheme" class="wide" title="Tema (T)">Tema</button>
+  <button id="btnFull" title="Pantalla completa (F)" aria-label="Pantalla completa">⛶</button>
+</div>
+
+<!-- ============ MENÚ ============ -->
+<div class="menu" id="menu" role="dialog" aria-label="Índice de bloques">
+  <h2>Estadística inferencial</h2>
+  <p class="hint">Pulsa un bloque para ir a él · <kbd>M</kbd> o <kbd>Esc</kbd> para volver</p>
+  <div class="blocks">
+    <button class="blk" data-go="0"><span class="k">Apertura</span><span class="t">Portada y ruta</span><span class="m">2 láminas · ~2 min</span></button>
+    <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">7 láminas · ~15 min</span></button>
+    <button class="blk" disabled><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">En construcción</span></button>
+    <button class="blk" disabled><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">En construcción</span></button>
+  </div>
+  <p class="src">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas · Septiembre 2026</p>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- datos: población y muestras ---------- */
+  var POB = [
+    {id:"A", v:2}, {id:"B", v:4}, {id:"C", v:6}, {id:"D", v:8}, {id:"E", v:10}
+  ];
+  var MU = 6;
+
+  function combinaciones(arr, k){
+    var out = [];
+    (function rec(start, acc){
+      if (acc.length === k){ out.push(acc.slice()); return; }
+      for (var i = start; i < arr.length; i++){ acc.push(arr[i]); rec(i+1, acc); acc.pop(); }
+    })(0, []);
+    return out;
+  }
+  function muestrasDe(n){
+    return combinaciones(POB, n).map(function(c){
+      var suma = c.reduce(function(a,b){ return a + b.v; }, 0);
+      return { ids:c.map(function(e){return e.id;}), vals:c.map(function(e){return e.v;}), media: suma/n };
+    });
+  }
+  var M2 = muestrasDe(2);
+
+  /* ---------- tabla de las diez muestras ---------- */
+  var tbody = document.querySelector("#sampleTable tbody");
+  var strip = document.getElementById("popStrip");
+  M2.forEach(function(m, i){
+    var tr = document.createElement("tr");
+    tr.tabIndex = 0;
+    tr.innerHTML = "<td>" + (i+1) + "</td>" +
+                   "<td>" + m.ids.join(" y ") + "</td>" +
+                   "<td class='num'>" + m.vals.join(" · ") + "</td>" +
+                   "<td class='num'>" + m.media.toFixed(1) + "</td>";
+    function marcar(){
+      Array.prototype.forEach.call(tbody.children, function(r){ r.classList.remove("on"); });
+      tr.classList.add("on");
+      Array.prototype.forEach.call(strip.children, function(u){
+        u.classList.toggle("on", m.vals.indexOf(Number(u.dataset.v)) !== -1);
+      });
+    }
+    tr.addEventListener("click", marcar);
+    tr.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " "){ e.preventDefault(); marcar(); } });
+    tbody.appendChild(tr);
+  });
+
+  /* ---------- diagrama de puntos ---------- */
+  function dibujarPuntos(svg, muestras, opts){
+    opts = opts || {};
+    var W = 620, H = 250, L = 46, R = 24, B = 46, T = 18;
+    var medias = muestras.map(function(m){ return m.media; });
+    var min = Math.min.apply(null, medias), max = Math.max.apply(null, medias);
+    var lo = Math.floor(Math.min(min, 3)), hi = Math.ceil(Math.max(max, 9));
+    var x = function(v){ return L + (v - lo) / (hi - lo) * (W - L - R); };
+
+    /* apila los valores repetidos */
+    var grupos = {};
+    medias.forEach(function(v){
+      var k = v.toFixed(4);
+      (grupos[k] = grupos[k] || []).push(v);
+    });
+    var maxPila = 0;
+    Object.keys(grupos).forEach(function(k){ maxPila = Math.max(maxPila, grupos[k].length); });
+    var r = 11, paso = 26;
+    var base = H - B - r;
+
+    var s = "";
+    /* eje */
+    s += "<line class='axis' x1='" + L + "' y1='" + (H-B) + "' x2='" + (W-R) + "' y2='" + (H-B) + "'/>";
+    for (var t = lo; t <= hi; t++){
+      s += "<line class='axis' x1='" + x(t) + "' y1='" + (H-B) + "' x2='" + x(t) + "' y2='" + (H-B+6) + "'/>";
+      s += "<text class='tick' x='" + x(t) + "' y='" + (H-B+21) + "' text-anchor='middle'>" + t + "</text>";
+    }
+    s += "<text class='tick' x='" + ((L+W-R)/2) + "' y='" + (H-6) + "' text-anchor='middle'>Media muestral de empleados (x̄)</text>";
+    /* línea de μ */
+    s += "<line class='muline' x1='" + x(MU) + "' y1='" + T + "' x2='" + x(MU) + "' y2='" + (H-B) + "'/>";
+    s += "<text class='mulabel' x='" + (x(MU)+7) + "' y='" + (T+11) + "'>μ = 6</text>";
+    /* puntos */
+    Object.keys(grupos).forEach(function(k){
+      var v = parseFloat(k), pila = grupos[k].length;
+      for (var i = 0; i < pila; i++){
+        s += "<circle class='dot' cx='" + x(v) + "' cy='" + (base - i*paso) + "' r='" + r + "'/>";
+      }
+    });
+    svg.innerHTML = s;
+    void maxPila;
+  }
+
+  dibujarPuntos(document.getElementById("dotPlot"), M2);
+
+  /* ---------- comparación por tamaño de muestra ---------- */
+  var svg2 = document.getElementById("dotPlot2");
+  var plotTitle = document.getElementById("plotTitle");
+  var plotSub = document.getElementById("plotSub");
+  var EE = { 2:"1.7321", 3:"1.1547", 4:"0.7071" };
+
+  function pintarN(n){
+    var ms = muestrasDe(n);
+    dibujarPuntos(svg2, ms);
+    plotTitle.textContent = "Distribución muestral de x̄ · n = " + n;
+    plotSub.textContent = ms.length + " muestras posibles · error estándar " + EE[n];
+  }
+  pintarN(2);
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-n]"), function(b){
+    b.addEventListener("click", function(){
+      Array.prototype.forEach.call(document.querySelectorAll("[data-n]"), function(o){ o.classList.remove("on"); });
+      b.classList.add("on");
+      pintarN(Number(b.dataset.n));
+    });
+  });
+
+  /* ---------- navegación ---------- */
+  var slides = Array.prototype.slice.call(document.querySelectorAll(".slide"));
+  var i = 0;
+  var where = document.getElementById("where");
+  var progress = document.getElementById("progress");
+  var menu = document.getElementById("menu");
+
+  function ir(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function(s, k){ s.classList.toggle("active", k === i); });
+    slides[i].scrollTop = 0;
+    where.textContent = (i+1) + " / " + slides.length + "  ·  " + (slides[i].dataset.label || "");
+    progress.style.width = ((i+1) / slides.length * 100) + "%";
+    try { history.replaceState(null, "", "#d" + i); } catch(e){}
+  }
+  function menuAbierto(){ return menu.classList.contains("open"); }
+  function alternarMenu(v){ menu.classList.toggle("open", v === undefined ? !menuAbierto() : v); }
+
+  document.getElementById("btnNext").addEventListener("click", function(){ ir(i+1); });
+  document.getElementById("btnPrev").addEventListener("click", function(){ ir(i-1); });
+  document.getElementById("btnMenu").addEventListener("click", function(){ alternarMenu(); });
+  document.getElementById("btnTheme").addEventListener("click", tema);
+  document.getElementById("btnFull").addEventListener("click", function(){
+    if (document.fullscreenElement) document.exitFullscreen();
+    else document.documentElement.requestFullscreen();
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-go]"), function(b){
+    b.addEventListener("click", function(){ ir(Number(b.dataset.go)); alternarMenu(false); });
+  });
+
+  function tema(){
+    var actual = document.documentElement.getAttribute("data-theme");
+    document.documentElement.setAttribute("data-theme", actual === "dark" ? "light" : "dark");
+  }
+
+  document.addEventListener("keydown", function(e){
+    var k = e.key;
+    if (k === "Escape"){ alternarMenu(false); return; }
+    if (/^(input|textarea|select)$/i.test(e.target.tagName)) return;
+    if (k === "ArrowRight" || k === "PageDown"){ e.preventDefault(); ir(i+1); }
+    else if (k === "ArrowLeft" || k === "PageUp"){ e.preventDefault(); ir(i-1); }
+    else if (k === "Home"){ ir(0); }
+    else if (k === "End"){ ir(slides.length - 1); }
+    else if (k === "m" || k === "M"){ alternarMenu(); }
+    else if (k === "t" || k === "T"){ tema(); }
+    else if (k === "f" || k === "F"){
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    }
+    else if (k === "7"){ ir(2); alternarMenu(false); }
+  });
+
+  var m = /^#d(\d+)$/.exec(location.hash);
+  ir(m ? Number(m[1]) : 0);
+})();
+</script>
+</body>
+</html>
