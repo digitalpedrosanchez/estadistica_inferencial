@@ -9,7 +9,7 @@
 :root{
   --bg:#f4f3ef; --surface:#ffffff; --ink:#14161c; --ink-soft:#4c525e; --ink-faint:#858c99;
   --rule:#dcdad4; --accent:#1e46a4; --accent-soft:#e7edfa; --gold:#e2a900;
-  --green:#0f7a5a; --amber:#b26a00; --amber-soft:#fdf1de;
+  --amber:#b26a00; --amber-soft:#fdf1de; --quiet:#a8adb8;
   --shadow:0 1px 2px rgba(20,22,28,.06), 0 8px 24px rgba(20,22,28,.05);
   --sans:"Helvetica Neue",Helvetica,Arial,"Segoe UI",system-ui,sans-serif;
   --mono:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;
@@ -17,7 +17,7 @@
 html[data-theme="dark"]{
   --bg:#14161c; --surface:#1c1f27; --ink:#f0f1f3; --ink-soft:#b4bac6; --ink-faint:#7d8492;
   --rule:#2e323c; --accent:#7ea4ff; --accent-soft:#1e2739; --gold:#f0bf3c;
-  --green:#4ecfa4; --amber:#e0a44a; --amber-soft:#2a2113;
+  --amber:#e0a44a; --amber-soft:#2a2113; --quiet:#565d6b;
   --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
 }
 *{box-sizing:border-box}
@@ -79,16 +79,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   font-variant-numeric:tabular-nums}
 .stat .lbl{font-size:clamp(11.5px,1vw,13.5px);color:var(--ink-faint);line-height:1.35;margin-top:8px;max-width:20ch}
 
-.eq{background:var(--surface);border:1px solid var(--rule);border-radius:8px;padding:14px 16px;margin:10px 0;
-  text-align:center;font-size:clamp(15px,1.45vw,20px);font-variant-numeric:tabular-nums;line-height:1.7}
-.eq.plain{background:transparent;border:none;padding:6px 0;text-align:left}
-.eq .lab{display:block;font-size:clamp(11px,.9vw,12.5px);letter-spacing:.09em;text-transform:uppercase;
-  color:var(--ink-faint);font-weight:700;margin-bottom:6px}
+.eq.plain{padding:6px 0;text-align:left;font-size:clamp(15px,1.4vw,19px);
+  font-variant-numeric:tabular-nums;line-height:1.7;margin:8px 0}
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .25em;line-height:1.25}
 .frac .den{border-top:1.5px solid currentColor;padding-top:2px}
-.rad{border-top:1.5px solid currentColor;padding:0 .2em}
 
-/* tamaños de la población */
 .pop{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 14px}
 .unit{flex:1 1 110px;min-width:92px;background:var(--surface);border:1px solid var(--rule);
   border-radius:9px;padding:12px 10px;text-align:center}
@@ -98,7 +93,6 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   font-variant-numeric:tabular-nums;margin-top:4px}
 .unit .u{font-size:clamp(10.5px,.88vw,12px);color:var(--ink-faint)}
 
-/* matriz 5x5 */
 .matrix{border-collapse:separate;border-spacing:4px;width:auto;margin:0 auto}
 .matrix caption{caption-side:top;font-size:clamp(11px,.95vw,13px);color:var(--ink-faint);
   padding-bottom:8px;text-align:left;font-style:italic}
@@ -114,19 +108,22 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .cell.on{background:var(--accent);border-color:var(--accent);color:#fff}
 
 .ctrls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 16px}
-.btn{font:inherit;font-size:clamp(12.5px,1.05vw,14.5px);font-weight:600;background:var(--surface);
-  color:var(--ink-soft);border:1px solid var(--rule);border-radius:7px;padding:8px 14px;cursor:pointer;transition:.15s}
+.btn{font:inherit;font-size:clamp(12.5px,1.02vw,14px);font-weight:600;background:var(--surface);
+  color:var(--ink-soft);border:1px solid var(--rule);border-radius:7px;padding:8px 13px;cursor:pointer;transition:.15s}
 .btn:hover{border-color:var(--accent);color:var(--accent)}
 .btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn:focus-visible,a:focus-visible,.cell:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
 .plot{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
   padding:14px 16px 8px;box-shadow:var(--shadow)}
+.plot.mini{padding:10px 12px 4px}
 .plot h4{margin:0 0 2px;font-size:clamp(13.5px,1.15vw,16px);font-weight:700}
+.plot.mini h4{font-size:clamp(12.5px,1.05vw,14px)}
 .plot .sub{margin:0 0 8px;font-size:clamp(11.5px,1vw,13px);color:var(--ink-faint)}
 .plot svg{width:100%;height:auto;display:block}
 .dot{fill:var(--accent)}
 .bar{fill:var(--accent)}
+.bar.quiet{fill:var(--quiet)}
 .axis{stroke:var(--rule);stroke-width:1.5}
 .tick{fill:var(--ink-faint);font-size:11px;font-family:var(--sans)}
 .muline{stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4}
@@ -202,10 +199,10 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
       <table>
         <thead><tr><th>Bloque</th><th>Contenido</th><th class="num">Min</th></tr></thead>
         <tbody>
-          <tr><td><strong>7</strong></td><td>Muestreo y distribuciones muestrales</td><td class="num">15</td></tr>
-          <tr><td><strong>8</strong></td><td>Intervalos de confianza <span class="mono">SPSS 1–4</span></td><td class="num">40</td></tr>
+          <tr><td><strong>7</strong></td><td>Muestreo y distribuciones muestrales</td><td class="num">18</td></tr>
+          <tr><td><strong>8</strong></td><td>Intervalos de confianza <span class="mono">SPSS 1–4</span></td><td class="num">38</td></tr>
           <tr><td><strong>8b</strong></td><td>Tamaño de muestra <span class="mono">SurveyMonkey</span></td><td class="num">10</td></tr>
-          <tr><td><strong>9</strong></td><td>Prueba de hipótesis <span class="mono">SPSS 5–8</span></td><td class="num">25</td></tr>
+          <tr><td><strong>9</strong></td><td>Prueba de hipótesis <span class="mono">SPSS 5–8</span></td><td class="num">24</td></tr>
         </tbody>
       </table>
       <p class="src">Anderson, Sweeney y Williams · capítulos 7, 8 y 9</p>
@@ -302,7 +299,6 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
   <p class="eyebrow">Bloque 7 · <span class="tag">Lámina central</span></p>
   <h2 class="title">Dos muestras válidas, dos respuestas distintas</h2>
   <div class="rule"></div>
-
   <div class="cols c2w">
     <div>
       <table class="matrix" id="matrix">
@@ -322,7 +318,7 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
       </div>
       <div class="card">
         <h3>Fíjate en las diagonales</h3>
-        <p>Los pares que dan la misma media forman bandas, y las bandas del centro son mucho más anchas que las de las orillas. Cinco pares distintos dan media 6; solo uno da media 2. La forma de la distribución ya está aquí, antes de graficar nada.</p>
+        <p>Los pares que dan la misma media forman bandas, y las del centro son mucho más anchas que las de las orillas. Cinco pares distintos dan media 6; solo uno da media 2. La forma de la distribución ya está aquí, antes de graficar nada.</p>
       </div>
     </div>
   </div>
@@ -333,13 +329,12 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
   <p class="eyebrow">Bloque 7 · Distribución muestral</p>
   <h2 class="title">Las veinticinco medias, ordenadas</h2>
   <div class="rule"></div>
-
   <div class="cols c2w">
     <div>
       <div class="plot">
         <h4>Distribución muestral de x̄ · n = 2</h4>
         <p class="sub">Cada punto es uno de los 25 resultados posibles. Distribución exacta, no aproximada.</p>
-        <svg id="dotPlot" viewBox="0 0 640 260" role="img" aria-label="Diagrama de puntos apilados de las 25 medias muestrales, con forma triangular"></svg>
+        <svg id="pA2" viewBox="0 0 640 260" role="img" aria-label="Diagrama de puntos apilados de las 25 medias muestrales, con forma triangular"></svg>
       </div>
       <div class="card warn" style="margin-top:14px">
         <h3>Esto no es un histograma</h3>
@@ -373,17 +368,17 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
 
   <div class="ctrls" role="group" aria-label="Tamaño de muestra">
     <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Empresas visitadas:</span>
-    <button class="btn" data-n="1">n = 1</button>
-    <button class="btn on" data-n="2">n = 2</button>
-    <button class="btn" data-n="3">n = 3</button>
-    <button class="btn" data-n="5">n = 5</button>
+    <button class="btn" data-plot="pN" data-n="1">n = 1</button>
+    <button class="btn on" data-plot="pN" data-n="2">n = 2</button>
+    <button class="btn" data-plot="pN" data-n="3">n = 3</button>
+    <button class="btn" data-plot="pN" data-n="5">n = 5</button>
   </div>
 
   <div class="cols c2w">
     <div class="plot">
-      <h4 id="plotTitle">Distribución muestral de x̄ · n = 2</h4>
-      <p class="sub" id="plotSub">25 resultados posibles · error estándar 2.0000</p>
-      <svg id="plotN" viewBox="0 0 640 260" role="img" aria-label="Distribución muestral de la media según el tamaño de muestra"></svg>
+      <h4 id="pN-t">Distribución muestral de x̄ · n = 2</h4>
+      <p class="sub" id="pN-s"></p>
+      <svg id="pN" viewBox="0 0 640 260" role="img" aria-label="Distribución muestral de la media según el tamaño de muestra"></svg>
     </div>
     <div class="cols">
       <div class="card">
@@ -411,7 +406,101 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
   </div>
 </section>
 
-<!-- 8 · PUENTE -->
+<!-- 8 · POBLACIÓN BIMODAL -->
+<section class="slide" data-label="Una población con hueco en medio">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Ejemplo 2</span></p>
+  <h2 class="title">¿Y si la población tiene un hueco en medio?</h2>
+  <div class="rule"></div>
+  <p class="lede">Cambiemos de corredor industrial. En este hay muchas empresas muy chicas y muchas muy grandes, pero casi ninguna mediana: las once que representan a la población son 2, 2, 2, 4, 4, 6, 8, 8, 10, 10 y 10 empleados.</p>
+
+  <div class="ctrls" role="group" aria-label="Tamaño de muestra">
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Empresas visitadas:</span>
+    <button class="btn on" data-plot="pB" data-n="2">n = 2</button>
+    <button class="btn" data-plot="pB" data-n="5">n = 5</button>
+    <button class="btn" data-plot="pB" data-n="10">n = 10</button>
+    <button class="btn" data-plot="pB" data-n="30">n = 30</button>
+  </div>
+
+  <div class="cols c2w">
+    <div class="cols c2">
+      <div class="plot mini">
+        <h4>La población</h4>
+        <p class="sub">μ = 6 · σ = 3.1909</p>
+        <svg id="popB" viewBox="0 0 640 260" role="img" aria-label="Población bimodal, con más casos en los extremos que en el centro"></svg>
+      </div>
+      <div class="plot mini">
+        <h4 id="pB-t">Distribución muestral de x̄</h4>
+        <p class="sub" id="pB-s"></p>
+        <svg id="pB" viewBox="0 0 640 260" role="img" aria-label="Distribución muestral de la media para la población bimodal"></svg>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>La población es bimodal</h3>
+        <p>Tiene dos jorobas y un valle justo en el centro. El valor 6 es de los <strong>menos frecuentes</strong> de toda la población: solo una de las once empresas lo tiene.</p>
+      </div>
+      <div class="card warn">
+        <h3>Y la distribución muestral no</h3>
+        <p>Con n = 2 el hueco central ya se rellenó, y para n = 10 la forma es una campana limpia centrada precisamente en 6. <strong>La media muestral se concentra donde la población casi no tiene casos.</strong></p>
+        <p>No hay contradicción: para que x̄ salga cerca de 2 tendrían que tocarte puras empresas chicas seguidas, y eso es cada vez más improbable. Las combinaciones que se compensan entre sí son muchísimo más numerosas.</p>
+      </div>
+      <div class="card">
+        <h3>Lo que hay que retener</h3>
+        <p>La forma de la distribución muestral <strong>no hereda la forma de la población</strong>. Son dos objetos distintos y confundirlos es uno de los errores más comunes al leer resultados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · POBLACIÓN SESGADA -->
+<section class="slide" data-label="Una población sesgada y la regla n ≥ 30">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Ejemplo 3</span></p>
+  <h2 class="title">De dónde sale la regla de n ≥ 30</h2>
+  <div class="rule"></div>
+  <p class="lede">Un tercer corredor, ahora con sesgo fuerte a la derecha: la mayoría de las empresas son muy chicas y unas pocas son grandes. Los quince casos que la representan son 2, 2, 2, 2, 2, 4, 4, 4, 4, 6, 6, 6, 8, 8 y 10 empleados.</p>
+
+  <div class="ctrls" role="group" aria-label="Tamaño de muestra">
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Empresas visitadas:</span>
+    <button class="btn on" data-plot="pC" data-n="5">n = 5</button>
+    <button class="btn" data-plot="pC" data-n="10">n = 10</button>
+    <button class="btn" data-plot="pC" data-n="15">n = 15</button>
+    <button class="btn" data-plot="pC" data-n="20">n = 20</button>
+    <button class="btn" data-plot="pC" data-n="25">n = 25</button>
+    <button class="btn" data-plot="pC" data-n="30">n = 30</button>
+  </div>
+
+  <div class="cols c2w">
+    <div class="cols c2">
+      <div class="plot mini">
+        <h4>La población</h4>
+        <p class="sub">μ = 4.67 · σ = 2.4944 · sesgo a la derecha</p>
+        <svg id="popC" viewBox="0 0 640 260" role="img" aria-label="Población sesgada a la derecha"></svg>
+      </div>
+      <div class="plot mini">
+        <h4 id="pC-t">Distribución muestral de x̄</h4>
+        <p class="sub" id="pC-s"></p>
+        <svg id="pC" viewBox="0 0 640 260" role="img" aria-label="Distribución muestral de la media para la población sesgada"></svg>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>Recorre los seis tamaños</h3>
+        <p>Con n = 5 la distribución muestral todavía arrastra el sesgo: se le nota la cola a la derecha. Conforme subes, la cola se acorta y la figura se endereza. Para <strong>n = 30</strong> es simétrica a simple vista.</p>
+      </div>
+      <div class="card warn">
+        <h3>Eso es la regla del libro</h3>
+        <p>Cuando Anderson dice que con <strong>n ≥ 30</strong> la aproximación normal es adecuada, se refiere exactamente a esto: es el punto a partir del cual el sesgo de la población deja de notarse en la distribución de x̄.</p>
+        <p>No es un número mágico ni una ley de la naturaleza: es un umbral de trabajo. Con poblaciones muy sesgadas conviene más; con poblaciones ya simétricas, menos.</p>
+      </div>
+      <div class="card">
+        <h3>El centro tampoco se mueve aquí</h3>
+        <p>μ vale 4.67 y la distribución muestral está centrada en 4.67 para los seis tamaños. El sesgo de la población afecta la <em>forma</em>, nunca la insesgadez.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · PUENTE -->
 <section class="slide" data-label="Qué demuestra y qué no">
   <p class="eyebrow">Bloque 7 · Cierre</p>
   <h2 class="title">Qué demuestra este ejemplo y qué no</h2>
@@ -422,16 +511,16 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
       <h3>Lo que quedó demostrado, exacto</h3>
       <ul>
         <li>La <strong>variabilidad muestral</strong> existe y se puede acotar.</li>
-        <li>x̄ es <strong>insesgado</strong>: la media de todos los resultados posibles es μ.</li>
+        <li>x̄ es <strong>insesgado</strong>: la media de todos los resultados posibles es μ, en las tres poblaciones.</li>
         <li>El <strong>error estándar</strong> de la fórmula coincide con el de la enumeración.</li>
         <li>Aumentar n <strong>estrecha</strong> la distribución sin mover su centro.</li>
       </ul>
     </div>
     <div class="card warn">
       <h3>Lo que este ejemplo no demuestra</h3>
-      <p>Vimos que la forma <em>se parece</em> cada vez más a una campana, pero eso no es una demostración. La población de partida era plana y solo tenía cinco valores.</p>
-      <p>Que la distribución muestral de x̄ se aproxime a la normal <strong>sea cual sea la forma de la población</strong> es un resultado aparte: el <strong>Teorema del Límite Central</strong>, que es lo que autoriza todo lo que sigue.</p>
-      <p class="fine">Regla operativa del capítulo: con n ≥ 30 la aproximación normal se considera adecuada.</p>
+      <p>Vimos tres poblaciones —plana, bimodal y sesgada— y en las tres la distribución de x̄ se acercó a una campana. Eso es un indicio muy fuerte, pero <strong>tres casos no son una demostración</strong>.</p>
+      <p>Que ocurra <em>sea cual sea</em> la forma de la población es un resultado aparte y general: el <strong>Teorema del Límite Central</strong>, que es lo que autoriza todo lo que sigue.</p>
+      <p class="fine">Lo que sí hicimos fue volver creíble el teorema antes de enunciarlo, en lugar de pedir que se acepte de entrada.</p>
     </div>
   </div>
 
@@ -473,7 +562,7 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
   <p class="hint">Pulsa un bloque para ir a él · <kbd>M</kbd> o <kbd>Esc</kbd> para volver</p>
   <div class="blocks">
     <button class="blk" data-go="0"><span class="k">Apertura</span><span class="t">Portada y ruta</span><span class="m">2 láminas · ~2 min</span></button>
-    <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">6 láminas · ~15 min</span></button>
+    <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">8 láminas · ~18 min</span></button>
     <button class="blk" disabled><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">En construcción</span></button>
     <button class="blk" disabled><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">En construcción</span></button>
   </div>
@@ -483,34 +572,46 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
 <script>
 (function(){
   "use strict";
-  var TAM = [2,4,6,8,10], MU = 6;
 
-  /* ----- distribución exacta de x̄ para n extracciones independientes ----- */
-  function distribucion(n){
-    var m = {0:1};
-    for (var k = 0; k < n; k++){
-      var t = {};
-      for (var s in m){
-        TAM.forEach(function(v){ var q = Number(s) + v; t[q] = (t[q] || 0) + m[s]; });
+  var POB = {
+    A:[2,4,6,8,10],
+    B:[2,2,2,4,4,6,8,8,10,10,10],
+    C:[2,2,2,2,2,4,4,4,4,6,6,6,8,8,10]
+  };
+
+  function mediaDe(p){ return p.reduce(function(a,b){return a+b;},0) / p.length; }
+  function sigmaDe(p){
+    var m = mediaDe(p);
+    return Math.sqrt(p.reduce(function(a,b){ return a + (b-m)*(b-m); },0) / p.length);
+  }
+  function fmt(v, d){ return v.toFixed(d === undefined ? 4 : d); }
+
+  /* distribución exacta de x̄ para n extracciones independientes */
+  function distribucion(pob, n){
+    var m = {0:1}, w = 1/pob.length, k, s, t;
+    for (k = 0; k < n; k++){
+      t = {};
+      for (s in m){
+        (function(base, prob){
+          pob.forEach(function(v){ var q = base + v; t[q] = (t[q] || 0) + prob*w; });
+        })(Number(s), m[s]);
       }
       m = t;
     }
     var sumas = Object.keys(m).map(Number).sort(function(a,b){ return a-b; });
-    var total = sumas.reduce(function(a,s){ return a + m[s]; }, 0);
-    return { medias: sumas.map(function(s){ return s/n; }),
-             cuentas: sumas.map(function(s){ return m[s]; }),
-             total: total };
+    return { medias: sumas.map(function(x){ return x/n; }),
+             probs:  sumas.map(function(x){ return m[x]; }) };
   }
 
-  /* ----- matriz 5 x 5 ----- */
+  /* ---------- matriz 5 x 5 ---------- */
   var tabla = document.getElementById("matrix");
-  var head = "<tr><th class='corner'>1.ª visita ↓<br>2.ª visita →</th>";
-  TAM.forEach(function(v){ head += "<th>" + v + "</th>"; });
-  head += "</tr>";
+  var cab = "<tr><th class='corner'>1.ª visita ↓<br>2.ª visita →</th>";
+  POB.A.forEach(function(v){ cab += "<th>" + v + "</th>"; });
+  cab += "</tr>";
   var cuerpo = "";
-  TAM.forEach(function(a){
+  POB.A.forEach(function(a){
     cuerpo += "<tr><th>" + a + "</th>";
-    TAM.forEach(function(b){
+    POB.A.forEach(function(b){
       var med = (a + b) / 2;
       cuerpo += "<td><div class='cell' tabindex='0' role='button' data-m='" + med.toFixed(1) +
                 "' aria-label='Primera visita " + a + ", segunda visita " + b + ", media " + med + "'>" +
@@ -518,12 +619,10 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
     });
     cuerpo += "</tr>";
   });
-  tabla.innerHTML += "<thead>" + head + "</thead><tbody>" + cuerpo + "</tbody>";
+  tabla.innerHTML += "<thead>" + cab + "</thead><tbody>" + cuerpo + "</tbody>";
 
   var celdas = Array.prototype.slice.call(tabla.querySelectorAll(".cell"));
-  function encender(valor){
-    celdas.forEach(function(c){ c.classList.toggle("on", c.dataset.m === valor); });
-  }
+  function encender(valor){ celdas.forEach(function(c){ c.classList.toggle("on", c.dataset.m === valor); }); }
   celdas.forEach(function(c){
     c.addEventListener("click", function(){ encender(c.dataset.m); });
     c.addEventListener("keydown", function(e){
@@ -531,74 +630,91 @@ kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px
     });
   });
 
-  /* ----- dibujo ----- */
+  /* ---------- dibujo ---------- */
   var W = 640, H = 260, L = 46, R = 26, B = 46, T = 20;
-  function ejeX(lo, hi){ return function(v){ return L + (v - lo) / (hi - lo) * (W - L - R); }; }
 
-  function marco(x, lo, hi, paso){
+  function marco(x, mu){
     var s = "<line class='axis' x1='" + L + "' y1='" + (H-B) + "' x2='" + (W-R) + "' y2='" + (H-B) + "'/>";
-    for (var t = lo; t <= hi + 1e-9; t += paso){
+    for (var t = 2; t <= 10; t += 2){
       s += "<line class='axis' x1='" + x(t) + "' y1='" + (H-B) + "' x2='" + x(t) + "' y2='" + (H-B+6) + "'/>";
       s += "<text class='tick' x='" + x(t) + "' y='" + (H-B+21) + "' text-anchor='middle'>" + t + "</text>";
     }
-    s += "<text class='tick' x='" + ((L+W-R)/2) + "' y='" + (H-6) + "' text-anchor='middle'>Media muestral de empleados (x̄)</text>";
-    s += "<line class='muline' x1='" + x(MU) + "' y1='" + T + "' x2='" + x(MU) + "' y2='" + (H-B) + "'/>";
-    s += "<text class='mulabel' x='" + (x(MU)+7) + "' y='" + (T+11) + "'>μ = 6</text>";
+    s += "<text class='tick' x='" + ((L+W-R)/2) + "' y='" + (H-6) + "' text-anchor='middle'>Empleados</text>";
+    var et = Math.abs(mu - Math.round(mu)) < 1e-9 ? mu.toFixed(0) : mu.toFixed(2);
+    s += "<line class='muline' x1='" + x(mu) + "' y1='" + T + "' x2='" + x(mu) + "' y2='" + (H-B) + "'/>";
+    s += "<text class='mulabel' x='" + (x(mu)+7) + "' y='" + (T+11) + "'>μ = " + et + "</text>";
     return s;
   }
+  function escala(){ return function(v){ return L + (v - 2) / 8 * (W - L - R); }; }
 
-  function puntos(svg, d){
-    var x = ejeX(2, 10);
-    var maxPila = Math.max.apply(null, d.cuentas);
-    var r = 9, disp = (H - B - T - r) / Math.max(maxPila, 1);
-    var paso = Math.min(21, disp), base = H - B - r - 2;
-    var s = marco(x, 2, 10, 1);
+  function puntos(svg, d, mu, total){
+    var x = escala(), cuentas = d.probs.map(function(p){ return Math.round(p*total); });
+    var maxPila = Math.max.apply(null, cuentas);
+    var r = 9, paso = Math.min(21, (H - B - T - r) / Math.max(maxPila,1)), base = H - B - r - 2;
+    var s = marco(x, mu);
     d.medias.forEach(function(v, i){
-      for (var k = 0; k < d.cuentas[i]; k++){
+      for (var k = 0; k < cuentas[i]; k++){
         s += "<circle class='dot' cx='" + x(v).toFixed(1) + "' cy='" + (base - k*paso).toFixed(1) + "' r='" + r + "'/>";
       }
     });
     svg.innerHTML = s;
   }
 
-  function barras(svg, d){
-    var x = ejeX(2, 10);
-    var maxC = Math.max.apply(null, d.cuentas);
-    var alto = H - B - T;
-    var ancho = Math.max(6, (W - L - R) / (d.medias.length + 1) - 3);
-    var s = marco(x, 2, 10, 1);
+  function barras(svg, d, mu, apagadas){
+    var x = escala(), maxP = Math.max.apply(null, d.probs), alto = H - B - T;
+    var sep = d.medias.length > 1 ? (x(d.medias[1]) - x(d.medias[0])) : 60;
+    var ancho = Math.max(2, Math.min(46, sep * 0.82));
+    var s = marco(x, mu);
     d.medias.forEach(function(v, i){
-      var h = d.cuentas[i] / maxC * alto;
-      s += "<rect class='bar' x='" + (x(v) - ancho/2).toFixed(1) + "' y='" + (H - B - h).toFixed(1) +
-           "' width='" + ancho.toFixed(1) + "' height='" + h.toFixed(1) + "' rx='2'/>";
+      var h = d.probs[i] / maxP * alto;
+      s += "<rect class='bar" + (apagadas ? " quiet" : "") + "' x='" + (x(v) - ancho/2).toFixed(1) +
+           "' y='" + (H - B - h).toFixed(1) + "' width='" + ancho.toFixed(1) +
+           "' height='" + h.toFixed(1) + "' rx='2'/>";
     });
     svg.innerHTML = s;
   }
 
-  puntos(document.getElementById("dotPlot"), distribucion(2));
+  /* poblaciones B y C, dibujadas como su propia distribución con n = 1 */
+  barras(document.getElementById("popB"), distribucion(POB.B,1), mediaDe(POB.B), true);
+  barras(document.getElementById("popC"), distribucion(POB.C,1), mediaDe(POB.C), true);
 
-  var svgN = document.getElementById("plotN"),
-      tituloN = document.getElementById("plotTitle"),
-      subN = document.getElementById("plotSub"),
-      EE = {1:"2.8284", 2:"2.0000", 3:"1.6330", 5:"1.2649"};
+  /* lámina 6: los 25 resultados en puntos */
+  puntos(document.getElementById("pA2"), distribucion(POB.A,2), 6, 25);
 
-  function pintarN(n){
-    var d = distribucion(n);
-    if (n <= 2) puntos(svgN, d); else barras(svgN, d);
-    tituloN.textContent = "Distribución muestral de x̄ · n = " + n;
-    subN.textContent = d.total.toLocaleString("es-MX") + " resultados posibles · error estándar " + EE[n];
+  /* ---------- gráficas con botones ---------- */
+  var CFG = {
+    pN: { pob:"A", conTotal:true,  puntosHasta:2 },
+    pB: { pob:"B", conTotal:false, puntosHasta:0 },
+    pC: { pob:"C", conTotal:false, puntosHasta:0 }
+  };
+
+  function pintar(id, n){
+    var cfg = CFG[id], pob = POB[cfg.pob];
+    var d = distribucion(pob, n), mu = mediaDe(pob), ee = sigmaDe(pob) / Math.sqrt(n);
+    var svg = document.getElementById(id);
+    if (n <= cfg.puntosHasta) puntos(svg, d, mu, Math.pow(pob.length, n));
+    else barras(svg, d, mu, false);
+    var t = document.getElementById(id + "-t");
+    if (t) t.textContent = "Distribución muestral de x̄ · n = " + n;
+    var sub = document.getElementById(id + "-s");
+    if (sub){
+      sub.textContent = (cfg.conTotal ? Math.pow(pob.length,n).toLocaleString("es-MX") + " resultados posibles · " : "")
+                        + "error estándar " + fmt(ee);
+    }
   }
-  pintarN(2);
+  pintar("pN", 2); pintar("pB", 2); pintar("pC", 5);
 
-  Array.prototype.forEach.call(document.querySelectorAll("[data-n]"), function(b){
+  Array.prototype.forEach.call(document.querySelectorAll("[data-plot]"), function(b){
     b.addEventListener("click", function(){
-      Array.prototype.forEach.call(document.querySelectorAll("[data-n]"), function(o){ o.classList.remove("on"); });
+      Array.prototype.forEach.call(
+        document.querySelectorAll("[data-plot='" + b.dataset.plot + "']"),
+        function(o){ o.classList.remove("on"); });
       b.classList.add("on");
-      pintarN(Number(b.dataset.n));
+      pintar(b.dataset.plot, Number(b.dataset.n));
     });
   });
 
-  /* ----- navegación ----- */
+  /* ---------- navegación ---------- */
   var slides = Array.prototype.slice.call(document.querySelectorAll(".slide")), i = 0;
   var where = document.getElementById("where"),
       progress = document.getElementById("progress"),
