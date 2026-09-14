@@ -194,6 +194,20 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
 .combos b{color:var(--ink-soft)}
 @media (max-width:760px){.combos{column-count:3}}
 .plot.corto svg{max-width:78%;display:block;margin:0 auto}
+.chip{display:inline-block;background:var(--accent-soft);color:var(--accent-2);border-radius:3px;
+  padding:2px 8px;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;vertical-align:middle}
+.lectura{display:flex;gap:clamp(12px,1.6vw,26px);flex-wrap:wrap;align-items:flex-end;
+  border-top:1px solid var(--rule);margin-top:10px;padding-top:12px}
+.lectura div{line-height:1.2}
+.lectura .k{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+.lectura .v{font-size:clamp(19px,1.9vw,26px);font-weight:800;font-variant-numeric:tabular-nums;
+  color:var(--ink);margin-top:4px}
+.lectura .vd{font-size:clamp(14px,1.3vw,17px);font-weight:800;margin-top:6px;padding:4px 12px;
+  border-radius:5px;display:inline-block}
+.lectura .no{background:var(--accent-soft);color:var(--accent-2)}
+.lectura .si{background:var(--amber-soft);color:var(--amber-ink)}
+#pz13,#pz14,#pz15,#ic95Plot{touch-action:none;cursor:ew-resize}
+input[type=range]{accent-color:var(--accent);height:26px}
 .card.formula{padding:13px 18px}
 @media (max-width:760px){.plot.corto svg{max-width:100%}}
 @media (max-width:760px){
@@ -219,7 +233,7 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
     <h1>Estadística inferencial: de la muestra a la población</h1>
     <div class="rule"></div>
     <p class="sub">Qué tan lejos puede estar tu muestra de la verdad, y cómo se calcula esa distancia.</p>
-    <div class="by">Dr. Sergio Ramón Rossetti López<br>Presenta: Pedro David Sánchez Pérez y Gerardo Gutiérrez Flores <br>Septiembre 2026</div>
+    <div class="by">Dr. Sergio Ramón Rossetti López<br>Presentan: <strong>Pedro David Sánchez Pérez</strong><br>y <strong>Gerardo Gutiérrez Flores</strong><br>Septiembre 2026</div>
     <p class="keys">Navega con <kbd>→</kbd> <kbd>←</kbd> · Bloques con <kbd>M</kbd> · Tema con <kbd>T</kbd> · Pantalla completa con <kbd>F</kbd></p>
   </div>
 </section>
@@ -688,13 +702,20 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
       <div class="card edge">
         <h3>De dónde sale el 1.96</h3>
         <ol style="padding-left:1.15em;line-height:1.75">
-          <li>Confianza <strong>95 % = 0.95</strong></li>
-          <li>Lo que sobra: <strong>α = 1 − 0.95 = 0.05</strong></li>
-          <li>Repartido en dos colas: <strong>α/2 = 0.025</strong> en cada una</li>
-          <li>El z que deja 0.025 arriba: <strong>1.96</strong></li>
+          <li>Confianza <strong id="ic-conf">95 % = 0.95</strong></li>
+          <li>Lo que sobra: <strong>α = 1 − <span id="ic-c">0.95</span> = <span id="ic-alfa">0.05</span></strong></li>
+          <li>Repartido en dos colas: <strong>α/2 = <span id="ic-alfa2">0.025</span></strong> en cada una</li>
+          <li>El z que deja <span id="ic-alfa2b">0.025</span> arriba: <strong id="ic-z">1.9600</strong></li>
         </ol>
-        <svg id="ic95Plot" viewBox="0 0 560 210" role="img" aria-label="Curva normal estándar con el 95 por ciento central y dos colas de 0.025"></svg>
-        <p class="fine">En la tabla no busques 0.025 sino <strong>0.9750</strong>, el área acumulada desde la izquierda hasta 1.96. En SPSS: <span class="mono">IDF.NORMAL(0.975, 0, 1)</span>.</p>
+        <svg id="ic95Plot" viewBox="0 0 560 210" role="img" aria-label="Curva normal estándar con el área central y las dos colas, interactiva"></svg>
+        <div class="lectura" id="ic-out"></div>
+        <div class="ctrls" style="margin:10px 0 4px;align-items:center">
+          <span class="chip">interactivo</span>
+          <input type="range" id="ic-rng" min="80" max="99.5" step="0.5" value="95"
+                 aria-label="Nivel de confianza" style="flex:1;min-width:150px">
+          <button class="btn" id="ic-reset">Volver al 95 %</button>
+        </div>
+        <p class="fine">Mueve el deslizador: los cuatro renglones de arriba y el intervalo se recalculan solos. En la tabla no busques α/2 sino el área acumulada, <strong>0.9750</strong> para el 95 %. En SPSS: <span class="mono">IDF.NORMAL(0.975, 0, 1)</span>.</p>
       </div>
       <div class="card warn">
         <h3>Una honestidad sobre este ejemplo</h3>
@@ -730,9 +751,15 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
         <p class="fine">Los tres criterios coinciden siempre. Son la misma comparación vista en la escala de z, en la de probabilidad y en la de centímetros.</p>
       </div>
       <div class="plot" style="margin-top:16px">
-        <h4>El resultado, en la escala de z</h4>
-        <p class="sub">El punto azul cae en la franja gris: no alcanza ninguna de las dos zonas de rechazo</p>
-        <svg id="pz13" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado"></svg>
+        <h4>El resultado, en la escala de z &nbsp;<span class="chip">interactivo</span></h4>
+        <p class="sub">Arrastra el punto azul sobre la gráfica, o mueve el deslizador, y observa cómo cambian el valor p y la decisión</p>
+        <svg id="pz13" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado, interactiva"></svg>
+        <div class="lectura" id="pz13-out"></div>
+        <div class="ctrls" style="margin:10px 0 4px;align-items:center">
+          <input type="range" id="pz13-rng" min="-3.5" max="3.5" step="0.005" value="1.224745"
+                 aria-label="Valor del estadístico z" style="flex:1;min-width:180px">
+          <button class="btn" id="pz13-reset">Volver al observado</button>
+        </div>
       </div>
     </div>
     <div class="cols">
@@ -782,9 +809,15 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
         <p class="fine">Los tres criterios coinciden siempre. Son la misma comparación vista en la escala de z, en la de probabilidad y en la de centímetros.</p>
       </div>
       <div class="plot" style="margin-top:16px">
-        <h4>El resultado, en la escala de z</h4>
-        <p class="sub">El punto azul cruzó el 1.96 y quedó dentro de la zona de rechazo</p>
-        <svg id="pz14" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado"></svg>
+        <h4>El resultado, en la escala de z &nbsp;<span class="chip">interactivo</span></h4>
+        <p class="sub">Arrástralo hacia el centro y verás en qué punto exacto deja de rechazarse</p>
+        <svg id="pz14" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado, interactiva"></svg>
+        <div class="lectura" id="pz14-out"></div>
+        <div class="ctrls" style="margin:10px 0 4px;align-items:center">
+          <input type="range" id="pz14-rng" min="-3.5" max="3.5" step="0.005" value="2.041241"
+                 aria-label="Valor del estadístico z" style="flex:1;min-width:180px">
+          <button class="btn" id="pz14-reset">Volver al observado</button>
+        </div>
       </div>
     </div>
     <div class="cols">
@@ -834,9 +867,15 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
         <p class="fine">Los tres criterios coinciden siempre. Son la misma comparación vista en la escala de z, en la de probabilidad y en la de centímetros.</p>
       </div>
       <div class="plot" style="margin-top:16px">
-        <h4>El resultado, en la escala de z</h4>
-        <p class="sub">Espejo de la lámina 13: el punto cambió de lado, pero la decisión es la misma</p>
-        <svg id="pz15" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado"></svg>
+        <h4>El resultado, en la escala de z &nbsp;<span class="chip">interactivo</span></h4>
+        <p class="sub">Espejo de la lámina 13. Arrástralo y compara: lo que manda es la distancia, no el signo</p>
+        <svg id="pz15" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado, interactiva"></svg>
+        <div class="lectura" id="pz15-out"></div>
+        <div class="ctrls" style="margin:10px 0 4px;align-items:center">
+          <input type="range" id="pz15-rng" min="-3.5" max="3.5" step="0.005" value="-1.224745"
+                 aria-label="Valor del estadístico z" style="flex:1;min-width:180px">
+          <button class="btn" id="pz15-reset">Volver al observado</button>
+        </div>
       </div>
     </div>
     <div class="cols">
@@ -2208,7 +2247,19 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   (function(){
     var svg = document.getElementById("ic95Plot");
     if (!svg) return;
-    var zc = 1.96, W = 560, H = 210, L = 24, R = 24, B = 46, T = 22;
+    var W = 560, H = 210, L = 24, R = 24, B = 46, T = 22;
+    var XB = 170, EE = 4.0824829;
+    function Phi(z){
+      var t = 1/(1 + 0.2316419*Math.abs(z));
+      var d = 0.3989422804014327*Math.exp(-z*z/2);
+      var p = d*t*(0.319381530 + t*(-0.356563782 + t*(1.781477937 + t*(-1.821255978 + t*1.330274429))));
+      return z > 0 ? 1 - p : p;
+    }
+    function zInv(p){
+      var lo = -6, hi = 6, m;
+      for (var i = 0; i < 90; i++){ m = (lo + hi)/2; if (Phi(m) < p) lo = m; else hi = m; }
+      return (lo + hi)/2;
+    }
     var zLo = -3.4, zHi = 3.4;
     var X = function(z){ return L + (z - zLo) / (zHi - zLo) * (W - L - R); };
     var phi = function(z){ return Math.exp(-z*z/2) / Math.sqrt(2*Math.PI); };
@@ -2219,28 +2270,70 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       for (var z = a; z <= b + 1e-9; z += 0.03) d += " L" + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
       return d + " L" + X(b).toFixed(1) + " " + base + " Z";
     }
-    var s = "";
-    s += "<path d='" + tramo(-zc, zc) + "' fill='var(--accent)' opacity='.15'/>";
-    s += "<path d='" + tramo(zLo, -zc) + "' fill='var(--amber)' opacity='.5'/>";
-    s += "<path d='" + tramo(zc, zHi) + "' fill='var(--amber)' opacity='.5'/>";
-    var d = "";
-    for (var z = zLo; z <= zHi + 1e-9; z += 0.03) d += (d ? " L" : "M") + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
-    s += "<path d='" + d + "' fill='none' stroke='var(--accent)' stroke-width='2.2'/>";
-    s += "<line x1='" + L + "' y1='" + base + "' x2='" + (W-R) + "' y2='" + base + "' class='axis'/>";
-    [-zc, zc].forEach(function(z){
-      s += "<line x1='" + X(z) + "' y1='" + Y(phi(z)) + "' x2='" + X(z) + "' y2='" + base +
-           "' stroke='var(--amber)' stroke-width='2.2'/>";
-      s += "<text x='" + X(z) + "' y='" + (base+22) + "' text-anchor='middle' " +
-           "style='fill:var(--amber-ink);font-size:14px;font-weight:700;font-family:var(--sans)'>" +
-           (z < 0 ? "\u2212" : "+") + "1.96</text>";
+    function pinta(nivel){
+      var a = (100 - nivel)/100, zc = zInv(1 - a/2);
+      var s = "";
+      s += "<path d='" + tramo(-zc, zc) + "' fill='var(--accent)' opacity='.15'/>";
+      s += "<path d='" + tramo(zLo, -zc) + "' fill='var(--amber)' opacity='.5'/>";
+      s += "<path d='" + tramo(zc, zHi) + "' fill='var(--amber)' opacity='.5'/>";
+      var d = "";
+      for (var z = zLo; z <= zHi + 1e-9; z += 0.03) d += (d ? " L" : "M") + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+      s += "<path d='" + d + "' fill='none' stroke='var(--accent)' stroke-width='2.2'/>";
+      s += "<line x1='" + L + "' y1='" + base + "' x2='" + (W-R) + "' y2='" + base + "' class='axis'/>";
+      [-zc, zc].forEach(function(z){
+        s += "<line x1='" + X(z) + "' y1='" + Y(phi(z)) + "' x2='" + X(z) + "' y2='" + base +
+             "' stroke='var(--amber)' stroke-width='2.2'/>";
+        s += "<text x='" + X(z) + "' y='" + (base+22) + "' text-anchor='middle' " +
+             "style='fill:var(--amber-ink);font-size:14px;font-weight:700;font-family:var(--sans)'>" +
+             (z < 0 ? "\u2212" : "+") + zc.toFixed(4) + "</text>";
+      });
+      s += "<text x='" + X(0) + "' y='" + (T+40) + "' text-anchor='middle' " +
+           "style='fill:var(--accent);font-size:21px;font-weight:800;font-family:var(--sans)'>" +
+           nivel.toFixed(nivel % 1 ? 1 : 0) + " % = " + (nivel/100).toFixed(4).replace(/0+$/,"").replace(/\.$/,"") + "</text>";
+      [-2.75, 2.75].forEach(function(z){
+        s += "<text x='" + X(z) + "' y='" + (base-24) + "' text-anchor='middle' " +
+             "style='fill:var(--amber-ink);font-size:12.5px;font-weight:700;font-family:var(--sans)'>" +
+             (a/2).toFixed(4) + "</text>";
+      });
+      svg.innerHTML = s;
+
+      var c = (nivel/100).toFixed(4).replace(/0+$/,"").replace(/\.$/,"");
+      var txt = {
+        "ic-conf":   nivel.toFixed(nivel % 1 ? 1 : 0) + " % = " + c,
+        "ic-c":      c,
+        "ic-alfa":   a.toFixed(4),
+        "ic-alfa2":  (a/2).toFixed(4),
+        "ic-alfa2b": (a/2).toFixed(4),
+        "ic-z":      zc.toFixed(4)
+      };
+      Object.keys(txt).forEach(function(k){
+        var el = document.getElementById(k);
+        if (el) el.textContent = txt[k];
+      });
+
+      var m = zc*EE, out = document.getElementById("ic-out");
+      if (out) out.innerHTML =
+        "<div><div class='k'>Valor crítico z</div><div class='v'>" + zc.toFixed(4) + "</div></div>" +
+        "<div><div class='k'>Margen de error</div><div class='v'>± " + m.toFixed(2) + " cm</div></div>" +
+        "<div><div class='k'>Intervalo para x\u0304 = 170</div><div class='v'>" +
+        (XB-m).toFixed(2) + " a " + (XB+m).toFixed(2) + "</div></div>";
+      var rng = document.getElementById("ic-rng");
+      if (rng && Math.abs(Number(rng.value) - nivel) > 1e-9) rng.value = nivel;
+    }
+
+    var rng = document.getElementById("ic-rng");
+    if (rng) rng.addEventListener("input", function(){ pinta(Number(rng.value)); });
+    var btn = document.getElementById("ic-reset");
+    if (btn) btn.addEventListener("click", function(){ pinta(95); });
+    svg.addEventListener("pointerdown", function(e){
+      var r = svg.getBoundingClientRect();
+      var px = (e.clientX - r.left)/r.width*W;
+      var z = Math.abs(zLo + (px - L)/(W - L - R)*(zHi - zLo));
+      if (z < 0.15) return;
+      var niv = Math.round((2*Phi(z) - 1)*1000)/10;
+      pinta(Math.max(80, Math.min(99.5, niv)));
     });
-    s += "<text x='" + X(0) + "' y='" + (T+40) + "' text-anchor='middle' " +
-         "style='fill:var(--accent);font-size:22px;font-weight:800;font-family:var(--sans)'>95 % = 0.95</text>";
-    [-2.65, 2.65].forEach(function(z){
-      s += "<text x='" + X(z) + "' y='" + (base-24) + "' text-anchor='middle' " +
-           "style='fill:var(--amber-ink);font-size:12.5px;font-weight:700;font-family:var(--sans)'>0.025</text>";
-    });
-    svg.innerHTML = s;
+    pinta(95);
   })();
 
 
@@ -2258,7 +2351,16 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       return d + " L" + X(b).toFixed(1) + " " + base + " Z";
     }
 
-    function dibuja(id, zobs, cola, rechaza){
+    /* normal acumulada, aproximación de Abramowitz y Stegun */
+    function Phi(z){
+      var t = 1/(1 + 0.2316419*Math.abs(z));
+      var d = 0.3989422804014327*Math.exp(-z*z/2);
+      var p = d*t*(0.319381530 + t*(-0.356563782 + t*(1.781477937 + t*(-1.821255978 + t*1.330274429))));
+      return z > 0 ? 1 - p : p;
+    }
+
+    function dibuja(id, zobs){
+      var cola = (1 - Phi(Math.abs(zobs))).toFixed(4);
       var svg = document.getElementById(id);
       if (!svg) return;
       var za = Math.abs(zobs), s = "";
@@ -2324,9 +2426,50 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       svg.innerHTML = s;
     }
 
-    dibuja("pz13",  1.224745, "0.1103", false);
-    dibuja("pz14",  2.041241, "0.0206", true);
-    dibuja("pz15", -1.224745, "0.1103", false);
+    /* ---------- las tres gráficas, interactivas ---------- */
+    function interactiva(id, OBS, MU0){
+      var svg = document.getElementById(id);
+      if (!svg) return;
+      var EE = 4.0824829;
+      var out = document.getElementById(id + "-out");
+      var rng = document.getElementById(id + "-rng");
+
+      function pinta(z){
+        z = Math.max(zLo, Math.min(zHi, z));
+        dibuja(id, z);
+        var cola = 1 - Phi(Math.abs(z)), p = 2*cola, rechaza = p <= 0.05;
+        var xb = MU0 + z*EE;
+        out.innerHTML =
+          "<div><div class='k'>Estadístico z</div><div class='v'>" + (z<0?"\u2212":"+") + Math.abs(z).toFixed(4) + "</div></div>" +
+          "<div><div class='k'>Media muestral que lo produce</div><div class='v'>" + xb.toFixed(2) + " cm</div></div>" +
+          "<div><div class='k'>Valor p bilateral</div><div class='v'>" + p.toFixed(4) + "</div></div>" +
+          "<div><div class='k'>Decisión con α = 0.05</div><div class='vd " + (rechaza ? "si" : "no") + "'>" +
+          (rechaza ? "Se rechaza H\u2080" : "No se rechaza H\u2080") + "</div></div>";
+        if (rng && Math.abs(Number(rng.value) - z) > 1e-6) rng.value = z;
+      }
+
+      function zDe(e){
+        var r = svg.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width * W;
+        return zLo + (px - L) / (W - L - R) * (zHi - zLo);
+      }
+      var arrastrando = false;
+      svg.addEventListener("pointerdown", function(e){
+        arrastrando = true; svg.setPointerCapture(e.pointerId); pinta(zDe(e));
+      });
+      svg.addEventListener("pointermove", function(e){ if (arrastrando) pinta(zDe(e)); });
+      svg.addEventListener("pointerup", function(){ arrastrando = false; });
+      svg.addEventListener("pointercancel", function(){ arrastrando = false; });
+      if (rng) rng.addEventListener("input", function(){ pinta(Number(rng.value)); });
+      var btn = document.getElementById(id + "-reset");
+      if (btn) btn.addEventListener("click", function(){ pinta(OBS); });
+
+      pinta(OBS);
+    }
+
+    interactiva("pz13",  1.224745, 165);
+    interactiva("pz14",  2.041241, 165);
+    interactiva("pz15", -1.224745, 175);
   })();
 
   var h = /^#d(\d+)$/.exec(location.hash);
