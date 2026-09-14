@@ -114,7 +114,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   color:var(--ink-faint);font-variant-numeric:tabular-nums}
 .matrix th.corner{font-size:clamp(9.5px,.82vw,11px);line-height:1.25;text-transform:none;letter-spacing:0}
 .matrix td{border:none;padding:0}
-.cell{width:clamp(44px,4.6vw,62px);height:clamp(38px,3.8vw,52px);display:flex;align-items:center;
+.cell{width:clamp(56px,5.6vw,76px);height:clamp(38px,3.8vw,52px);display:flex;align-items:center;
   justify-content:center;background:var(--surface);border:1px solid var(--rule);border-radius:7px;
   font-size:clamp(14px,1.4vw,19px);font-weight:700;color:var(--ink-soft);
   font-variant-numeric:tabular-nums;cursor:pointer;transition:background .12s,color .12s,border-color .12s}
@@ -142,12 +142,14 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .axis{stroke:var(--rule);stroke-width:1.5}
 .tick{fill:var(--ink-faint);font-size:12.5px;font-family:var(--sans)}
 .muline{stroke:var(--gold);stroke-width:2;stroke-dasharray:5 4}
-.mulabel{fill:var(--gold);font-size:12.5px;font-weight:700;font-family:var(--sans)}
+.mulabel{fill:var(--gold);font-size:13.5px;font-weight:700;font-family:var(--sans)}
 
-.cover{display:flex;flex-direction:column;justify-content:center;min-height:calc(100vh - 130px);max-width:60ch}
+.cover{display:flex;flex-direction:column;justify-content:center;align-items:center;
+  min-height:calc(100vh - 130px);max-width:62ch;margin:0 auto;text-align:center}
 .cover .inst{font-size:clamp(12px,1.05vw,14.5px);color:var(--ink-soft);line-height:1.6;margin-bottom:26px}
 .cover h1{font-size:clamp(32px,4.4vw,62px);line-height:1.05;letter-spacing:-.028em;font-weight:800;margin:0}
-.cover .sub{font-size:clamp(15px,1.45vw,20px);color:var(--ink-soft);line-height:1.45;margin:16px 0 30px;max-width:44ch}
+.cover .rule{margin-left:auto;margin-right:auto}
+.cover .sub{font-size:clamp(15px,1.45vw,20px);color:var(--ink-soft);line-height:1.45;margin:16px auto 30px;max-width:46ch}
 .cover .by{font-size:clamp(13px,1.12vw,16px);line-height:1.7;color:var(--ink-soft)}
 .cover .keys{margin-top:30px;font-size:clamp(11.5px,1vw,13.5px);color:var(--ink-faint)}
 kbd{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px solid var(--rule);
@@ -186,11 +188,14 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
 .card ol li{line-height:1.55;margin-bottom:6px}
 .card a{color:var(--accent);word-break:break-word}
 
-.combos{column-count:5;column-gap:14px;font-size:clamp(10.5px,.9vw,12.5px);
+.combos{column-count:4;column-gap:14px;font-size:clamp(10.5px,.9vw,12.5px);
   line-height:1.65;color:var(--ink-faint);font-variant-numeric:tabular-nums}
 .combos span{display:block;break-inside:avoid}
 .combos b{color:var(--ink-soft)}
 @media (max-width:760px){.combos{column-count:3}}
+.plot.corto svg{max-width:78%;display:block;margin:0 auto}
+.card.formula{padding:13px 18px}
+@media (max-width:760px){.plot.corto svg{max-width:100%}}
 @media (max-width:760px){
   .slide{padding:20px 18px 74px}
   .pop .unit{flex:1 1 58px;min-width:58px;padding:9px 4px}
@@ -212,6 +217,7 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <div class="cover">
     <div class="inst">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas<br>Procesamiento y análisis de datos</div>
     <h1>Estadística inferencial: de la muestra a la población</h1>
+    <div class="rule"></div>
     <p class="sub">Qué tan lejos puede estar tu muestra de la verdad, y cómo se calcula esa distancia.</p>
     <div class="by">Dr. Sergio Ramón Rossetti López<br>Presenta: <strong>David</strong><br>Septiembre 2026</div>
     <p class="keys">Navega con <kbd>→</kbd> <kbd>←</kbd> · Bloques con <kbd>M</kbd> · Tema con <kbd>T</kbd> · Pantalla completa con <kbd>F</kbd></p>
@@ -262,7 +268,7 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
     </div>
     <div class="card edge">
       <h3>Cómo lo vamos a ver hoy</h3>
-      <p>Una población donde solo existen <strong>cinco tamaños</strong> de empresa. Muestras de <strong>dos</strong>. Veinticinco resultados posibles, todos visibles en una sola lámina.</p>
+      <p>Una población de <strong>cinco personas</strong>: las estudiantes de este grupo. Muestras de <strong>dos</strong> extracciones. Veinticinco resultados posibles, todos visibles en una sola lámina.</p>
       <p>Nada se aproxima: la distribución muestral queda <strong>completa y exacta</strong> en pantalla. La media de las medias no es «cercana» al parámetro, <strong>es</strong> el parámetro. El error estándar coincide con la fórmula al cuarto decimal.</p>
       <p>Se pasa de creer a verificar.</p>
     </div>
@@ -288,37 +294,43 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <p class="eyebrow">Bloque 7 · Muestreo</p>
   <h2 class="title">Cinco tamaños, y sabemos cómo se reparten</h2>
   <div class="rule"></div>
-  <p class="lede">En el corredor industrial hay cientos de MIPYMES manufactureras. Por el tipo de nave que renta el parque, todas operan con 2, 4, 6, 8 o 10 empleados, y los cinco tamaños están <strong>igualmente representados</strong>: una de cada cinco empresas cae en cada uno.</p>
+  <p class="lede">Nuestra población son <strong>las cinco estudiantes de este grupo</strong>. No una muestra de ellas: las cinco, completas. Medimos su estatura en centímetros y esto es todo lo que hay.</p>
 
   <div class="pop">
-    <div class="unit"><div class="id">Tamaño 1</div><div class="v">2</div><div class="u">empleados · 20 %</div></div>
-    <div class="unit"><div class="id">Tamaño 2</div><div class="v">4</div><div class="u">empleados · 20 %</div></div>
-    <div class="unit"><div class="id">Tamaño 3</div><div class="v">6</div><div class="u">empleados · 20 %</div></div>
-    <div class="unit"><div class="id">Tamaño 4</div><div class="v">8</div><div class="u">empleados · 20 %</div></div>
-    <div class="unit"><div class="id">Tamaño 5</div><div class="v">10</div><div class="u">empleados · 20 %</div></div>
+    <div class="unit"><div class="id">Estudiante A</div><div class="v">155</div><div class="u">cm</div></div>
+    <div class="unit"><div class="id">Estudiante B</div><div class="v">160</div><div class="u">cm</div></div>
+    <div class="unit"><div class="id">Estudiante C</div><div class="v">165</div><div class="u">cm</div></div>
+    <div class="unit"><div class="id">Estudiante D</div><div class="v">170</div><div class="u">cm</div></div>
+    <div class="unit"><div class="id">Estudiante E</div><div class="v">175</div><div class="u">cm</div></div>
   </div>
 
-  <div class="cols c2n">
-    <div>
-      <div class="stat">
-        <div><div class="n">μ = 6</div><div class="lbl">media poblacional de empleados</div></div>
-        <div><div class="n">σ = 2.8284</div><div class="lbl">desviación estándar poblacional</div></div>
-      </div>
-      <div class="card warn">
-        <h3>Estos dos números son parámetros</h3>
-        <p>Los conocemos porque conocemos cómo se reparte la población. <strong>En la mayoría de las investigaciones los parámetros son desconocidos.</strong> Si pudieras ver toda la población no necesitarías estadística inferencial: contarías. Toda la maquinaria de los capítulos 8 y 9 existe porque estos dos números están ocultos.</p>
-      </div>
+  <div class="stat">
+    <div><div class="n">μ = 165</div><div class="lbl">estatura media poblacional, en cm</div></div>
+    <div><div class="n">σ = 7.0711</div><div class="lbl">desviación estándar poblacional</div></div>
+  </div>
+
+  <div class="cols c2w">
+    <div class="plot">
+      <h4>La distribución de la población</h4>
+      <p class="sub">Uniforme: cada estatura aparece una sola vez, así que las cinco son igual de probables en el sorteo</p>
+      <svg id="popA" viewBox="0 0 640 260" role="img" aria-label="Distribución uniforme de la población: cinco barras de la misma altura"></svg>
     </div>
-    <div class="card edge">
-      <h3>El diseño de muestreo, declarado</h3>
-      <p>Vamos a visitar <strong>dos empresas distintas</strong>, elegidas al azar y de forma independiente una de la otra.</p>
-      <ul>
-        <li>Cada empresa tiene la misma probabilidad de salir, y su tamaño es uno de los cinco con probabilidad 1/5.</li>
-        <li>La primera visita no cambia las probabilidades de la segunda, porque la población es grande y dos empresas no la agotan.</li>
-        <li><strong>Los dos resultados pueden coincidir.</strong> Si las dos empresas visitadas tienen 2 empleados no hay error ni repetición: son negocios diferentes del mismo tamaño.</li>
-      </ul>
-      <p>Bajo estas condiciones hay <strong>25 resultados posibles</strong>, todos con la misma probabilidad.</p>
-      <p class="fine">Es el caso que el libro llama muestreo de una población infinita. Como la fracción de muestreo es despreciable, el error estándar es simplemente σ dividido entre la raíz de n.</p>
+    <div class="cols">
+      <div class="card warn">
+        <h3>Este es el lujo que hace posible la lámina</h3>
+        <p>Conocemos μ y σ porque <strong>medimos a toda la población</strong>. Es un censo, no una muestra, y por eso σ se calcula dividiendo entre N = 5 y no entre n − 1.</p>
+        <p><strong>En la mayoría de las investigaciones los parámetros son desconocidos.</strong> Hoy los vamos a esconder a propósito para ver qué tan cerca llega una muestra.</p>
+      </div>
+      <div class="card edge">
+        <h3>El sorteo, declarado</h3>
+        <p>Ponemos los <strong>cinco nombres en una bolsa</strong>. Sacamos un papelito, anotamos la estatura, y <strong>lo devolvemos</strong>. Volvemos a sacar. Eso es una muestra de tamaño 2.</p>
+        <ul>
+          <li>Cada extracción tiene las mismas cinco posibilidades, con probabilidad 1/5 cada una.</li>
+          <li><strong>Puede salir dos veces la misma persona</strong>, y no es un error: el papelito regresó.</li>
+        </ul>
+        <p>Hay <strong>25 resultados posibles</strong>, todos igual de probables.</p>
+        <p class="fine">Sin devolver el papelito habría solo 10 muestras y el error estándar exigiría la corrección por población finita. La devolución es lo que mantiene idénticas las condiciones de cada extracción.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -331,16 +343,16 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <div class="cols c2w">
     <div>
       <table class="matrix" id="matrix">
-        <caption>Cada celda es la media de empleados que reportarías con ese par de visitas.</caption>
+        <caption>Cada celda es la estatura media, en cm, que reportarías con ese par de extracciones.</caption>
       </table>
       <p class="fine" style="text-align:center;margin-top:10px">Pulsa una celda para encender todos los pares que dan esa misma media.</p>
-      <p class="fine" style="margin:14px 0 6px">Los 25 resultados posibles, uno por uno:</p>
-      <div class='combos'><span>2 + 2 <b>&rarr; 2</b></span><span>2 + 4 <b>&rarr; 3</b></span><span>2 + 6 <b>&rarr; 4</b></span><span>2 + 8 <b>&rarr; 5</b></span><span>2 + 10 <b>&rarr; 6</b></span><span>4 + 2 <b>&rarr; 3</b></span><span>4 + 4 <b>&rarr; 4</b></span><span>4 + 6 <b>&rarr; 5</b></span><span>4 + 8 <b>&rarr; 6</b></span><span>4 + 10 <b>&rarr; 7</b></span><span>6 + 2 <b>&rarr; 4</b></span><span>6 + 4 <b>&rarr; 5</b></span><span>6 + 6 <b>&rarr; 6</b></span><span>6 + 8 <b>&rarr; 7</b></span><span>6 + 10 <b>&rarr; 8</b></span><span>8 + 2 <b>&rarr; 5</b></span><span>8 + 4 <b>&rarr; 6</b></span><span>8 + 6 <b>&rarr; 7</b></span><span>8 + 8 <b>&rarr; 8</b></span><span>8 + 10 <b>&rarr; 9</b></span><span>10 + 2 <b>&rarr; 6</b></span><span>10 + 4 <b>&rarr; 7</b></span><span>10 + 6 <b>&rarr; 8</b></span><span>10 + 8 <b>&rarr; 9</b></span><span>10 + 10 <b>&rarr; 10</b></span></div>
+      <p class="fine" style="margin:14px 0 6px">Los 25 resultados posibles, uno por uno (en cm):</p>
+      <div class='combos'><span>155 + 155 <b>&rarr; 155</b></span><span>155 + 160 <b>&rarr; 157.5</b></span><span>155 + 165 <b>&rarr; 160</b></span><span>155 + 170 <b>&rarr; 162.5</b></span><span>155 + 175 <b>&rarr; 165</b></span><span>160 + 155 <b>&rarr; 157.5</b></span><span>160 + 160 <b>&rarr; 160</b></span><span>160 + 165 <b>&rarr; 162.5</b></span><span>160 + 170 <b>&rarr; 165</b></span><span>160 + 175 <b>&rarr; 167.5</b></span><span>165 + 155 <b>&rarr; 160</b></span><span>165 + 160 <b>&rarr; 162.5</b></span><span>165 + 165 <b>&rarr; 165</b></span><span>165 + 170 <b>&rarr; 167.5</b></span><span>165 + 175 <b>&rarr; 170</b></span><span>170 + 155 <b>&rarr; 162.5</b></span><span>170 + 160 <b>&rarr; 165</b></span><span>170 + 165 <b>&rarr; 167.5</b></span><span>170 + 170 <b>&rarr; 170</b></span><span>170 + 175 <b>&rarr; 172.5</b></span><span>175 + 155 <b>&rarr; 165</b></span><span>175 + 160 <b>&rarr; 167.5</b></span><span>175 + 165 <b>&rarr; 170</b></span><span>175 + 170 <b>&rarr; 172.5</b></span><span>175 + 175 <b>&rarr; 175</b></span></div>
     </div>
     <div class="cols">
       <div class="card warn">
-        <h3>El rango va de 2 a 10</h3>
-        <p>Si te tocan dos empresas de las más chicas reportas una media de <strong>2</strong> empleados. Si te tocan dos de las más grandes reportas <strong>10</strong>: una es cinco veces la otra. Los dos son levantamientos legítimos de la misma población, hechos con el mismo método.</p>
+        <h3>El rango va de 155 a 175</h3>
+        <p>Si sale dos veces la estudiante A reportas una media de <strong>155 cm</strong>. Si sale dos veces la E reportas <strong>175</strong>: veinte centímetros de diferencia, diez por debajo y diez por encima de la verdad. Los dos son resultados legítimos del mismo sorteo.</p>
       </div>
       <div class="card edge">
         <h3>Esto tiene nombre</h3>
@@ -349,7 +361,7 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
       </div>
       <div class="card">
         <h3>Fíjate en las diagonales</h3>
-        <p>Los pares que dan la misma media forman bandas, y las del centro son mucho más anchas que las de las orillas. Cinco pares distintos dan media 6; solo uno da media 2. La forma de la distribución ya está aquí, antes de graficar nada.</p>
+        <p>Los pares que dan la misma media forman bandas, y las del centro son mucho más anchas que las de las orillas. Cinco pares distintos dan media 165; solo uno da media 155. La forma de la distribución ya está aquí, antes de graficar nada.</p>
       </div>
     </div>
   </div>
@@ -376,17 +388,17 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
     <div class="cols">
       <div class="card edge">
         <h3>Primer hallazgo · insesgadez</h3>
-        <p>La media de las 25 medias es <strong>exactamente 6</strong>, el valor de μ. No aproximadamente: exactamente. Eso significa que x̄ es un <strong>estimador insesgado</strong> de μ.</p>
+        <p>La media de las 25 medias es <strong>exactamente 165</strong>, el valor de μ. No aproximadamente: exactamente. Eso significa que x̄ es un <strong>estimador insesgado</strong> de μ.</p>
         <p class="fine">No dice que tu muestra vaya a acertar. Dice que el método no está torcido hacia arriba ni hacia abajo.</p>
       </div>
       <div class="card edge">
         <h3>Segundo hallazgo · menos dispersión</h3>
-        <p>Los datos individuales se dispersan con σ = 2.8284. Las medias muestrales se dispersan con <strong>2.0000</strong>, apenas el 71 % de aquello.</p>
+        <p>Las estaturas individuales se dispersan con σ = 7.0711 cm. Las medias muestrales se dispersan con <strong>5.0000</strong>, apenas el 71 % de aquello.</p>
         <p class="fine">Promediar dos observaciones ya estabiliza: los extremos se cancelan entre sí.</p>
       </div>
       <div class="card edge">
         <h3>Tercer hallazgo · se concentra</h3>
-        <p>Trece de los 25 resultados caen entre 5 y 7, a un empleado o menos de la verdad. Solo dos caen en los extremos. Sin haber supuesto nada, la mala suerte es minoría.</p>
+        <p>Trece de los 25 resultados caen entre 162.5 y 167.5, a dos centímetros y medio o menos de la verdad. Solo dos caen en los extremos. Sin haber supuesto nada, la mala suerte es minoría.</p>
       </div>
     </div>
   </div>
@@ -395,35 +407,46 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
 <!-- 7 · EFECTO DE n -->
 <section class="slide" data-label="Qué pasa al aumentar n">
   <p class="eyebrow">Bloque 7 · Tamaño de muestra</p>
-  <h2 class="title">Qué pasa si visitamos más empresas</h2>
+  <h2 class="title">Qué pasa si sacamos más papelitos</h2>
   <div class="rule"></div>
 
   <div class="ctrls" role="group" aria-label="Tamaño de muestra">
-    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Empresas visitadas:</span>
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Extracciones:</span>
     <button class="btn" data-plot="pN" data-n="1">n = 1</button>
     <button class="btn on" data-plot="pN" data-n="2">n = 2</button>
     <button class="btn" data-plot="pN" data-n="3">n = 3</button>
+    <button class="btn" data-plot="pN" data-n="4">n = 4</button>
     <button class="btn" data-plot="pN" data-n="5">n = 5</button>
   </div>
 
   <div class="cols c2w">
-    <div class="plot">
-      <h4 id="pN-t">Distribución muestral de x̄ · n = 2</h4>
-      <p class="sub" id="pN-s"></p>
-      <svg id="pN" viewBox="0 0 640 260" role="img" aria-label="Distribución muestral de la media según el tamaño de muestra"></svg>
+    <div class="cols">
+      <div class="plot corto">
+        <h4 id="pN-t">Distribución muestral de x̄ · n = 2</h4>
+        <p class="sub" id="pN-s"></p>
+        <svg id="pN" viewBox="0 0 640 260" role="img" aria-label="Distribución muestral de la media según el tamaño de muestra"></svg>
+      </div>
+      <div class="card edge formula">
+        <div class="eq plain" style="margin:0;text-align:center">
+          σ<sub>x̄</sub> = <span class="frac"><span>σ</span><span class="den"><span class="rad">√</span>n</span></span>
+          &nbsp;=&nbsp; <span class="frac"><span>7.0711</span><span class="den"><span class="rad">√</span>n</span></span>
+          &nbsp;&nbsp;·&nbsp;&nbsp; <span style="color:var(--ink-faint);font-size:.82em">error estándar de la media</span>
+        </div>
+      </div>
     </div>
     <div class="cols">
       <div class="card">
         <table>
           <thead><tr><th>n</th><th class="num">Resultados</th><th class="num">Media</th><th class="num">Error estándar</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td class="num">5</td><td class="num">6.0000</td><td class="num">2.8284</td></tr>
-            <tr><td>2</td><td class="num">25</td><td class="num">6.0000</td><td class="num">2.0000</td></tr>
-            <tr><td>3</td><td class="num">125</td><td class="num">6.0000</td><td class="num">1.6330</td></tr>
-            <tr><td>5</td><td class="num">3 125</td><td class="num">6.0000</td><td class="num">1.2649</td></tr>
+            <tr><td>1</td><td class="num">5</td><td class="num">165.0000</td><td class="num">7.0711</td></tr>
+            <tr><td>2</td><td class="num">25</td><td class="num">165.0000</td><td class="num">5.0000</td></tr>
+            <tr><td>3</td><td class="num">125</td><td class="num">165.0000</td><td class="num">4.0825</td></tr>
+            <tr><td>4</td><td class="num">625</td><td class="num">165.0000</td><td class="num">3.5355</td></tr>
+            <tr><td>5</td><td class="num">3 125</td><td class="num">165.0000</td><td class="num">3.1623</td></tr>
           </tbody>
         </table>
-        <p class="fine">A la desviación estándar de la distribución muestral se le llama <strong>error estándar</strong>, y vale σ dividido entre la raíz de n. Con n = 2: 2.8284 / 1.4142 = 2.0000, que es justo lo que dio contar las 25 medias.</p>
+        <p class="fine">A la desviación estándar de la distribución muestral se le llama <strong>error estándar</strong>, y vale σ dividido entre la raíz de n. Con n = 2: 7.0711 / 1.4142 = 5.0000, que es justo lo que dio contar las 25 medias.</p>
       </div>
       <div class="card edge">
         <h3>Dos cosas cambian y una no</h3>
@@ -443,20 +466,22 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <p class="eyebrow">Bloque 7 · <span class="tag">Ejemplo 2</span></p>
   <h2 class="title">¿Y si la población tiene un hueco en medio?</h2>
   <div class="rule"></div>
-  <p class="lede">Cambiemos de corredor industrial. En este hay muchas empresas muy chicas y muchas muy grandes, pero casi ninguna mediana: las once que representan a la población son 2, 2, 2, 4, 4, 6, 8, 8, 10, 10 y 10 empleados.</p>
+  <p class="lede">Cambiemos de grupo. En este hay once estudiantes, con varias de estatura baja y varias de estatura alta pero casi ninguna intermedia: 155, 155, 155, 160, 160, 165, 170, 170, 175, 175 y 175 cm. Mismo sorteo con devolución, ahora sobre once papelitos.</p>
 
   <div class="ctrls" role="group" aria-label="Tamaño de muestra">
-    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Empresas visitadas:</span>
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Extracciones:</span>
     <button class="btn on" data-plot="pB" data-n="2">n = 2</button>
     <button class="btn" data-plot="pB" data-n="5">n = 5</button>
     <button class="btn" data-plot="pB" data-n="10">n = 10</button>
+    <button class="btn" data-plot="pB" data-n="15">n = 15</button>
+    <button class="btn" data-plot="pB" data-n="20">n = 20</button>
     <button class="btn" data-plot="pB" data-n="30">n = 30</button>
   </div>
 
   <div class="cols c2">
     <div class="plot">
       <h4>La población</h4>
-      <p class="sub">μ = 6 · σ = 3.1909 · dos jorobas y un valle en el centro</p>
+      <p class="sub">μ = 165 · σ = 7.9772 · dos jorobas y un valle en el centro</p>
       <svg id="popB" viewBox="0 0 640 260" role="img" aria-label="Población bimodal, con más casos en los extremos que en el centro"></svg>
     </div>
     <div class="plot">
@@ -469,12 +494,12 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <div class="cols c3" style="margin-top:18px">
     <div class="card edge">
       <h3>La población es bimodal</h3>
-      <p>El valor 6 es de los <strong>menos frecuentes</strong> de toda la población: solo una de las once empresas lo tiene.</p>
+      <p>El valor 165 es el <strong>menos frecuente</strong> de todo el grupo: solo una de las once estudiantes lo tiene.</p>
     </div>
     <div class="card warn">
       <h3>Y la distribución muestral no</h3>
-      <p>Con n = 2 el hueco central ya se rellenó, y para n = 10 la forma es una campana centrada en 6. <strong>La media muestral se concentra donde la población casi no tiene casos.</strong></p>
-      <p>Para que x̄ salga cerca de 2 tendrían que tocarte puras empresas chicas seguidas, y eso es cada vez más improbable.</p>
+      <p>Con n = 2 el hueco central ya se rellenó, y para n = 10 la forma es una campana centrada en 165. <strong>La media muestral se concentra donde la población casi no tiene casos.</strong></p>
+      <p>Para que x̄ salga cerca de 155 tendrían que salir puros papelitos de las más bajas, uno tras otro, y eso es cada vez más improbable.</p>
     </div>
     <div class="card">
       <h3>Lo que hay que retener</h3>
@@ -488,10 +513,11 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <p class="eyebrow">Bloque 7 · <span class="tag">Ejemplo 3</span></p>
   <h2 class="title">De dónde sale la regla de n ≥ 30</h2>
   <div class="rule"></div>
-  <p class="lede">Un tercer corredor, ahora con sesgo fuerte a la derecha: la mayoría de las empresas son muy chicas y unas pocas son grandes. Los quince casos que la representan son 2, 2, 2, 2, 2, 4, 4, 4, 4, 6, 6, 6, 8, 8 y 10 empleados.</p>
+  <p class="lede">Un tercer grupo, de quince estudiantes, ahora con sesgo fuerte a la derecha: la mayoría de estatura baja y unas pocas altas. Los quince valores son 155, 155, 155, 155, 155, 160, 160, 160, 160, 165, 165, 165, 170, 170 y 175 cm.</p>
 
   <div class="ctrls" role="group" aria-label="Tamaño de muestra">
-    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Empresas visitadas:</span>
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Extracciones:</span>
+    <button class="btn" data-plot="pC" data-n="2">n = 2</button>
     <button class="btn on" data-plot="pC" data-n="5">n = 5</button>
     <button class="btn" data-plot="pC" data-n="10">n = 10</button>
     <button class="btn" data-plot="pC" data-n="15">n = 15</button>
@@ -503,7 +529,7 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <div class="cols c2">
     <div class="plot">
       <h4>La población</h4>
-      <p class="sub">μ = 4.67 · σ = 2.4944 · sesgo a la derecha</p>
+      <p class="sub">μ = 161.67 · σ = 6.2361 · sesgo a la derecha</p>
       <svg id="popC" viewBox="0 0 640 260" role="img" aria-label="Población sesgada a la derecha"></svg>
     </div>
     <div class="plot">
@@ -524,7 +550,55 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
     </div>
     <div class="card">
       <h3>El centro tampoco se mueve</h3>
-      <p>μ vale 4.67 y la distribución muestral está centrada en 4.67 para los seis tamaños. El sesgo de la población afecta la <em>forma</em>, nunca la insesgadez.</p>
+      <p>μ vale 161.67 cm y la distribución muestral está centrada en 161.67 para los seis tamaños. El sesgo de la población afecta la <em>forma</em>, nunca la insesgadez.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9b · EL ERROR ESTÁNDAR -->
+<section class="slide" data-label="El error estándar">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Concepto central</span></p>
+  <h2 class="title">El error estándar, con todas sus letras</h2>
+  <div class="rule"></div>
+  <p class="lede">Es el número que hemos venido calculando en las últimas cuatro láminas, y merece nombre propio porque <strong>los capítulos 8 y 9 no son otra cosa que usarlo</strong>.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card edge">
+        <h3>Qué es, en una frase</h3>
+        <p>El <strong>error estándar de la media</strong> es la desviación estándar de la distribución muestral de x̄. Mide cuánto se aleja típicamente una media muestral del verdadero valor de μ.</p>
+        <div class="eq plain">σ<sub>x̄</sub> = <span class="frac"><span>σ</span><span class="den"><span class="rad">√</span>n</span></span></div>
+        <p>En el ejemplo de las estaturas, σ<sub>x̄</sub> = 5.0 con n = 2. Eso significa que una media muestral típica se aparta unos 5 cm de la verdad, aunque el método sea impecable.</p>
+      </div>
+      <div class="plot" style="margin-top:16px">
+        <h4>Cómo se encoge al crecer n</h4>
+        <p class="sub">σ = 7.0711 cm · la caída es rápida al principio y luego se aplana</p>
+        <svg id="eeCurve" viewBox="0 0 640 250" role="img" aria-label="Curva descendente del error estándar conforme aumenta el tamaño de muestra"></svg>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card warn">
+        <h3>Los tres números que todos confunden</h3>
+        <table>
+          <thead><tr><th>Símbolo</th><th>Qué mide</th></tr></thead>
+          <tbody>
+            <tr><td><strong>σ</strong></td><td>Cuánto varían los <em>datos</em> en la población</td></tr>
+            <tr><td><strong>s</strong></td><td>Cuánto varían los <em>datos</em> de tu muestra</td></tr>
+            <tr><td><strong>σ<sub>x̄</sub></strong></td><td>Cuánto varían las <em>medias</em> de muestra en muestra</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Los dos primeros hablan de observaciones individuales. El tercero habla de un estadístico. No son magnitudes comparables, y σ<sub>x̄</sub> siempre es el más chico de los tres.</p>
+      </div>
+      <div class="card">
+        <h3>Por qué aparece una raíz</h3>
+        <p>Al promediar, los valores altos y bajos se cancelan entre sí. Esa cancelación no crece proporcional a n sino a su raíz, y de ahí la fórmula.</p>
+        <p>La consecuencia es económica: <strong>para reducir el error a la mitad hay que cuadruplicar la muestra.</strong> Pasar de 100 a 400 encuestas duplica la precisión, no la cuadruplica.</p>
+      </div>
+      <div class="card key">
+        <h3>Para qué sirve, en concreto</h3>
+        <p>El error estándar es la <strong>unidad de medida</strong> del resto del curso. Un intervalo de confianza se construye sumando y restando cierto número de errores estándar. Una prueba de hipótesis pregunta a cuántos errores estándar está tu muestra del valor afirmado.</p>
+        <p class="fine">Si este número queda claro, los capítulos 8 y 9 son la misma idea aplicada dos veces.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -571,6 +645,233 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   <div class="card key" style="margin-top:18px">
     <h3>Y lo mismo aplica a una proporción</h3>
     <p>Todo lo anterior se repite con p̄ en lugar de x̄: también es insesgada, también tiene su error estándar, también se estrecha al crecer n. Lo vamos a necesitar, porque la calculadora de tamaño de muestra que usaremos trabaja con proporciones.</p>
+  </div>
+</section>
+
+
+<!-- 12 · ANTICIPO · INTERVALO -->
+<section class="slide" data-label="Anticipo · el intervalo de confianza">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Anticipo</span> · A dónde vamos con esto</p>
+  <h2 class="title">Un intervalo de confianza, con los datos del grupo</h2>
+  <div class="rule"></div>
+  <p class="lede">Escondamos μ. Sacamos tres papelitos y salen <strong>170, 165 y 175 cm</strong>. Con esos tres datos, y sin mirar la respuesta, ¿qué podemos afirmar sobre la estatura media del grupo?</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>Las tres piezas y la cuenta</h3>
+        <table>
+          <thead><tr><th>Pieza</th><th>De dónde sale</th><th class="num">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Estimación puntual x̄</td><td>(170 + 165 + 175) / 3</td><td class="num">170.0000</td></tr>
+            <tr><td>Error estándar σ<sub>x̄</sub></td><td>σ / √n = 7.0711 / 1.7321</td><td class="num">4.0825</td></tr>
+            <tr><td>Valor crítico z<sub>0.025</sub></td><td>Tabla de la normal</td><td class="num">1.9600</td></tr>
+            <tr><td>Margen de error</td><td>1.96 × 4.0825</td><td class="num">8.0015</td></tr>
+          </tbody>
+        </table>
+        <div class="eq plain" style="margin-top:14px">x̄ ± z<sub>α/2</sub> · <span class="frac"><span>σ</span><span class="den"><span class="rad">√</span>n</span></span> = 170.00 ± 8.00</div>
+        <div class="eq plain" style="font-weight:700;color:var(--accent)">De 162.00 a 178.00 cm, con 95 % de confianza</div>
+      </div>
+      <div class="cols c2" style="margin-top:16px">
+        <div class="card key">
+          <h3>¿Le atinó?</h3>
+          <p>μ vale <strong>165</strong> y sí cae dentro. Pero eso solo lo sabemos porque hicimos trampa: medimos a las cinco antes de empezar.</p>
+          <p class="fine">En una investigación real nunca puedes hacer esta verificación. Por eso se llama confianza y no certeza.</p>
+        </div>
+        <div class="card warn">
+          <h3>Fíjate dónde quedó el centro</h3>
+          <p>La muestra dio 170, cinco centímetros por encima de la verdad, y aun así el intervalo la contiene. <strong>El intervalo perdona porque es ancho</strong>, no porque la muestra haya sido buena.</p>
+        </div>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>De dónde sale el 1.96</h3>
+        <ol style="padding-left:1.15em;line-height:1.75">
+          <li>Confianza <strong>95 % = 0.95</strong></li>
+          <li>Lo que sobra: <strong>α = 1 − 0.95 = 0.05</strong></li>
+          <li>Repartido en dos colas: <strong>α/2 = 0.025</strong> en cada una</li>
+          <li>El z que deja 0.025 arriba: <strong>1.96</strong></li>
+        </ol>
+        <svg id="ic95Plot" viewBox="0 0 560 210" role="img" aria-label="Curva normal estándar con el 95 por ciento central y dos colas de 0.025"></svg>
+        <p class="fine">En la tabla no busques 0.025 sino <strong>0.9750</strong>, el área acumulada desde la izquierda hasta 1.96. En SPSS: <span class="mono">IDF.NORMAL(0.975, 0, 1)</span>.</p>
+      </div>
+      <div class="card warn">
+        <h3>Una honestidad sobre este ejemplo</h3>
+        <p>Con n = 3 la distribución muestral todavía no es normal, así que el 1.96 es una aproximación prestada.</p>
+        <p>Se puede medir qué tan buena: de los 125 resultados posibles, <strong>117 producen un intervalo que contiene a μ</strong>. Eso es 93.6 %, no 95 %.</p>
+        <p class="fine">Con n = 2 la cobertura era 92 %. Va mejorando conforme crece n, y de ahí la regla de n ≥ 30.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · ANTICIPO · PRUEBA -->
+<section class="slide" data-label="Anticipo · prueba con H₀ verdadera">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Anticipo</span> · A dónde vamos con esto</p>
+  <h2 class="title">Alguien afirma que la media es 165</h2>
+  <div class="rule"></div>
+  <p class="lede">Sacamos tres papelitos: <strong>170, 165 y 175</strong>, con x̄ = 170. Alguien sostiene que la estatura media del grupo es <strong>165 cm</strong>. ¿Lo desmienten nuestros datos?</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>Las hipótesis y la cuenta</h3>
+        <div class="eq plain">H₀: μ = 165 &nbsp;·&nbsp; Hₐ: μ ≠ 165 &nbsp;·&nbsp; α = 0.05 &nbsp;·&nbsp; σ<sub>x̄</sub> = 4.0825</div>
+        <div class="eq plain" style="margin-top:10px">z = <span class="frac"><span>x̄ − μ₀</span><span class="den">σ<sub>x̄</sub></span></span> = <span class="frac"><span>170.00 − 165</span><span class="den">4.0825</span></span> = +1.2247</div>
+        <table style="margin-top:14px">
+          <thead><tr><th>Criterio</th><th>Comparación</th><th>Decisión</th></tr></thead>
+          <tbody>
+            <tr><td>Valor crítico</td><td>|+1.2247| &lt; 1.96</td><td>No se rechaza</td></tr>
+            <tr><td>Valor p</td><td>0.2207 &gt; 0.05</td><td>No se rechaza</td></tr>
+            <tr><td>Intervalo de la lámina 12</td><td>165 cae <strong>dentro</strong> de 162.00 a 178.00</td><td>No se rechaza</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Los tres criterios coinciden siempre. Son la misma comparación vista en la escala de z, en la de probabilidad y en la de centímetros.</p>
+      </div>
+      <div class="plot" style="margin-top:16px">
+        <h4>El resultado, en la escala de z</h4>
+        <p class="sub">El punto azul cae en la franja gris: no alcanza ninguna de las dos zonas de rechazo</p>
+        <svg id="pz13" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado"></svg>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>La regla, sin excepciones</h3>
+        <div class="eq plain" style="margin:4px 0 8px">valor p ≤ α → se rechaza H₀</div>
+        <div class="eq plain" style="margin:0 0 12px">valor p &gt; α → no se rechaza</div>
+        <p>Aquí <strong>0.2207 &gt; 0.05</strong>, así que no se rechaza.</p>
+        <p><strong>Qué significa ese 0.2207.</strong> Tu muestra dio 170, o sea que cayó a <strong>5 cm</strong> de lo afirmado. Si μ de verdad valiera 165 y repitieras el sorteo miles de veces, en <strong>22 de cada 100</strong> la media caería a 5 cm o más de 165.</p>
+        <p class="fine">Alejarse 5 cm pasa una de cada cinco veces por pura suerte del sorteo. Algo tan común no sirve como prueba de que la afirmación esté mal.</p>
+      </div>
+      <div class="card key">
+        <h3>Decisión correcta</h3>
+        <p>Nosotros sí sabemos la verdad: μ vale <strong>165</strong>, así que <strong>H₀ era verdadera</strong> y no la rechazamos. Es la casilla buena de la tabla.</p>
+        <p class="fine">Ojo con la redacción: no probamos que μ sea 165. Solo dijimos que estos datos no dan motivo para dudarlo.</p>
+      </div>
+      <div class="card">
+        <h3>Cuánto habría hecho falta</h3>
+        <p>La muestra se apartó 5 cm del valor afirmado, pero el error estándar es de 4.08 cm: apenas 1.22 errores estándar.</p>
+        <p>Para rechazar al 5 % se necesitan 1.96 errores estándar, es decir una diferencia de al menos <strong>8 cm</strong>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · ANTICIPO · PRUEBA -->
+<section class="slide" data-label="Anticipo · prueba con error tipo I">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Anticipo</span> · A dónde vamos con esto</p>
+  <h2 class="title">Otros tres papelitos, y ahora sí rechazamos</h2>
+  <div class="rule"></div>
+  <p class="lede">Misma afirmación de <strong>165 cm</strong>, pero cambiamos de muestra: ahora salen <strong>175, 170 y 175</strong>, con x̄ = 173.33.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>Las hipótesis y la cuenta</h3>
+        <div class="eq plain">H₀: μ = 165 &nbsp;·&nbsp; Hₐ: μ ≠ 165 &nbsp;·&nbsp; α = 0.05 &nbsp;·&nbsp; σ<sub>x̄</sub> = 4.0825</div>
+        <div class="eq plain" style="margin-top:10px">z = <span class="frac"><span>x̄ − μ₀</span><span class="den">σ<sub>x̄</sub></span></span> = <span class="frac"><span>173.33 − 165</span><span class="den">4.0825</span></span> = +2.0412</div>
+        <table style="margin-top:14px">
+          <thead><tr><th>Criterio</th><th>Comparación</th><th>Decisión</th></tr></thead>
+          <tbody>
+            <tr><td>Valor crítico</td><td>|+2.0412| &gt; 1.96</td><td><strong>Se rechaza</strong></td></tr>
+            <tr><td>Valor p</td><td>0.0412 &lt; 0.05</td><td><strong>Se rechaza</strong></td></tr>
+            <tr><td>Intervalo de la lámina 12</td><td>165 cae <strong>fuera</strong> de 165.33 a 181.34</td><td><strong>Se rechaza</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Los tres criterios coinciden siempre. Son la misma comparación vista en la escala de z, en la de probabilidad y en la de centímetros.</p>
+      </div>
+      <div class="plot" style="margin-top:16px">
+        <h4>El resultado, en la escala de z</h4>
+        <p class="sub">El punto azul cruzó el 1.96 y quedó dentro de la zona de rechazo</p>
+        <svg id="pz14" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado"></svg>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>La regla, sin excepciones</h3>
+        <div class="eq plain" style="margin:4px 0 8px">valor p ≤ α → se rechaza H₀</div>
+        <div class="eq plain" style="margin:0 0 12px">valor p &gt; α → no se rechaza</div>
+        <p>Aquí <strong>0.0412 &lt; 0.05</strong>, así que se rechaza.</p>
+        <p><strong>Qué significa ese 0.0412.</strong> Esta muestra dio 173.33, o sea que cayó a <strong>8.33 cm</strong> de lo afirmado. Si μ de verdad valiera 165, caer tan lejos pasaría solo en <strong>4 de cada 100</strong> sorteos. Caben dos explicaciones: te tocó una muestra muy desafortunada, o la afirmación está equivocada. El convenio opta por la segunda.</p>
+        <p class="fine">Pero quedó pegado al umbral. Si alguien hubiera exigido α = 0.01, como en el caso de Hilltop del bloque 9, entonces 0.0412 sería mayor que 0.01 y <strong>no</strong> se rechazaría. Mismos datos, decisión contraria, solo por el umbral que se eligió de antemano.</p>
+      </div>
+      <div class="card warn">
+        <h3>Y este es un error tipo I</h3>
+        <p>μ vale 165, así que <strong>H₀ era verdadera</strong> y la rechazamos. Concluimos que la media del grupo no es 165, y estábamos equivocados.</p>
+        <p>Tampoco aquí hubo descuido. Tocó una de las muestras desafortunadas: tres papelitos altos seguidos. Eso pasa en el 5 % de los casos, y ese 5 % es precisamente α.</p>
+      </div>
+      <div class="card key">
+        <h3>Compara con la lámina 13</h3>
+        <p>La afirmación es idéntica y la población también. <strong>Lo único que cambió fue qué papelitos salieron</strong>, y con eso la decisión se invirtió.</p>
+        <p class="fine">Esa es la variabilidad muestral del bloque anterior, ahora con consecuencias: no solo mueve el número, mueve el veredicto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · ANTICIPO · PRUEBA -->
+<section class="slide" data-label="Anticipo · prueba con error tipo II">
+  <p class="eyebrow">Bloque 7 · <span class="tag">Anticipo</span> · A dónde vamos con esto</p>
+  <h2 class="title">Ahora alguien afirma que la media es 175</h2>
+  <div class="rule"></div>
+  <p class="lede">Volvemos a la primera muestra —<strong>170, 165 y 175</strong>, con x̄ = 170— y cambiamos el valor afirmado: ahora se sostiene que la media es <strong>175 cm</strong>.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>Las hipótesis y la cuenta</h3>
+        <div class="eq plain">H₀: μ = 175 &nbsp;·&nbsp; Hₐ: μ ≠ 175 &nbsp;·&nbsp; α = 0.05 &nbsp;·&nbsp; σ<sub>x̄</sub> = 4.0825</div>
+        <div class="eq plain" style="margin-top:10px">z = <span class="frac"><span>x̄ − μ₀</span><span class="den">σ<sub>x̄</sub></span></span> = <span class="frac"><span>170.00 − 175</span><span class="den">4.0825</span></span> = −1.2247</div>
+        <table style="margin-top:14px">
+          <thead><tr><th>Criterio</th><th>Comparación</th><th>Decisión</th></tr></thead>
+          <tbody>
+            <tr><td>Valor crítico</td><td>|−1.2247| &lt; 1.96</td><td>No se rechaza</td></tr>
+            <tr><td>Valor p</td><td>0.2207 &gt; 0.05</td><td>No se rechaza</td></tr>
+            <tr><td>Intervalo de la lámina 12</td><td>175 cae <strong>dentro</strong> de 162.00 a 178.00</td><td>No se rechaza</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Los tres criterios coinciden siempre. Son la misma comparación vista en la escala de z, en la de probabilidad y en la de centímetros.</p>
+      </div>
+      <div class="plot" style="margin-top:16px">
+        <h4>El resultado, en la escala de z</h4>
+        <p class="sub">Espejo de la lámina 13: el punto cambió de lado, pero la decisión es la misma</p>
+        <svg id="pz15" viewBox="0 0 660 300" role="img" aria-label="Curva normal estándar con la zona de rechazo y el estadístico observado"></svg>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>La regla, sin excepciones</h3>
+        <div class="eq plain" style="margin:4px 0 8px">valor p ≤ α → se rechaza H₀</div>
+        <div class="eq plain" style="margin:0 0 12px">valor p &gt; α → no se rechaza</div>
+        <p>Aquí <strong>0.2207 &gt; 0.05</strong>, así que no se rechaza. Es el mismo valor p de la lámina 13, y no es casualidad:</p>
+        <table style="margin:10px 0">
+          <thead><tr><th>Lámina</th><th class="num">x̄</th><th class="num">Afirmado</th><th class="num">Distancia</th></tr></thead>
+          <tbody>
+            <tr><td>13</td><td class="num">170</td><td class="num">165</td><td class="num">5 cm</td></tr>
+            <tr><td>15</td><td class="num">170</td><td class="num">175</td><td class="num">5 cm</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Misma distancia, mismo valor p. Pero allá la afirmación era verdadera y aquí es falsa. <strong>El valor p mide qué tan lejos cayó tu muestra del valor afirmado, y nada más</strong>: no sabe si ese valor es el correcto.</p>
+      </div>
+      <div class="card warn">
+        <h3>Aquí acabamos de cometer un error tipo II</h3>
+        <p>μ vale 165, así que <strong>H₀ era falsa</strong> por diez centímetros, y aun así no la rechazamos.</p>
+        <p>No hubo descuido. La afirmación estaba equivocada, pero con tres datos esa diferencia no es detectable. Un error tipo II casi nunca es culpa del investigador: suele ser culpa del tamaño de muestra.</p>
+      </div>
+      <div class="card key">
+        <h3>Las tres láminas, en la tabla de errores</h3>
+        <table>
+          <thead><tr><th>Lámina</th><th>H₀</th><th>Decisión</th><th>Resultado</th></tr></thead>
+          <tbody>
+            <tr><td>13</td><td>Verdadera</td><td>No rechazar</td><td>Correcta</td></tr>
+            <tr><td>14</td><td>Verdadera</td><td>Rechazar</td><td>Error tipo I</td></tr>
+            <tr><td>15</td><td>Falsa</td><td>No rechazar</td><td>Error tipo II</td></tr>
+          </tbody>
+        </table>
+        <p class="fine" style="margin-top:10px">Tres muestras del mismo grupo de cinco estudiantes bastaron para producir una decisión correcta y los dos tipos de error. En investigación real nunca sabes en cuál renglón estás parado.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -659,6 +960,57 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
       <h3>Qué se escribe en la tesis</h3>
       <p>Los supuestos se declaran <strong>antes</strong> de los resultados y se dice cómo se verificó cada uno. Un dictaminador que no encuentra esa declaración asume que no se revisó.</p>
       <p class="fine">Basta un párrafo: cómo se muestreó, por qué las observaciones son independientes, y qué evidencia sostiene la normalidad o la aproximación normal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 11b · EL VALOR CRÍTICO -->
+<section class="slide" data-label="El valor crítico">
+  <p class="eyebrow">Bloque 8 · <span class="tag">Concepto central</span></p>
+  <h2 class="title">De dónde sale el 1.96</h2>
+  <div class="rule"></div>
+  <p class="lede">La segunda pieza del intervalo es el <strong>valor crítico</strong>. Es el número que traduce «quiero 95 % de confianza» en «tengo que moverme tantos errores estándar a cada lado».</p>
+
+  <div class="ctrls" role="group" aria-label="Nivel de confianza">
+    <span style="font-size:14px;color:var(--ink-faint);margin-right:4px">Nivel de confianza:</span>
+    <button class="btn" data-vc="90">90 %</button>
+    <button class="btn on" data-vc="95">95 %</button>
+    <button class="btn" data-vc="99">99 %</button>
+  </div>
+
+  <div class="cols c2w">
+    <div class="plot">
+      <h4 id="vc-t">Distribución normal estándar · 95 % de confianza</h4>
+      <p class="sub" id="vc-s"></p>
+      <svg id="vcPlot" viewBox="0 0 640 270" role="img" aria-label="Curva normal estándar con las dos colas sombreadas y los valores críticos marcados"></svg>
+    </div>
+    <div class="cols">
+      <div class="card warn">
+        <h3>El subíndice no es lo que parece</h3>
+        <p>Con 95 % de confianza, el valor crítico se escribe <strong>z<sub>α/2</sub> = z<sub>0.025</sub></strong>, no z<sub>0.95</sub> ni z<sub>0.05</sub>.</p>
+        <p>El subíndice de z es <strong>el área que queda en la cola superior</strong>, no el nivel de confianza. Como el 5 % sobrante se reparte en dos colas iguales, a cada una le tocan 0.025, y ese 0.025 es el subíndice.</p>
+      </div>
+      <div class="card edge">
+        <h3>La cuenta, en tres pasos</h3>
+        <ol style="padding-left:1.15em;line-height:1.7">
+          <li>Confianza 95 % → <strong>α = 1 − 0.95 = 0.05</strong></li>
+          <li>Se reparte en dos colas → <strong>α/2 = 0.025</strong></li>
+          <li>El z que deja 0.025 arriba → <strong>1.96</strong></li>
+        </ol>
+        <p class="fine">Por eso el intervalo es x̄ ± 1.96 σ<sub>x̄</sub>: 1.96 errores estándar hacia cada lado dejan el 95 % del área en medio.</p>
+      </div>
+      <div class="card">
+        <h3>Los tres de siempre</h3>
+        <table>
+          <thead><tr><th>Confianza</th><th class="num">α</th><th class="num">α/2</th><th class="num">z<sub>α/2</sub></th></tr></thead>
+          <tbody>
+            <tr><td>90 %</td><td class="num">0.10</td><td class="num">0.050</td><td class="num">1.645</td></tr>
+            <tr><td>95 %</td><td class="num">0.05</td><td class="num">0.025</td><td class="num">1.960</td></tr>
+            <tr><td>99 %</td><td class="num">0.01</td><td class="num">0.005</td><td class="num">2.576</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Más confianza exige alejarse más del centro para abarcar más área, y por eso el intervalo se ensancha. En SPSS: <span class="mono">IDF.NORMAL(1 − α/2, 0, 1)</span>.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1516,9 +1868,9 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   <p class="hint">Pulsa un bloque para ir a él · <kbd>M</kbd> o <kbd>Esc</kbd> para volver</p>
   <div class="blocks">
     <button class="blk" data-go="0"><span class="k">Apertura</span><span class="t">Portada y ruta</span><span class="m">2 láminas · ~2 min</span></button>
-    <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">8 láminas · ~18 min</span></button>
-    <button class="blk" data-go="10"><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">10 láminas · ~48 min</span></button>
-    <button class="blk" data-go="20"><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">8 láminas · ~26 min</span></button>
+    <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">13 láminas · ~28 min</span></button>
+    <button class="blk" data-go="15"><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">11 láminas · ~50 min</span></button>
+    <button class="blk" data-go="26"><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">8 láminas · ~26 min</span></button>
   </div>
   <p class="src">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas · Septiembre 2026</p>
 </div>
@@ -1528,9 +1880,9 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   "use strict";
 
   var POB = {
-    A:[2,4,6,8,10],
-    B:[2,2,2,4,4,6,8,8,10,10,10],
-    C:[2,2,2,2,2,4,4,4,4,6,6,6,8,8,10]
+    A:[155,160,165,170,175],
+    B:[155,155,155,160,160,165,170,170,175,175,175],
+    C:[155,155,155,155,155,160,160,160,160,165,165,165,170,170,175]
   };
 
   function mediaDe(p){ return p.reduce(function(a,b){return a+b;},0) / p.length; }
@@ -1559,7 +1911,7 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
 
   /* ---------- matriz 5 x 5 ---------- */
   var tabla = document.getElementById("matrix");
-  var cab = "<tr><th class='corner'>1.ª visita ↓<br>2.ª visita →</th>";
+  var cab = "<tr><th class='corner'>1.ª extracción ↓<br>2.ª extracción →</th>";
   POB.A.forEach(function(v){ cab += "<th>" + v + "</th>"; });
   cab += "</tr>";
   var cuerpo = "";
@@ -1568,7 +1920,7 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
     POB.A.forEach(function(b){
       var med = (a + b) / 2;
       cuerpo += "<td><div class='cell' tabindex='0' role='button' data-m='" + med.toFixed(1) +
-                "' aria-label='Primera visita " + a + ", segunda visita " + b + ", media " + med + "'>" +
+                "' aria-label='Primera extracción " + a + " cm, segunda extracción " + b + " cm, media " + med + "'>" +
                 med + "</div></td>";
     });
     cuerpo += "</tr>";
@@ -1585,21 +1937,21 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   });
 
   /* ---------- dibujo ---------- */
-  var W = 640, H = 260, L = 46, R = 26, B = 46, T = 20;
+  var W = 640, H = 260, L = 46, R = 26, B = 46, T = 40;
 
   function marco(x, mu){
     var s = "<line class='axis' x1='" + L + "' y1='" + (H-B) + "' x2='" + (W-R) + "' y2='" + (H-B) + "'/>";
-    for (var t = 2; t <= 10; t += 2){
+    for (var t = 155; t <= 175; t += 5){
       s += "<line class='axis' x1='" + x(t) + "' y1='" + (H-B) + "' x2='" + x(t) + "' y2='" + (H-B+6) + "'/>";
       s += "<text class='tick' x='" + x(t) + "' y='" + (H-B+21) + "' text-anchor='middle'>" + t + "</text>";
     }
-    s += "<text class='tick' x='" + ((L+W-R)/2) + "' y='" + (H-6) + "' text-anchor='middle'>Empleados</text>";
+    s += "<text class='tick' x='" + ((L+W-R)/2) + "' y='" + (H-6) + "' text-anchor='middle'>Estatura (cm)</text>";
     var et = Math.abs(mu - Math.round(mu)) < 1e-9 ? mu.toFixed(0) : mu.toFixed(2);
     s += "<line class='muline' x1='" + x(mu) + "' y1='" + T + "' x2='" + x(mu) + "' y2='" + (H-B) + "'/>";
-    s += "<text class='mulabel' x='" + (x(mu)+7) + "' y='" + (T+11) + "'>μ = " + et + "</text>";
+    s += "<text class='mulabel' x='" + x(mu) + "' y='" + (T-13) + "' text-anchor='middle'>μ = " + et + "</text>";
     return s;
   }
-  function escala(){ return function(v){ return L + (v - 2) / 8 * (W - L - R); }; }
+  function escala(){ return function(v){ return L + (v - 155) / 20 * (W - L - R); }; }
 
   function puntos(svg, d, mu, total){
     var x = escala(), cuentas = d.probs.map(function(p){ return Math.round(p*total); });
@@ -1629,6 +1981,7 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   }
 
   /* poblaciones B y C, dibujadas como su propia distribución con n = 1 */
+  barras(document.getElementById("popA"), distribucion(POB.A,1), mediaDe(POB.A), true);
   barras(document.getElementById("popB"), distribucion(POB.B,1), mediaDe(POB.B), true);
   barras(document.getElementById("popC"), distribucion(POB.C,1), mediaDe(POB.C), true);
 
@@ -1712,8 +2065,8 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
     else if (e.key === "t" || e.key === "T"){ tema(); }
     else if (e.key === "f" || e.key === "F"){ pantalla(); }
     else if (e.key === "7"){ ir(2); alternarMenu(false); }
-    else if (e.key === "8"){ ir(10); alternarMenu(false); }
-    else if (e.key === "9"){ ir(20); alternarMenu(false); }
+    else if (e.key === "8"){ ir(15); alternarMenu(false); }
+    else if (e.key === "9"){ ir(26); alternarMenu(false); }
   });
 
 
@@ -1752,6 +2105,229 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       dibujarIC(Number(b.dataset.conf));
     });
   });
+
+
+  /* ---------- curva del error estandar ---------- */
+  (function(){
+    var svg = document.getElementById("eeCurve");
+    if (!svg) return;
+    var SG = 7.0711, W = 640, H = 250, L = 52, R = 24, B = 44, T = 20;
+    var nMax = 50, yMax = 8;
+    var X = function(n){ return L + (n - 1) / (nMax - 1) * (W - L - R); };
+    var Y = function(v){ return (H - B) - v / yMax * (H - B - T); };
+    var s = "";
+    for (var g = 0; g <= 8; g += 2){
+      var yy = Y(g);
+      s += "<line x1='" + L + "' y1='" + yy + "' x2='" + (W-R) + "' y2='" + yy +
+           "' stroke='var(--rule)' stroke-width='1'/>";
+      s += "<text class='tick' x='" + (L-9) + "' y='" + (yy+4) + "' text-anchor='end'>" + g + "</text>";
+    }
+    [1,10,20,30,40,50].forEach(function(n){
+      s += "<text class='tick' x='" + X(n) + "' y='" + (H-B+21) + "' text-anchor='middle'>" + n + "</text>";
+    });
+    s += "<text class='tick' x='" + ((L+W-R)/2) + "' y='" + (H-6) + "' text-anchor='middle'>Tamaño de muestra (n) · error estándar en cm</text>";
+    var d = "";
+    for (var n = 1; n <= nMax; n += 0.25){
+      d += (d ? " L" : "M") + X(n).toFixed(1) + " " + Y(SG/Math.sqrt(n)).toFixed(1);
+    }
+    s += "<path d='" + d + "' fill='none' stroke='var(--accent)' stroke-width='3' stroke-linecap='round'/>";
+    [[1,"7.07"],[2,"5.00"],[5,"3.16"],[10,"2.24"],[30,"1.29"]].forEach(function(p){
+      var n = p[0], v = SG/Math.sqrt(n);
+      s += "<circle cx='" + X(n).toFixed(1) + "' cy='" + Y(v).toFixed(1) + "' r='5.5' fill='var(--gold)'/>";
+      s += "<text class='tick' x='" + (X(n)+9).toFixed(1) + "' y='" + (Y(v)-9).toFixed(1) +
+           "' style='font-weight:700'>" + p[1] + "</text>";
+    });
+    svg.innerHTML = s;
+  })();
+
+  /* ---------- curva normal con las colas sombreadas ---------- */
+  (function(){
+    var svg = document.getElementById("vcPlot");
+    if (!svg) return;
+    var Z = { 90:1.645, 95:1.960, 99:2.576 };
+    var W = 640, H = 270, L = 30, R = 30, B = 52, T = 26;
+    var zLo = -3.6, zHi = 3.6;
+    var X = function(z){ return L + (z - zLo) / (zHi - zLo) * (W - L - R); };
+    var phi = function(z){ return Math.exp(-z*z/2) / Math.sqrt(2*Math.PI); };
+    var base = H - B, alto = base - T;
+    var Y = function(p){ return base - p / phi(0) * alto; };
+
+    function tramo(a, b){
+      var d = "M" + X(a).toFixed(1) + " " + base;
+      for (var z = a; z <= b + 1e-9; z += 0.02) d += " L" + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+      return d + " L" + X(b).toFixed(1) + " " + base + " Z";
+    }
+
+    function pinta(nivel){
+      var zc = Z[nivel], a = (100 - nivel) / 100;
+      var s = "";
+      s += "<path d='" + tramo(-zc, zc) + "' fill='var(--accent)' opacity='.14'/>";
+      s += "<path d='" + tramo(zLo, -zc) + "' fill='var(--amber)' opacity='.5'/>";
+      s += "<path d='" + tramo(zc, zHi) + "' fill='var(--amber)' opacity='.5'/>";
+      var d = "";
+      for (var z = zLo; z <= zHi + 1e-9; z += 0.02) d += (d ? " L" : "M") + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+      s += "<path d='" + d + "' fill='none' stroke='var(--accent)' stroke-width='2.5'/>";
+      s += "<line x1='" + L + "' y1='" + base + "' x2='" + (W-R) + "' y2='" + base + "' class='axis'/>";
+      [-3,-2,-1,0,1,2,3].forEach(function(z){
+        s += "<text class='tick' x='" + X(z) + "' y='" + (base+20) + "' text-anchor='middle'>" + z + "</text>";
+      });
+      [-zc, zc].forEach(function(z){
+        s += "<line x1='" + X(z) + "' y1='" + Y(phi(z)) + "' x2='" + X(z) + "' y2='" + base +
+             "' stroke='var(--amber)' stroke-width='2.5'/>";
+        s += "<text x='" + X(z) + "' y='" + (base+40) + "' text-anchor='middle' " +
+             "style='fill:var(--amber-ink);font-size:14px;font-weight:700;font-family:var(--sans)'>" +
+             (z < 0 ? "\u2212" : "+") + zc.toFixed(3) + "</text>";
+      });
+      s += "<text x='" + X(0) + "' y='" + (T + 46) + "' text-anchor='middle' " +
+           "style='fill:var(--accent);font-size:17px;font-weight:800;font-family:var(--sans)'>" +
+           "1 \u2212 \u03b1 = " + nivel + " %</text>";
+      [[-1, (zLo + -zc)/2], [1, (zc + zHi)/2]].forEach(function(par){
+        s += "<text x='" + X(par[1]) + "' y='" + (base - 26) + "' text-anchor='middle' " +
+             "style='fill:var(--amber-ink);font-size:13px;font-weight:700;font-family:var(--sans)'>" +
+             "\u03b1/2 = " + (a/2).toFixed(3) + "</text>";
+      });
+      svg.innerHTML = s;
+      document.getElementById("vc-t").textContent =
+        "Distribución normal estándar · " + nivel + " % de confianza";
+      document.getElementById("vc-s").textContent =
+        "El área azul es la confianza; las dos naranjas suman \u03b1 = " + a.toFixed(2) +
+        " \u00b7 valor crítico z" + (a/2).toFixed(3) + " = " + zc.toFixed(3);
+    }
+    pinta(95);
+    Array.prototype.forEach.call(document.querySelectorAll("[data-vc]"), function(b){
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(document.querySelectorAll("[data-vc]"), function(o){ o.classList.remove("on"); });
+        b.classList.add("on");
+        pinta(Number(b.dataset.vc));
+      });
+    });
+  })();
+
+
+  /* ---------- curva normal compacta, fija al 95 % ---------- */
+  (function(){
+    var svg = document.getElementById("ic95Plot");
+    if (!svg) return;
+    var zc = 1.96, W = 560, H = 210, L = 24, R = 24, B = 46, T = 22;
+    var zLo = -3.4, zHi = 3.4;
+    var X = function(z){ return L + (z - zLo) / (zHi - zLo) * (W - L - R); };
+    var phi = function(z){ return Math.exp(-z*z/2) / Math.sqrt(2*Math.PI); };
+    var base = H - B, alto = base - T;
+    var Y = function(p){ return base - p / phi(0) * alto; };
+    function tramo(a, b){
+      var d = "M" + X(a).toFixed(1) + " " + base;
+      for (var z = a; z <= b + 1e-9; z += 0.03) d += " L" + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+      return d + " L" + X(b).toFixed(1) + " " + base + " Z";
+    }
+    var s = "";
+    s += "<path d='" + tramo(-zc, zc) + "' fill='var(--accent)' opacity='.15'/>";
+    s += "<path d='" + tramo(zLo, -zc) + "' fill='var(--amber)' opacity='.5'/>";
+    s += "<path d='" + tramo(zc, zHi) + "' fill='var(--amber)' opacity='.5'/>";
+    var d = "";
+    for (var z = zLo; z <= zHi + 1e-9; z += 0.03) d += (d ? " L" : "M") + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+    s += "<path d='" + d + "' fill='none' stroke='var(--accent)' stroke-width='2.2'/>";
+    s += "<line x1='" + L + "' y1='" + base + "' x2='" + (W-R) + "' y2='" + base + "' class='axis'/>";
+    [-zc, zc].forEach(function(z){
+      s += "<line x1='" + X(z) + "' y1='" + Y(phi(z)) + "' x2='" + X(z) + "' y2='" + base +
+           "' stroke='var(--amber)' stroke-width='2.2'/>";
+      s += "<text x='" + X(z) + "' y='" + (base+22) + "' text-anchor='middle' " +
+           "style='fill:var(--amber-ink);font-size:14px;font-weight:700;font-family:var(--sans)'>" +
+           (z < 0 ? "\u2212" : "+") + "1.96</text>";
+    });
+    s += "<text x='" + X(0) + "' y='" + (T+40) + "' text-anchor='middle' " +
+         "style='fill:var(--accent);font-size:22px;font-weight:800;font-family:var(--sans)'>95 % = 0.95</text>";
+    [-2.65, 2.65].forEach(function(z){
+      s += "<text x='" + X(z) + "' y='" + (base-24) + "' text-anchor='middle' " +
+           "style='fill:var(--amber-ink);font-size:12.5px;font-weight:700;font-family:var(--sans)'>0.025</text>";
+    });
+    svg.innerHTML = s;
+  })();
+
+
+  /* ---------- prueba z bilateral: curva, zona de rechazo y estadístico ---------- */
+  (function(){
+    var W = 660, H = 300, L = 26, R = 26, base = 212, T = 44;
+    var zLo = -3.5, zHi = 3.5, ZC = 1.96;
+    var X = function(z){ return L + (z - zLo) / (zHi - zLo) * (W - L - R); };
+    var phi = function(z){ return Math.exp(-z*z/2) / Math.sqrt(2*Math.PI); };
+    var Y = function(p){ return base - p / phi(0) * (base - T); };
+
+    function area(a, b){
+      var d = "M" + X(a).toFixed(1) + " " + base;
+      for (var z = a; z <= b + 1e-9; z += 0.02) d += " L" + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+      return d + " L" + X(b).toFixed(1) + " " + base + " Z";
+    }
+
+    function dibuja(id, zobs, cola, rechaza){
+      var svg = document.getElementById(id);
+      if (!svg) return;
+      var za = Math.abs(zobs), s = "";
+
+      /* área del valor p, en las dos colas */
+      s += "<path d='" + area(zLo, -za) + "' fill='var(--amber)' opacity='.55'/>";
+      s += "<path d='" + area(za, zHi) + "' fill='var(--amber)' opacity='.55'/>";
+
+      /* curva y eje */
+      var d = "";
+      for (var z = zLo; z <= zHi + 1e-9; z += 0.02) d += (d ? " L" : "M") + X(z).toFixed(1) + " " + Y(phi(z)).toFixed(1);
+      s += "<path d='" + d + "' fill='none' stroke='var(--accent)' stroke-width='2.5'/>";
+      s += "<line x1='" + L + "' y1='" + base + "' x2='" + (W-R) + "' y2='" + base + "' class='axis'/>";
+
+      /* valores críticos */
+      [-ZC, ZC].forEach(function(z){
+        s += "<line x1='" + X(z) + "' y1='" + Y(phi(z)) + "' x2='" + X(z) + "' y2='" + base +
+             "' stroke='var(--gold)' stroke-width='2' stroke-dasharray='5 4'/>";
+        s += "<text x='" + X(z) + "' y='" + (Y(phi(z)) - 8) + "' text-anchor='middle' " +
+             "style='fill:var(--gold);font-size:12.5px;font-weight:700;font-family:var(--sans)'>" +
+             (z < 0 ? "\u22121.96" : "+1.96") + "</text>";
+      });
+
+      /* estadístico observado */
+      s += "<line x1='" + X(zobs) + "' y1='" + Y(phi(zobs)) + "' x2='" + X(zobs) + "' y2='" + (base + 10) +
+           "' stroke='var(--accent)' stroke-width='3.5'/>";
+      s += "<circle cx='" + X(zobs) + "' cy='" + Y(phi(zobs)) + "' r='6' fill='var(--accent)'/>";
+      s += "<text x='" + X(zobs) + "' y='" + (Y(phi(zobs)) - 32) + "' text-anchor='middle' " +
+           "style='fill:var(--accent);font-size:17px;font-weight:800;font-family:var(--sans)'>z = " +
+           (zobs < 0 ? "\u2212" : "+") + za.toFixed(4) + "</text>";
+      s += "<text x='" + X(zobs) + "' y='" + (Y(phi(zobs)) - 15) + "' text-anchor='middle' " +
+           "style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>estadístico observado</text>";
+
+      /* etiquetas de las dos colas */
+      [[-1, (zLo - za)/2 - 0.15], [1, (za + zHi)/2 + 0.15]].forEach(function(par){
+        s += "<text x='" + X(par[1]) + "' y='" + (base - 16) + "' text-anchor='middle' " +
+             "style='fill:var(--amber-ink);font-size:13px;font-weight:700;font-family:var(--sans)'>" + cola + "</text>";
+      });
+
+      /* marcas del eje */
+      [-3,-2,-1,0,1,2,3].forEach(function(z){
+        s += "<text x='" + X(z) + "' y='" + (base + 26) + "' text-anchor='middle' " +
+             "style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>" + z + "</text>";
+      });
+
+      /* zona de rechazo, dibujada aparte bajo el eje */
+      var yb = base + 44;
+      s += "<line x1='" + L + "' y1='" + yb + "' x2='" + X(-ZC) + "' y2='" + yb +
+           "' stroke='var(--amber)' stroke-width='7' stroke-linecap='round'/>";
+      s += "<line x1='" + X(ZC) + "' y1='" + yb + "' x2='" + (W-R) + "' y2='" + yb +
+           "' stroke='var(--amber)' stroke-width='7' stroke-linecap='round'/>";
+      s += "<line x1='" + X(-ZC) + "' y1='" + yb + "' x2='" + X(ZC) + "' y2='" + yb +
+           "' stroke='var(--rule)' stroke-width='7' stroke-linecap='round'/>";
+      s += "<text x='" + X(0) + "' y='" + (yb + 24) + "' text-anchor='middle' " +
+           "style='fill:var(--ink-faint);font-size:12.5px;font-family:var(--sans)'>no se rechaza H\u2080</text>";
+      s += "<text x='" + ((L + X(-ZC))/2) + "' y='" + (yb + 24) + "' text-anchor='middle' " +
+           "style='fill:var(--amber-ink);font-size:12.5px;font-weight:700;font-family:var(--sans)'>zona de rechazo</text>";
+      s += "<text x='" + ((X(ZC) + W - R)/2) + "' y='" + (yb + 24) + "' text-anchor='middle' " +
+           "style='fill:var(--amber-ink);font-size:12.5px;font-weight:700;font-family:var(--sans)'>zona de rechazo</text>";
+
+      /* dónde cayó */
+      s += "<circle cx='" + X(zobs) + "' cy='" + yb + "' r='7' fill='var(--accent)' stroke='var(--surface)' stroke-width='2.5'/>";
+      svg.innerHTML = s;
+    }
+
+    dibuja("pz13",  1.224745, "0.1103", false);
+    dibuja("pz14",  2.041241, "0.0206", true);
+    dibuja("pz15", -1.224745, "0.1103", false);
+  })();
 
   var h = /^#d(\d+)$/.exec(location.hash);
   ir(h ? Number(h[1]) : 0);
