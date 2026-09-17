@@ -206,7 +206,7 @@ pre.code{font-family:var(--mono);font-size:clamp(11.5px,1.02vw,13.5px);line-heig
   border-radius:5px;display:inline-block}
 .lectura .no{background:var(--accent-soft);color:var(--accent-2)}
 .lectura .si{background:var(--amber-soft);color:var(--amber-ink)}
-#pz13,#pz14,#pz15,#ic95Plot{touch-action:none;cursor:ew-resize}
+#pz13,#pz14,#pz15,#ic95Plot,#htPlot{touch-action:none;cursor:ew-resize}
 input[type=range]{accent-color:var(--accent);height:26px}
 .card.formula{padding:13px 18px}
 @media (max-width:760px){.plot.corto svg{max-width:100%}}
@@ -249,9 +249,9 @@ input[type=range]{accent-color:var(--accent);height:26px}
         <thead><tr><th>Bloque</th><th>Contenido</th><th class="num">Min</th></tr></thead>
         <tbody>
           <tr><td><strong>7</strong></td><td>Muestreo y distribuciones muestrales</td><td class="num">18</td></tr>
-          <tr><td><strong>8</strong></td><td>Intervalos de confianza <span class="mono">SPSS 1–3</span></td><td class="num">36</td></tr>
+          <tr><td><strong>8</strong></td><td>Intervalos de confianza <span class="mono">SPSS 1–4</span></td><td class="num">45</td></tr>
           <tr><td><strong>8b</strong></td><td>Tamaño de muestra <span class="mono">SurveyMonkey</span></td><td class="num">10</td></tr>
-          <tr><td><strong>9</strong></td><td>Prueba de hipótesis <span class="mono">SPSS 4–8</span></td><td class="num">26</td></tr>
+          <tr><td><strong>9</strong></td><td>Prueba de hipótesis <span class="mono">SPSS 5–10</span></td><td class="num">30</td></tr>
         </tbody>
       </table>
       <p class="src">Anderson, Sweeney y Williams · capítulos 7, 8 y 9</p>
@@ -1106,7 +1106,7 @@ input[type=range]{accent-color:var(--accent);height:26px}
         <h3>Cuándo se puede suponer σ conocida</h3>
         <p>Cuando existe una desviación estándar poblacional establecida de antemano para un proceso estable y ya caracterizado, como aquí. Ojo con el matiz: los datos históricos normalmente permiten <em>estimar</em> σ, no conocerla literalmente. El libro presenta este caso primero porque la lógica se ve más limpia con la normal que con la t.</p>
       </div>
-      <p class="src">Anderson, sección 8.1 · archivo Lloyd's.sav</p>
+      <p class="src">Anderson, sección 8.1 · archivo 8_Lloyd_s.xlsx</p>
     </div>
   </div>
 </section>
@@ -1126,19 +1126,20 @@ input[type=range]{accent-color:var(--accent);height:26px}
     <div class="card spss">
       <h3>Paso 1 · Abrir una ventana de sintaxis</h3>
       <ol style="padding-left:1.15em;line-height:1.6">
-        <li>Abre <span class="mono">Lloyds.sav</span>.</li>
+        <li>Abre <span class="mono">8_Lloyd_s.xlsx</span>.</li>
         <li>Ve a <span class="mono">Archivo &gt; Nuevo &gt; Sintaxis</span>. Se abre una ventana en blanco.</li>
         <li>Copia el código de la derecha tal cual.</li>
         <li>Ejecuta con <span class="mono">Ejecutar &gt; Todo</span>, o con el triángulo verde de la barra.</li>
       </ol>
+      <p class="fine"><a href="docs/8_Lloyd_s.xlsx" download>⤓ Descargar 8_Lloyd_s.xlsx</a></p>
       <p class="fine">La ventana de sintaxis es el equivalente en SPSS a escribir la fórmula a mano. Todo lo que hacen los menús se puede escribir aquí, y queda registrado para que otro pueda reproducir tu trabajo.</p>
-      <p class="fine" style="color:var(--amber-ink)"><strong>Nombre provisional:</strong> <span class="mono">Cantidad</span> es el nombre que usa el libro. Confirma en Vista de variables cómo se llama realmente y cámbialo en las tres líneas de la sintaxis.</p>
+      <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> al importar desde Excel, SPSS convierte el espacio de «Amount Spent» en un guion bajo, así que la variable queda como <span class="mono">Amount_Spent</span>. Verifícalo en Vista de variables.</p>
     </div>
     <div class="card spss">
       <h3>Paso 2 · El código</h3>
       <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
-  /XBARRA = MEAN(Cantidad)
-  /NCASOS = NU(Cantidad).
+  /XBARRA = MEAN(Amount_Spent)
+  /NCASOS = NU(Amount_Spent).
 
 COMPUTE EE     = 20 / SQRT(NCASOS).
 COMPUTE ZCRIT  = IDF.NORMAL(0.975, 0, 1).
@@ -1224,7 +1225,55 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
       <p>En SPSS se revisa dentro del mismo cuadro de Explorar: en <strong>Gráficos…</strong> se marca <em>Histograma</em> y <em>Gráficos con pruebas de normalidad</em>. No se busca una campana perfecta —con 20 datos ninguno lo es—, sino que <strong>no haya sesgo marcado ni valores atípicos</strong>. Si el gráfico Q-Q muestra los puntos curvándose lejos de la diagonal, hay que reportarlo y considerar otro método.</p>
     </div>
   </div>
-  <p class="src">Anderson, sección 8.2 · archivo NewBalance.sav</p>
+  <p class="src">Anderson, sección 8.2 · archivo 8_NewBalance.xlsx</p>
+</section>
+
+<!-- 14b · Z FRENTE A T -->
+<section class="slide" data-label="La distribución t frente a la normal">
+  <p class="eyebrow">Bloque 8 · <span class="tag">Concepto central</span></p>
+  <h2 class="title">Qué tan distinta es la t de la normal</h2>
+  <div class="rule"></div>
+  <p class="lede">La t no es una distribución sino una familia: hay una por cada número de grados de libertad. Mueve el control y observa cómo se transforma.</p>
+
+  <div class="ctrls" role="group" aria-label="Grados de libertad">
+    <span class="chip">interactivo</span>
+    <span style="font-size:14px;color:var(--ink-faint)">Grados de libertad:</span>
+    <input type="range" id="gl-rng" min="1" max="120" step="1" value="5"
+           aria-label="Grados de libertad" style="flex:1;min-width:140px">
+    <button class="btn" data-gl="1">1</button>
+    <button class="btn on" data-gl="5">5</button>
+    <button class="btn" data-gl="19">19</button>
+    <button class="btn" data-gl="30">30</button>
+    <button class="btn" data-gl="120">120</button>
+  </div>
+
+  <div class="cols c2w">
+    <div>
+      <div class="plot">
+        <h4 id="gl-t">Distribución t con 5 grados de libertad, sobre la normal</h4>
+        <p class="sub" id="gl-s"></p>
+        <svg id="glPlot" viewBox="0 0 660 300" role="img" aria-label="Curva t superpuesta a la curva normal estándar"></svg>
+      </div>
+      <div class="lectura" id="gl-out" style="border-top:none;margin-top:2px"></div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>Qué es lo que cambia</h3>
+        <p>La t es <strong>más baja en el centro y más gruesa en las colas</strong>. Esa cola gruesa obliga a alejarse más para abarcar el 95 %, y por eso su valor crítico siempre supera al 1.96 de la normal.</p>
+        <p class="fine">Con 1 grado de libertad el valor crítico es 12.71: el intervalo saldría más de seis veces más ancho que con la normal.</p>
+      </div>
+      <div class="card warn">
+        <h3>Por qué las colas engordan</h3>
+        <p>Con la normal das por conocida la dispersión. Con la t la estimas con <em>s</em>, y <em>s</em> también varía de muestra en muestra.</p>
+        <p>A veces <em>s</em> sale más chica que σ y el cociente se dispara. Esos casos extremos, que la normal no contempla, son los que engordan las colas.</p>
+      </div>
+      <div class="card key">
+        <h3>Y cuándo deja de importar</h3>
+        <p>Súbele a 30 y la diferencia casi no se ve; a 120 las dos curvas se encinan. Conforme crecen los grados de libertad, <em>s</em> estima cada vez mejor a σ y el castigo se desvanece.</p>
+        <p class="fine">Esa convergencia es la razón de que el libro diga que con más de 100 grados de libertad el valor z sirve de aproximación.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- 15 · EJERCICIO SPSS 2 -->
@@ -1238,14 +1287,15 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
     <div class="card spss">
       <h3>El procedimiento</h3>
       <ol style="padding-left:1.15em;line-height:1.65">
-        <li>Abre <span class="mono">NewBalance.sav</span>.</li>
+        <li>Abre <span class="mono">8_NewBalance.xlsx</span>.</li>
         <li><span class="mono">Analizar &gt; Estadísticos descriptivos &gt; Explorar…</span></li>
         <li>Pasa <span class="mono">NewBalance</span> a <em>Lista de dependientes</em>.</li>
         <li>Entra a <strong>Estadísticos…</strong> y confirma <em>Descriptivos</em> con <em>Intervalo de confianza para la media</em> en <strong>95 %</strong>. Continuar.</li>
         <li>En <em>Mostrar</em> elige <strong>Estadísticos</strong>, para que la salida no se llene de gráficos.</li>
         <li><strong>Aceptar.</strong></li>
       </ol>
-      <p class="fine" style="color:var(--amber-ink)"><strong>Nombre provisional:</strong> <span class="mono">NewBalance</span> es el nombre del libro. Verifica el real antes de la sesión.</p>
+      <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">NewBalance</span>, igual que el archivo.</p>
+      <p class="fine"><a href="docs/8_NewBalance.xlsx" download>⤓ Descargar 8_NewBalance.xlsx</a></p>
     </div>
     <div class="card">
       <h3>Verifica tu resultado</h3>
@@ -1281,6 +1331,80 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
         </tbody>
       </table>
       <p class="fine">Pasar de 90 % a 99 % ensancha el intervalo un 59 % sin agregar un solo dato.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 17b · EJERCICIO SPSS 3 · SCHEER -->
+<section class="slide" data-label="Ejercicio SPSS 3 · muestra pequeña">
+  <p class="eyebrow">Bloque 8 · <span class="tag">Ejercicio guiado 3</span> · Todos al mismo tiempo</p>
+  <h2 class="title">Scheer Industries: veinte empleados</h2>
+  <div class="rule"></div>
+  <p class="lede">Scheer evalúa un programa de capacitación asistida por computadora. Veinte empleados lo completaron y se registró cuántos días necesitó cada uno. Aquí la muestra es chica, así que el supuesto de normalidad sí hay que revisarlo.</p>
+
+  <div class="cols c2">
+    <div class="card spss">
+      <h3>El procedimiento</h3>
+      <ol style="padding-left:1.15em;line-height:1.65">
+        <li>Importa <span class="mono">8_Scheer.xlsx</span>, hoja <span class="mono">Data</span>.</li>
+        <li><span class="mono">Analizar &gt; Estadísticos descriptivos &gt; Explorar…</span> con <span class="mono">Days</span> en <em>Lista de dependientes</em>.</li>
+        <li>Entra a <strong>Gráficos…</strong> y marca <strong>Histograma</strong> y <strong>Gráficos con pruebas de normalidad</strong>. Continuar.</li>
+        <li>En <em>Mostrar</em> elige <strong>Ambos</strong>, para ver estadísticos y gráficos.</li>
+        <li><strong>Aceptar.</strong></li>
+      </ol>
+      <p class="fine">El orden importa: primero se revisa el supuesto, después se lee el intervalo. Al revés no tiene sentido.</p>
+      <p class="fine"><a href="docs/8_Scheer.xlsx" download>⤓ Descargar 8_Scheer.xlsx</a></p>
+    </div>
+    <div class="card spss" style="margin-top:16px">
+      <h3>Minitab · el mismo intervalo</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li>Para el supuesto: <span class="mono">Stat &gt; Basic Statistics &gt; Normality Test…</span> con <span class="mono">Days</span>. Da el gráfico de probabilidad normal y la prueba de Anderson-Darling.</li>
+        <li>Para el intervalo: <span class="mono">Stat &gt; Basic Statistics &gt; 1-Sample t…</span> con <span class="mono">Days</span>.</li>
+        <li>Deja <strong>sin marcar</strong> <em>Perform hypothesis test</em>: aquí solo queremos estimar.</li>
+        <li><span class="mono">Options…</span> → <em>Confidence level</em> <strong>95</strong>, <em>Alternative hypothesis</em> «Mean ≠ hypothesized mean». OK y OK.</li>
+      </ol>
+      <p>Devuelve N = 20, Mean = 51.50, StDev = 6.84, SE Mean = 1.53 y el intervalo <span class="mono">(48.30, 54.70)</span>.</p>
+      <p class="fine">Minitab junta en una sola corrida lo que en SPSS son dos cuadros distintos, y además nombra la prueba de normalidad que aplicó.</p>
+    </div>
+    <div class="card">
+      <h3>Verifica tu resultado</h3>
+      <table>
+        <thead><tr><th>Estadístico</th><th class="num">Valor</th></tr></thead>
+        <tbody>
+          <tr><td>Media</td><td class="num">51.50</td></tr>
+          <tr><td>Límite inferior 95 %</td><td class="num">48.30</td></tr>
+          <tr><td>Límite superior 95 %</td><td class="num">54.70</td></tr>
+          <tr><td>Desviación estándar</td><td class="num">6.8403</td></tr>
+          <tr><td>Error estándar</td><td class="num">1.5295</td></tr>
+        </tbody>
+      </table>
+      <p class="fine"><strong>Supuestos:</strong> muestreo aleatorio, independencia y normalidad. Con n = 20 el Teorema del Límite Central ya no basta, así que la normalidad se verifica con el histograma y el gráfico Q-Q de la misma salida. No se busca una campana perfecta —con veinte datos ninguna lo es— sino que no haya sesgo marcado ni valores atípicos.</p>
+    </div>
+  </div>
+
+  <div class="cols c2w" style="margin-top:18px">
+    <div class="plot">
+      <h4 id="sch-t">Intervalo de confianza del 95 % &nbsp;<span class="chip">interactivo</span></h4>
+      <p class="sub" id="sch-s"></p>
+      <svg id="schPlot" viewBox="0 0 660 160" role="img" aria-label="Intervalo de confianza dibujado sobre una recta de días"></svg>
+      <div class="lectura" id="sch-out"></div>
+      <div class="ctrls" style="margin:10px 0 4px;align-items:center">
+        <span style="font-size:13px;color:var(--ink-faint)">Confianza:</span>
+        <input type="range" id="sch-rng" min="80" max="99.5" step="0.5" value="95"
+               aria-label="Nivel de confianza" style="flex:1;min-width:150px">
+        <button class="btn" id="sch-reset">Volver al 95 %</button>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card warn">
+        <h3>Aquí el valor crítico es t, no z</h3>
+        <p>Con 19 grados de libertad, t vale <strong>2.0930</strong> al 95 %, contra 1.96 de la normal. Usar z habría dado un margen de 3.00 días en lugar de 3.20: casi un cuarto de día de subestimación.</p>
+        <p class="fine">Parece poco, pero es el tipo de diferencia que decide si un valor queda dentro o fuera del intervalo.</p>
+      </div>
+      <div class="card key">
+        <h3>Mueve la confianza</h3>
+        <p>Al 90 % el intervalo mide 5.29 días; al 99 %, 8.75. Con los mismos veinte empleados, exigir más certeza cuesta tres días y medio de precisión.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1325,14 +1449,14 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
         <h3>El margen de error de las encuestas</h3>
         <p>Cuando una nota periodística dice «margen de error de ±3 %», el número viene de esta misma lógica, casi siempre al 95 % y suponiendo p̄ = 0.5, que es el caso más desfavorable.</p><p class="fine">En encuestas reales la cuenta suele ser más complicada: intervienen ponderaciones, conglomerados, efectos de diseño y corrección por población finita. Pero la estructura de fondo es la que acabas de ver.</p>
       </div>
-      <p class="src">Anderson, sección 8.4 · archivo TeeTimes.sav</p>
+      <p class="src">Anderson, sección 8.4 · archivo 8_TeeTimes_golf.xlsx</p>
     </div>
   </div>
 </section>
 
 <!-- 19 · EJERCICIO SPSS 5 -->
-<section class="slide" data-label="Ejercicio SPSS 3 · Proporción">
-  <p class="eyebrow">Bloque 8 · <span class="tag">Ejercicio guiado 3</span> · Todos al mismo tiempo</p>
+<section class="slide" data-label="Ejercicio SPSS 4 · Proporción">
+  <p class="eyebrow">Bloque 8 · <span class="tag">Ejercicio guiado 4</span> · Todos al mismo tiempo</p>
   <h2 class="title">Proporción en SPSS 25</h2>
   <div class="rule"></div>
 
@@ -1346,11 +1470,12 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
     <div class="card spss">
       <h3>SPSS · paso 1 · la estimación puntual</h3>
       <ol style="padding-left:1.15em;line-height:1.6">
-        <li>Abre <span class="mono">TeeTimes.sav</span>.</li>
-        <li><span class="mono">Analizar &gt; Estadísticos descriptivos &gt; Frecuencias…</span> con <span class="mono">Satisfecha</span>.</li>
-        <li><strong>Aceptar.</strong> Debes ver <strong>396</strong> respuestas afirmativas, el <strong>44.0 %</strong>.</li>
+        <li>Importa <span class="mono">8_TeeTimes_golf.xlsx</span>, hoja <span class="mono">Data</span>.</li>
+        <li><span class="mono">Analizar &gt; Estadísticos descriptivos &gt; Frecuencias…</span> con <span class="mono">Response</span>.</li>
+        <li><strong>Aceptar.</strong> Debes ver <strong>396</strong> respuestas <span class="mono">Yes</span>, el <strong>44.0 %</strong>, y 504 <span class="mono">No</span>.</li>
       </ol>
-      <p class="fine" style="color:var(--amber-ink)"><strong>Nombre provisional:</strong> <span class="mono">Satisfecha</span> es el nombre del libro. Además de verificarlo, confirma que esté codificada <strong>1 para sí y 0 para no</strong>: la sintaxis del paso 2 depende de las dos cosas.</p>
+      <p class="fine"><a href="docs/8_TeeTimes_golf.xlsx" download>⤓ Descargar 8_TeeTimes_golf.xlsx</a></p>
+      <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Response</span> y es <strong>de texto</strong>, con valores <span class="mono">Yes</span> y <span class="mono">No</span>. No está codificada 1 y 0, así que la sintaxis del paso 2 tiene que convertirla primero.</p>
     </div>
     <div class="card spss">
       <h3>Minitab · en un solo cuadro</h3>
@@ -1366,9 +1491,12 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZCRIT LIMINF LIMSUP
     </div>
     <div class="card spss">
       <h3>Paso 2 · El intervalo</h3>
-      <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
-  /PBARRA = MEAN(Satisfecha)
-  /NCASOS = NU(Satisfecha).
+      <pre class="code">COMPUTE Sat = (Response = "Yes").
+EXECUTE.
+
+AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
+  /PBARRA = MEAN(Sat)
+  /NCASOS = NU(Sat).
 
 COMPUTE EE     = SQRT(PBARRA*(1-PBARRA)/NCASOS).
 COMPUTE ZCRIT  = IDF.NORMAL(0.975, 0, 1).
@@ -1378,6 +1506,7 @@ EXECUTE.
 
 DESCRIPTIVES VARIABLES=PBARRA EE LIMINF LIMSUP
   /STATISTICS=MEAN.</pre>
+      <p class="fine">La primera línea convierte el texto en 1 y 0. Respeta mayúsculas y minúsculas: <span class="mono">"Yes"</span> con Y mayúscula, tal como viene en el archivo.</p>
     </div>
   </div>
 
@@ -1457,6 +1586,62 @@ DESCRIPTIVES VARIABLES=PBARRA EE LIMINF LIMSUP
     <div class="card edge">
       <h3>Cuando no tienes p* previo</h3>
       <p>Se usa <strong>p* = 0.50</strong>, que maximiza p(1 − p) y por tanto el tamaño requerido. Es la elección conservadora: garantiza el margen prometido sea cual sea la proporción real. En el ejemplo de las golfistas pide <strong>1 537</strong> en lugar de 1 515: veintidós cuestionarios más a cambio de no depender de un supuesto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 20b · DE DÓNDE SALE LA FÓRMULA -->
+<section class="slide" data-label="De dónde sale la fórmula del tamaño de muestra">
+  <p class="eyebrow">Bloque 8 · <span class="tag">Cierre</span></p>
+  <h2 class="title">La fórmula no se memoriza: se despeja</h2>
+  <div class="rule"></div>
+  <p class="lede">No hay fórmula nueva que aprender. El tamaño de muestra sale de la misma ecuación del intervalo de confianza, despejando n en lugar de calcular el margen.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>Cuatro pasos de álgebra</h3>
+        <table>
+          <thead><tr><th>Paso</th><th>Ecuación</th><th>Qué se hizo</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>x̄ ± z<sub>α/2</sub> · σ / √n</td><td>El intervalo de siempre</td></tr>
+            <tr><td>2</td><td>E = z<sub>α/2</sub> · σ / √n</td><td>Se nombra E al margen de error</td></tr>
+            <tr><td>3</td><td>√n = z<sub>α/2</sub> · σ / E</td><td>Se despeja la raíz</td></tr>
+            <tr><td>4</td><td><strong>n = ( z<sub>α/2</sub> · σ / E )²</strong></td><td>Se elevan ambos lados al cuadrado</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Es la misma igualdad leída al revés. En el bloque 8 conocías n y buscabas E; ahora fijas E y buscas n. Nada más cambió de lado.</p>
+      </div>
+      <div class="plot" style="margin-top:16px">
+        <h4 id="tm-t">Cuánta muestra pide cada margen &nbsp;<span class="chip">interactivo</span></h4>
+        <p class="sub" id="tm-s"></p>
+        <svg id="tmPlot" viewBox="0 0 660 260" role="img" aria-label="Curva del tamaño de muestra requerido según el margen de error"></svg>
+        <div class="ctrls" style="margin:10px 0 4px;align-items:center;gap:14px">
+          <span style="font-size:13px;color:var(--ink-faint)">Margen E:</span>
+          <input type="range" id="tm-e" min="0.5" max="6" step="0.1" value="2"
+                 aria-label="Margen de error" style="flex:1;min-width:120px">
+          <span style="font-size:13px;color:var(--ink-faint)">Confianza:</span>
+          <input type="range" id="tm-c" min="80" max="99.5" step="0.5" value="95"
+                 aria-label="Nivel de confianza" style="flex:1;min-width:120px">
+        </div>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="lectura" id="tm-out" style="border-top:none"></div>
+      <div class="card key">
+        <h3>Scheer, con σ* = 6.84</h3>
+        <p>Para un margen de <strong>2 días</strong> al 95 %: n = (1.96 × 6.84 / 2)² = 44.9, que se redondea a <strong>45 empleados</strong>.</p>
+        <p>Baja el margen a 1 día en el control y verás saltar el requisito a 180. <strong>Exigir el doble de precisión cuesta cuatro veces más muestra</strong>, porque E entra al cuadrado.</p>
+      </div>
+      <div class="card warn">
+        <h3>La trampa de esta cuenta</h3>
+        <p>Necesitas σ <em>antes</em> de tener los datos, y ese es el problema práctico. Se resuelve con un estudio previo, con una prueba piloto, o estimando σ como un cuarto del recorrido esperado.</p>
+        <p class="fine">Por eso la fórmula usa σ*, con asterisco: es un valor planeado, no un parámetro conocido. Si σ* se queda corta, el margen real saldrá mayor que el prometido.</p>
+      </div>
+      <div class="card edge">
+        <h3>Y para una proporción</h3>
+        <p>Idéntico despeje sobre el intervalo de la proporción, y queda <strong>n = z<sub>α/2</sub>² · p*(1 − p*) / E²</strong>. La única diferencia es de dónde sale el error estándar.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1591,8 +1776,8 @@ DESCRIPTIVES VARIABLES=PBARRA EE LIMINF LIMSUP
     <div class="card spss">
       <h3>SPSS · la sintaxis</h3>
       <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
-  /XBARRA = MEAN(Yardas)
-  /NCASOS = NU(Yardas).
+  /XBARRA = MEAN(Yards)
+  /NCASOS = NU(Yards).
 
 COMPUTE EE   = 12 / SQRT(NCASOS).
 COMPUTE ZOBS = (XBARRA - 295) / EE.
@@ -1601,7 +1786,8 @@ EXECUTE.
 
 DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
   /STATISTICS=MEAN.</pre>
-      <p class="fine" style="color:var(--amber-ink)"><strong>Nombre provisional:</strong> <span class="mono">Yardas</span>. Verifica el real en <span class="mono">GolfTest.sav</span>.</p>
+      <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Yards</span> y está en la hoja <span class="mono">Data</span>.</p>
+      <p class="fine"><a href="docs/MaxFlight_GolfTest.xlsx" download>⤓ Descargar MaxFlight_GolfTest.xlsx</a></p>
       <p class="fine">El 295 es μ₀ y el 12 es σ. <span class="mono">ABS</span> y el 2 son lo que vuelve bilateral la prueba: se suman las dos colas.</p>
     </div>
     <div class="card spss">
@@ -1635,7 +1821,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
         <p class="fine">Las pelotas promediaron 2.6 yardas de más. Con 50 pelotas eso todavía cabe dentro de la variación normal del proceso.</p>
         <p class="fine"><strong>Supuestos:</strong> muestreo aleatorio, independencia, σ = 12 conocida por control de calidad, y n = 50 ≥ 30.</p>
       </div>
-      <p class="src">Anderson, sección 9.3 · archivo GolfTest.sav</p>
+      <p class="src">Anderson, sección 9.3 · archivo MaxFlight_GolfTest.xlsx</p>
     </div>
   </div>
 </section>
@@ -1652,8 +1838,8 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
     <div class="card spss">
       <h3>SPSS · la sintaxis</h3>
       <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
-  /XBARRA = MEAN(Peso)
-  /NCASOS = NU(Peso).
+  /XBARRA = MEAN(Weight)
+  /NCASOS = NU(Weight).
 
 COMPUTE EE   = 0.18 / SQRT(NCASOS).
 COMPUTE ZOBS = (XBARRA - 3) / EE.
@@ -1663,6 +1849,7 @@ EXECUTE.
 DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
   /STATISTICS=MEAN.</pre>
       <p class="fine">Compara con el ejercicio 1: desapareció el <span class="mono">ABS</span> y desapareció el 2. <strong>Eso es todo lo que distingue una cola de dos.</strong> Para la cola superior sería <span class="mono">1 - CDF.NORMAL(ZOBS,0,1)</span>.</p>
+      <p class="fine"><a href="docs/Hilltop_Coffee.xlsx" download>⤓ Descargar Hilltop_Coffee.xlsx</a></p>
     </div>
     <div class="card spss">
       <h3>Minitab · el mismo diálogo, otra opción</h3>
@@ -1700,7 +1887,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
         <p>Porque lo eligió quien carga con las consecuencias. El director del programa de pruebas declara que solo está dispuesto a asumir un <strong>1 % de riesgo</strong> de acusar a la empresa cuando en realidad cumple.</p>
         <p>Ese es el criterio: <strong>α se fija según lo caro que salga el error tipo I</strong>, no por costumbre. Acusar injustamente a una empresa cuesta más que ajustar un proceso de pelotas de golf, y por eso MaxFlight trabajaba al 0.05 y este caso al 0.01.</p>
       </div>
-      <p class="src">Anderson, sección 9.3 · archivo Coffee.sav</p>
+      <p class="src">Anderson, sección 9.3 · archivo Hilltop_Coffee.xlsx</p>
     </div>
   </div>
 </section>
@@ -1716,14 +1903,24 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
     <div class="card spss">
       <h3>El procedimiento</h3>
       <ol style="padding-left:1.15em;line-height:1.65">
-        <li>Abre <span class="mono">AirRating.sav</span>.</li>
+        <li>Abre <span class="mono">Aeropuertos_AirRating.xlsx</span>.</li>
         <li><span class="mono">Analizar &gt; Comparar medias &gt; Prueba T para una muestra…</span></li>
-        <li>Pasa <span class="mono">Evaluacion</span> a <em>Variables de prueba</em>.</li>
+        <li>Pasa <span class="mono">Rating</span> a <em>Variables de prueba</em>.</li>
         <li>En <strong>Valor de prueba</strong> escribe <strong>7</strong>. Este es μ₀, no cero: aquí sí se usa el valor afirmado.</li>
         <li><strong>Aceptar.</strong></li>
       </ol>
-      <p class="fine" style="color:var(--amber-ink)"><strong>Nombre provisional:</strong> <span class="mono">Evaluacion</span>. Verifica el real antes de la sesión.</p>
+      <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Rating</span> y toma valores de 0 a 10.</p>
       <p class="fine">Nota el contraste con el bloque 8: allá el valor de prueba era 0 porque queríamos el intervalo de la media. Aquí es 7 porque queremos contrastar contra 7.</p>
+      <p class="fine"><a href="docs/Aeropuertos_AirRating.xlsx" download>⤓ Descargar Aeropuertos_AirRating.xlsx</a></p>
+    </div>
+    <div class="card spss" style="margin-top:16px">
+      <h3>Minitab · la misma prueba</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li><span class="mono">Stat &gt; Basic Statistics &gt; 1-Sample t…</span> con <span class="mono">Rating</span>.</li>
+        <li>Marca <strong>Perform hypothesis test</strong> y en <em>Hypothesized mean</em> escribe <strong>7</strong>.</li>
+        <li><span class="mono">Options…</span> → <em>Alternative hypothesis</em> «Mean ≠ hypothesized mean». OK y OK.</li>
+      </ol>
+      <p>Da <span class="mono">T = 1.84</span>, <span class="mono">DF = 59</span> y <span class="mono">P = 0.071</span>, idéntico a SPSS.</p>
     </div>
     <div class="cols">
       <div class="card">
@@ -1745,7 +1942,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
         <p class="fine"><strong>Supuestos:</strong> muestreo aleatorio, independencia y normalidad; con n = 60 ≥ 30 esta última la respalda el TLC, así que no hace falta revisar el histograma.</p>
         <p class="fine">Guarda bien este número. En la siguiente lámina vamos a usar exactamente la misma salida para responder la otra pregunta.</p>
       </div>
-      <p class="src">Anderson, sección 9.4 · archivo AirRating.sav</p>
+      <p class="src">Anderson, sección 9.4 · archivo Aeropuertos_AirRating.xlsx</p>
     </div>
   </div>
 </section>
@@ -1789,6 +1986,17 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
         <p class="fine">Cuidado con el atajo verbal: no rechazar la bilateral no demuestra que la media sea igual a 7. Las decisiones son distintas porque las preguntas son distintas, no porque una contradiga a la otra.</p>
         <p class="fine">SPSS imprime la significancia con tres decimales, así que dividiendo obtienes 0.0355. El valor exacto es 0.0353 y el libro reporta 0.0354. Es redondeo, no discrepancia.</p>
       </div>
+      <div class="card spss">
+        <h3>Minitab sí lo da directo</h3>
+        <ol style="padding-left:1.15em;line-height:1.6">
+          <li><span class="mono">Stat &gt; Basic Statistics &gt; 1-Sample t…</span> con <span class="mono">Rating</span>.</li>
+          <li><strong>Perform hypothesis test</strong>, <em>Hypothesized mean</em> <span class="mono">7</span>.</li>
+          <li><span class="mono">Options…</span> → <em>Alternative hypothesis</em> <strong>«Mean &gt; hypothesized mean»</strong>. OK y OK.</li>
+        </ol>
+        <p>La salida trae <span class="mono">P = 0.035</span> <strong>ya calculado para una cola</strong>, sin dividir ni revisar signos. Y en vez de intervalo reporta una <em>cota inferior</em> de confianza, que es la figura correcta para una prueba unilateral.</p>
+        <p class="fine">Aquí se ve la diferencia de diseño entre los dos programas. Donde SPSS 25 te obliga a hacer dos pasos mentales, Minitab pregunta la dirección de antemano y hace la cuenta por ti. Vale la pena mostrarlo: no es que un programa sea mejor, es que uno te obliga a entender el procedimiento.</p>
+        <p class="fine"><a href="docs/Aeropuertos_AirRating.xlsx" download>⤓ Descargar Aeropuertos_AirRating.xlsx</a> · es el mismo archivo del ejercicio 3</p>
+      </div>
       <div class="card edge">
         <h3>Por qué la cola se declara antes</h3>
         <p>Una prueba de una cola concentra todo el α en un solo lado, así que detecta más fácil los efectos <em>en esa dirección</em> a cambio de quedar ciega a la contraria. Es una ventaja legítima cuando la pregunta realmente tiene dirección.</p>
@@ -1798,9 +2006,90 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
   </div>
 </section>
 
+<!-- 25b · EJERCICIO 5 · HOLIDAY TOYS -->
+<section class="slide" data-label="Ejercicio SPSS 5 · Holiday Toys">
+  <p class="eyebrow">Bloque 9 · <span class="tag">Ejercicio guiado 5</span> · σ desconocida, dos colas</p>
+  <h2 class="title">Holiday Toys: ¿el pronóstico de 40 se sostiene?</h2>
+  <div class="rule"></div>
+  <p class="lede">Holiday Toys pregunta a 25 tiendas cuántas unidades piensan pedir de un juguete nuevo. La empresa planeó su producción suponiendo una media de <strong>40 unidades</strong> por tienda. Cualquier desviación, por arriba o por abajo, obliga a replanear: prueba de dos colas.</p>
+
+  <div class="cols c2">
+    <div class="card spss">
+      <h3>El procedimiento</h3>
+      <ol style="padding-left:1.15em;line-height:1.65">
+        <li>Importa <span class="mono">Holiday_Toys_Orders.xlsx</span>, hoja <span class="mono">Data</span>.</li>
+        <li><span class="mono">Analizar &gt; Comparar medias &gt; Prueba T para una muestra…</span></li>
+        <li>Pasa <span class="mono">Units</span> a <em>Variables de prueba</em>.</li>
+        <li>En <strong>Valor de prueba</strong> escribe <strong>40</strong>.</li>
+        <li><strong>Aceptar.</strong></li>
+      </ol>
+      <p class="fine">Este es el caso del libro que corresponde exactamente a esta casilla: σ desconocida y prueba bilateral.</p>
+      <p class="fine"><a href="docs/Holiday_Toys_Orders.xlsx" download>⤓ Descargar Holiday_Toys_Orders.xlsx</a></p>
+    </div>
+    <div class="card spss" style="margin-top:16px">
+      <h3>Minitab · la misma prueba</h3>
+      <ol style="padding-left:1.15em;line-height:1.6">
+        <li><span class="mono">Stat &gt; Basic Statistics &gt; 1-Sample t…</span> con <span class="mono">Units</span>.</li>
+        <li>Marca <strong>Perform hypothesis test</strong>, <em>Hypothesized mean</em> <span class="mono">40</span>.</li>
+        <li><span class="mono">Options…</span> → <em>Alternative hypothesis</em> «Mean ≠ hypothesized mean». OK y OK.</li>
+      </ol>
+      <p>Devuelve <span class="mono">T = −1.10</span>, <span class="mono">DF = 24</span>, <span class="mono">P = 0.281</span> y el intervalo del 95 % <span class="mono">(32.53, 42.27)</span>, que SPSS también imprime en la misma tabla.</p>
+      <p class="fine">Fíjate en ese intervalo: el 40 cae dentro, y por eso la prueba bilateral no lo rechaza. Es la equivalencia entre los capítulos 8 y 9, otra vez.</p>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h3>Verifica tu resultado</h3>
+        <table>
+          <thead><tr><th>Salida de SPSS</th><th class="num">Valor</th></tr></thead>
+          <tbody>
+            <tr><td>Media</td><td class="num">37.40</td></tr>
+            <tr><td>Desviación estándar</td><td class="num">11.7898</td></tr>
+            <tr><td>Error estándar</td><td class="num">2.3580</td></tr>
+            <tr><td>t</td><td class="num">−1.103</td></tr>
+            <tr><td>gl</td><td class="num">24</td></tr>
+            <tr><td>Sig. (bilateral)</td><td class="num">0.281</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card key">
+        <h3>La conclusión, redactada</h3>
+        <p style="font-size:1.06em;line-height:1.6">Con un valor p de <strong>0.2811</strong>, mayor que el nivel de significancia de 0.05, <strong>no se rechaza la hipótesis nula</strong>. Los datos no aportan evidencia estadística suficiente para concluir que la media de unidades pedidas difiera de 40.</p>
+        <p class="fine"><strong>Supuestos:</strong> muestreo aleatorio, independencia y normalidad de la población. Con n = 25 conviene revisar el histograma antes de dar el resultado por bueno.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cols c2w" style="margin-top:18px">
+    <div class="plot">
+      <h4 id="ht-t">Qué tendría que haber salido para rechazar &nbsp;<span class="chip">interactivo</span></h4>
+      <p class="sub" id="ht-s"></p>
+      <svg id="htPlot" viewBox="0 0 660 190" role="img" aria-label="Recta de medias muestrales con la zona de no rechazo y la media observada"></svg>
+      <div class="lectura" id="ht-out"></div>
+      <div class="ctrls" style="margin:10px 0 4px;align-items:center">
+        <span style="font-size:13px;color:var(--ink-faint)">Media muestral:</span>
+        <input type="range" id="ht-rng" min="30" max="50" step="0.05" value="37.4"
+               aria-label="Media muestral" style="flex:1;min-width:150px">
+        <button class="btn" id="ht-reset">Volver a 37.40</button>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card warn">
+        <h3>El margen de maniobra</h3>
+        <p>Con 24 grados de libertad el valor crítico es <strong>2.0639</strong>, así que se rechaza solo si la media muestral cae por debajo de <strong>35.13</strong> o por encima de <strong>44.87</strong>.</p>
+        <p>La media observada, 37.40, está dentro de esa franja: se quedó a 2.27 unidades del borde.</p>
+      </div>
+      <div class="card edge">
+        <h3>Arrastra el control</h3>
+        <p>Baja la media a 35 y verás el recuadro ponerse rojo. Ese ejercicio responde una pregunta que los alumnos hacen seguido: <em>¿qué tan distinto tenía que ser el resultado para que cambiara la conclusión?</em></p>
+        <p class="fine">Es la misma idea del intervalo de confianza, vista desde el otro lado: la franja gris es exactamente el conjunto de medias compatibles con H₀.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 26 · EJERCICIO 5 -->
-<section class="slide" data-label="Ejercicio SPSS 5 · Proporción">
-  <p class="eyebrow">Bloque 9 · <span class="tag">Ejercicio guiado 5</span> · Proporción</p>
+<section class="slide" data-label="Ejercicio SPSS 6 · Proporción">
+  <p class="eyebrow">Bloque 9 · <span class="tag">Ejercicio guiado 6</span> · Proporción</p>
   <h2 class="title">Pine Creek: ¿aumentó la proporción de mujeres?</h2>
   <div class="rule"></div>
   <p class="lede">Históricamente el 20 % de quienes jugaban en el campo eran mujeres. Tras una campaña de promoción, se toma una muestra de 400 jugadores y 100 son mujeres. La pregunta tiene dirección: se busca un <strong>aumento</strong>. Cola superior, H₀: p ≤ 0.20.</p>
@@ -1809,7 +2098,10 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
     <div class="cols">
     <div class="card spss">
       <h3>SPSS · la sintaxis</h3>
-      <pre class="code">AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
+      <pre class="code">COMPUTE Mujer = (Golfer = "Female").
+EXECUTE.
+
+AGGREGATE /OUTFILE=* MODE=ADDVARIABLES
   /PBARRA = MEAN(Mujer)
   /NCASOS = NU(Mujer).
 
@@ -1820,7 +2112,8 @@ EXECUTE.
 
 DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   /STATISTICS=MEAN.</pre>
-      <p class="fine" style="color:var(--amber-ink)"><strong>Nombre provisional:</strong> <span class="mono">Mujer</span>, codificada 1 y 0.</p>
+      <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Golfer</span> y es de texto, con valores <span class="mono">Female</span> y <span class="mono">Male</span>. La primera línea la convierte en 1 y 0; debes obtener 100 mujeres de 400.</p>
+      <p class="fine"><a href="docs/Pine_Creek_WomenGolf.xlsx" download>⤓ Descargar Pine_Creek_WomenGolf.xlsx</a></p>
     </div>
     <div class="card spss">
       <h3>Minitab · y una casilla que hay que marcar</h3>
@@ -1859,7 +2152,7 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
         <p>Minitab usa por omisión la <strong>prueba exacta binomial</strong>, que no aproxima nada: calcula directamente la probabilidad de observar 100 mujeres o más entre 400 si la proporción real fuera 0.20. Ese cálculo da <strong>0.0086</strong>, no 0.0062.</p>
         <p>Ninguno de los dos está mal. La exacta es más precisa; la normal es la que enseña el libro y la que aparece en la literatura. La conclusión no cambia, pero <strong>el número que reportes sí</strong>, y hay que saber cuál estás usando.</p>
       </div>
-      <p class="src">Anderson, sección 9.5 · archivo WomenGolf.sav</p>
+      <p class="src">Anderson, sección 9.5 · archivo Pine_Creek_WomenGolf.xlsx</p>
     </div>
   </div>
 </section>
@@ -1904,6 +2197,109 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   </div>
 </section>
 
+<!-- 39 · MATERIALES -->
+<section class="slide" data-label="Materiales de la sesión">
+  <p class="eyebrow">Materiales</p>
+  <h2 class="title">Todo lo que necesitas descargar</h2>
+  <div class="rule"></div>
+  <p class="lede">Nueve archivos de Excel, uno por ejercicio. Todos vienen del material que acompaña a Anderson, Sweeney y Williams, y sus resultados coinciden con los que aparecen impresos en el libro.</p>
+
+  <div class="cols c2w">
+    <div class="card">
+      <h3>Bases de datos</h3>
+      <table>
+        <thead><tr><th>Archivo</th><th>Variable</th><th class="num">n</th><th>Se usa en</th></tr></thead>
+        <tbody>
+            <tr><td><a href="docs/8_Lloyd_s.xlsx" download>8_Lloyd_s.xlsx</a></td><td><span class="mono">Amount Spent</span></td><td class="num">100</td><td>Bloque 8 · ejercicio 1</td></tr>
+            <tr><td><a href="docs/8_NewBalance.xlsx" download>8_NewBalance.xlsx</a></td><td><span class="mono">NewBalance</span></td><td class="num">70</td><td>Bloque 8 · ejercicio 2</td></tr>
+            <tr><td><a href="docs/8_Scheer.xlsx" download>8_Scheer.xlsx</a></td><td><span class="mono">Days</span></td><td class="num">20</td><td>Bloque 8 · ejercicio 3 y tamaño de muestra</td></tr>
+            <tr><td><a href="docs/8_TeeTimes_golf.xlsx" download>8_TeeTimes_golf.xlsx</a></td><td><span class="mono">Response (Yes / No)</span></td><td class="num">900</td><td>Bloque 8 · ejercicio 4</td></tr>
+            <tr><td><a href="docs/MaxFlight_GolfTest.xlsx" download>MaxFlight_GolfTest.xlsx</a></td><td><span class="mono">Yards</span></td><td class="num">50</td><td>Bloque 9 · ejercicio 1</td></tr>
+            <tr><td><a href="docs/Hilltop_Coffee.xlsx" download>Hilltop_Coffee.xlsx</a></td><td><span class="mono">Weight</span></td><td class="num">36</td><td>Bloque 9 · ejercicio 2</td></tr>
+            <tr><td><a href="docs/Aeropuertos_AirRating.xlsx" download>Aeropuertos_AirRating.xlsx</a></td><td><span class="mono">Rating</span></td><td class="num">60</td><td>Bloque 9 · ejercicios 3 y 4</td></tr>
+            <tr><td><a href="docs/Holiday_Toys_Orders.xlsx" download>Holiday_Toys_Orders.xlsx</a></td><td><span class="mono">Units</span></td><td class="num">25</td><td>Bloque 9 · ejercicio 5</td></tr>
+            <tr><td><a href="docs/Pine_Creek_WomenGolf.xlsx" download>Pine_Creek_WomenGolf.xlsx</a></td><td><span class="mono">Golfer (Female / Male)</span></td><td class="num">400</td><td>Bloque 9 · ejercicio 6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols">
+      <div class="card spss">
+        <h3>Cómo abrir un .xlsx en SPSS 25</h3>
+        <ol style="padding-left:1.15em;line-height:1.7">
+          <li><span class="mono">Archivo &gt; Abrir &gt; Datos…</span></li>
+          <li>En <em>Tipo de archivos</em> elige <strong>Excel (*.xls, *.xlsx, *.xlsm)</strong>.</li>
+          <li>Selecciona el archivo y pulsa Abrir.</li>
+          <li>En el cuadro que aparece, marca <strong>Leer nombres de variables de la primera fila</strong>.</li>
+          <li>En <strong>Hoja de trabajo</strong> elige <span class="mono">Data</span>. Esto es importante: varios archivos traen hojas auxiliares y si abres la equivocada verás basura.</li>
+          <li><strong>Aceptar.</strong></li>
+        </ol>
+      </div>
+      <div class="card warn">
+        <h3>Dos detalles que causan problemas</h3>
+        <p><strong>Espacios en los nombres.</strong> SPSS los convierte en guion bajo, así que «Amount Spent» llega como <span class="mono">Amount_Spent</span>. Revísalo en Vista de variables antes de escribir sintaxis.</p>
+        <p><strong>Variables de texto.</strong> <span class="mono">Response</span> y <span class="mono">Golfer</span> traen palabras, no números. Hay que convertirlas a 1 y 0 con un <span class="mono">COMPUTE</span>, como indican los ejercicios 4 del bloque 8 y 6 del bloque 9.</p>
+      </div>
+      <div class="card key">
+        <h3>Antes de la sesión</h3>
+        <p>Descarga los nueve, ábrelos en SPSS y confirma que el número de casos coincide con la columna n de la tabla. Si alguno no abre, avísame <strong>antes</strong> de la sesión, no durante.</p>
+      </div>
+    </div>
+  </div>
+  <p class="src">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas · Anderson, Sweeney y Williams, capítulos 7, 8 y 9</p>
+</section>
+
+<!-- 40 · MATERIALES · MINITAB -->
+<section class="slide" data-label="Materiales de la sesión · Minitab">
+  <p class="eyebrow">Materiales · <span class="tag">Minitab</span></p>
+  <h2 class="title">Los mismos archivos, ahora en Minitab</h2>
+  <div class="rule"></div>
+  <p class="lede">Son exactamente las mismas nueve bases. Lo que cambia es cómo se abren y, en varios casos, cuánto trabajo te ahorra el programa.</p>
+
+  <div class="cols c2w">
+    <div class="card">
+      <h3>Bases de datos</h3>
+      <table>
+        <thead><tr><th>Archivo</th><th>Columna</th><th class="num">n</th><th>Se usa en</th></tr></thead>
+        <tbody>
+            <tr><td><a href="docs/8_Lloyd_s.xlsx" download>8_Lloyd_s.xlsx</a></td><td><span class="mono">Amount Spent</span></td><td class="num">100</td><td>Bloque 8 · ejercicio 1</td></tr>
+            <tr><td><a href="docs/8_NewBalance.xlsx" download>8_NewBalance.xlsx</a></td><td><span class="mono">NewBalance</span></td><td class="num">70</td><td>Bloque 8 · ejercicio 2</td></tr>
+            <tr><td><a href="docs/8_Scheer.xlsx" download>8_Scheer.xlsx</a></td><td><span class="mono">Days</span></td><td class="num">20</td><td>Bloque 8 · ejercicio 3 y tamaño de muestra</td></tr>
+            <tr><td><a href="docs/8_TeeTimes_golf.xlsx" download>8_TeeTimes_golf.xlsx</a></td><td><span class="mono">Response (Yes / No)</span></td><td class="num">900</td><td>Bloque 8 · ejercicio 4</td></tr>
+            <tr><td><a href="docs/MaxFlight_GolfTest.xlsx" download>MaxFlight_GolfTest.xlsx</a></td><td><span class="mono">Yards</span></td><td class="num">50</td><td>Bloque 9 · ejercicio 1</td></tr>
+            <tr><td><a href="docs/Hilltop_Coffee.xlsx" download>Hilltop_Coffee.xlsx</a></td><td><span class="mono">Weight</span></td><td class="num">36</td><td>Bloque 9 · ejercicio 2</td></tr>
+            <tr><td><a href="docs/Aeropuertos_AirRating.xlsx" download>Aeropuertos_AirRating.xlsx</a></td><td><span class="mono">Rating</span></td><td class="num">60</td><td>Bloque 9 · ejercicios 3 y 4</td></tr>
+            <tr><td><a href="docs/Holiday_Toys_Orders.xlsx" download>Holiday_Toys_Orders.xlsx</a></td><td><span class="mono">Units</span></td><td class="num">25</td><td>Bloque 9 · ejercicio 5</td></tr>
+            <tr><td><a href="docs/Pine_Creek_WomenGolf.xlsx" download>Pine_Creek_WomenGolf.xlsx</a></td><td><span class="mono">Golfer (Female / Male)</span></td><td class="num">400</td><td>Bloque 9 · ejercicio 6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols">
+      <div class="card spss">
+        <h3>Cómo abrir un .xlsx en Minitab</h3>
+        <ol style="padding-left:1.15em;line-height:1.7">
+          <li><span class="mono">Archivo &gt; Abrir &gt; Hoja de trabajo…</span> (<span class="mono">File &gt; Open &gt; Worksheet…</span>)</li>
+          <li>En <em>Tipo de archivo</em> elige <strong>Excel</strong>.</li>
+          <li>Selecciona el archivo. Minitab muestra una <strong>vista previa</strong> con las hojas del libro: elige <span class="mono">Data</span>, igual que en SPSS.</li>
+          <li>En <span class="mono">Opciones…</span> confirma que <em>Nombres de variable</em> esté en <strong>Automático</strong>, para que tome la primera fila como encabezado.</li>
+          <li><strong>Abrir.</strong></li>
+        </ol>
+      </div>
+      <div class="card key">
+        <h3>Tres cosas que Minitab hace más fácil</h3>
+        <p><strong>Nombres con espacios.</strong> «Amount Spent» se conserva tal cual. Minitab no lo convierte en guion bajo como hace SPSS.</p>
+        <p><strong>Variables de texto.</strong> No hace falta recodificar <span class="mono">Response</span> ni <span class="mono">Golfer</span>: en <span class="mono">1 Proportion</span> eliges directamente cuál valor cuenta como evento.</p>
+        <p><strong>Pruebas de una cola.</strong> Da el valor p unilateral ya calculado, sin dividir ni verificar signos.</p>
+      </div>
+      <div class="card warn">
+        <h3>Y dos donde hay que tener cuidado</h3>
+        <p><strong>El método por omisión en proporciones.</strong> Minitab usa la prueba y el intervalo <em>exactos</em>, no la aproximación normal. Para reproducir los números del libro hay que entrar a <span class="mono">Opciones</span> y elegir <em>Normal approximation</em>.</p>
+        <p><strong>La hoja equivocada.</strong> Varios archivos traen hojas auxiliares; <span class="mono">Hilltop_Coffee.xlsx</span> tiene nueve y la primera no es la de datos.</p>
+      </div>
+    </div>
+  </div>
+  <p class="src">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas · Anderson, Sweeney y Williams, capítulos 7, 8 y 9</p>
+</section>
+
 
 </div>
 
@@ -1923,8 +2319,9 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   <div class="blocks">
     <button class="blk" data-go="0"><span class="k">Apertura</span><span class="t">Portada y ruta</span><span class="m">2 láminas · ~2 min</span></button>
     <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">13 láminas · ~28 min</span></button>
-    <button class="blk" data-go="15"><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">11 láminas · ~50 min</span></button>
-    <button class="blk" data-go="26"><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">8 láminas · ~26 min</span></button>
+    <button class="blk" data-go="15"><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">14 láminas · ~55 min</span></button>
+    <button class="blk" data-go="29"><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">9 láminas · ~30 min</span></button>
+    <button class="blk" data-go="38"><span class="k">Materiales</span><span class="t">Archivos para descargar</span><span class="m">SPSS y Minitab · tecla 0</span></button>
   </div>
   <p class="src">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas · Septiembre 2026</p>
 </div>
@@ -2120,7 +2517,8 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
     else if (e.key === "f" || e.key === "F"){ pantalla(); }
     else if (e.key === "7"){ ir(2); alternarMenu(false); }
     else if (e.key === "8"){ ir(15); alternarMenu(false); }
-    else if (e.key === "9"){ ir(26); alternarMenu(false); }
+    else if (e.key === "0"){ ir(38); alternarMenu(false); }
+    else if (e.key === "9"){ ir(29); alternarMenu(false); }
   });
 
 
@@ -2485,6 +2883,238 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
     interactiva("pz13",  1.224745, 165);
     interactiva("pz14",  2.041241, 165);
     interactiva("pz15", -1.224745, 175);
+  })();
+
+
+  /* ================= distribución t ================= */
+  function lgamma(x){
+    var g=[676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,
+           12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];
+    if (x < 0.5) return Math.log(Math.PI/Math.sin(Math.PI*x)) - lgamma(1-x);
+    x -= 1; var a = 0.99999999999980993, t = x + 7.5;
+    for (var i = 0; i < 8; i++) a += g[i]/(x+i+1);
+    return 0.5*Math.log(2*Math.PI) + (x+0.5)*Math.log(t) - t + Math.log(a);
+  }
+  function betacf(a,b,x){
+    var MAXIT=200, EPS=3e-12, FPMIN=1e-300;
+    var qab=a+b, qap=a+1, qam=a-1, c=1, d=1-qab*x/qap;
+    if (Math.abs(d)<FPMIN) d=FPMIN; d=1/d; var hh=d;
+    for (var m=1;m<=MAXIT;m++){
+      var m2=2*m, aa=m*(b-m)*x/((qam+m2)*(a+m2));
+      d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN;
+      c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN;
+      d=1/d; hh*=d*c;
+      aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));
+      d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN;
+      c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN;
+      d=1/d; var del=d*c; hh*=del;
+      if (Math.abs(del-1)<EPS) break;
+    }
+    return hh;
+  }
+  function betai(a,b,x){
+    if (x<=0) return 0; if (x>=1) return 1;
+    var bt=Math.exp(lgamma(a+b)-lgamma(a)-lgamma(b)+a*Math.log(x)+b*Math.log(1-x));
+    return x < (a+1)/(a+b+2) ? bt*betacf(a,b,x)/a : 1-bt*betacf(b,a,1-x)/b;
+  }
+  function tcdf(t,v){ var p=0.5*betai(v/2,0.5,v/(v+t*t)); return t>0 ? 1-p : p; }
+  function tinv(p,v){ var lo=-60,hi=60,m; for(var i=0;i<100;i++){m=(lo+hi)/2; if(tcdf(m,v)<p)lo=m; else hi=m;} return (lo+hi)/2; }
+  function tpdf(t,v){ return Math.exp(lgamma((v+1)/2)-lgamma(v/2)-0.5*Math.log(v*Math.PI)-((v+1)/2)*Math.log(1+t*t/v)); }
+  function PhiG(z){
+    var t=1/(1+0.2316419*Math.abs(z)), d=0.3989422804014327*Math.exp(-z*z/2);
+    var p=d*t*(0.319381530+t*(-0.356563782+t*(1.781477937+t*(-1.821255978+t*1.330274429))));
+    return z>0 ? 1-p : p;
+  }
+  function zInvG(p){ var lo=-6,hi=6,m; for(var i=0;i<90;i++){m=(lo+hi)/2; if(PhiG(m)<p)lo=m; else hi=m;} return (lo+hi)/2; }
+
+  /* ---------- t frente a la normal ---------- */
+  (function(){
+    var svg = document.getElementById("glPlot");
+    if (!svg) return;
+    var W=660,H=300,L=30,R=30,base=240,T=26, zLo=-5, zHi=5;
+    var X=function(z){ return L+(z-zLo)/(zHi-zLo)*(W-L-R); };
+    var nor=function(z){ return Math.exp(-z*z/2)/Math.sqrt(2*Math.PI); };
+    var Y=function(p){ return base - p/0.3989422804014327*(base-T); };
+    function curva(f){
+      var d="";
+      for (var z=zLo; z<=zHi+1e-9; z+=0.025) d += (d?" L":"M") + X(z).toFixed(1) + " " + Y(f(z)).toFixed(1);
+      return d;
+    }
+    function pinta(gl){
+      var tc=tinv(0.975,gl), s="";
+      s += "<path d='" + curva(nor) + "' fill='none' stroke='var(--quiet)' stroke-width='2' stroke-dasharray='6 4'/>";
+      s += "<path d='" + curva(function(z){return tpdf(z,gl);}) + "' fill='none' stroke='var(--accent)' stroke-width='3'/>";
+      s += "<line x1='"+L+"' y1='"+base+"' x2='"+(W-R)+"' y2='"+base+"' class='axis'/>";
+      [-4,-3,-2,-1,0,1,2,3,4].forEach(function(z){
+        s += "<text x='"+X(z)+"' y='"+(base+22)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>"+z+"</text>";
+      });
+      [[-1.96,"var(--quiet)","z"],[1.96,"var(--quiet)","z"]].forEach(function(p){
+        s += "<line x1='"+X(p[0])+"' y1='"+Y(nor(p[0]))+"' x2='"+X(p[0])+"' y2='"+base+"' stroke='"+p[1]+"' stroke-width='1.5' stroke-dasharray='4 4'/>";
+      });
+      [-tc,tc].forEach(function(z){
+        if (Math.abs(z) > zHi) return;
+        s += "<line x1='"+X(z)+"' y1='"+Y(tpdf(z,gl))+"' x2='"+X(z)+"' y2='"+base+"' stroke='var(--amber)' stroke-width='2.5'/>";
+      });
+      s += "<text x='"+X(3.3)+"' y='"+(T+20)+"' style='fill:var(--accent);font-size:14px;font-weight:700;font-family:var(--sans)'>t · "+gl+" gl</text>";
+      s += "<text x='"+X(3.3)+"' y='"+(T+40)+"' style='fill:var(--quiet);font-size:14px;font-weight:700;font-family:var(--sans)'>normal</text>";
+      svg.innerHTML = s;
+      document.getElementById("gl-t").textContent = "Distribución t con " + gl + (gl===1?" grado":" grados") + " de libertad, sobre la normal";
+      document.getElementById("gl-s").textContent = "La línea punteada gris es la normal; la azul es la t. Las marcas ámbar son los valores críticos de la t al 95 %";
+      var ex = (tc/1.959964 - 1)*100;
+      document.getElementById("gl-out").innerHTML =
+        "<div><div class='k'>Grados de libertad</div><div class='v'>" + gl + "</div></div>" +
+        "<div><div class='k'>Valor crítico t al 95 %</div><div class='v'>" + tc.toFixed(4) + "</div></div>" +
+        "<div><div class='k'>Valor crítico z</div><div class='v'>1.9600</div></div>" +
+        "<div><div class='k'>Intervalo más ancho en</div><div class='v'>" + ex.toFixed(1) + " %</div></div>";
+      var r = document.getElementById("gl-rng");
+      if (r && Number(r.value) !== gl) r.value = gl;
+      Array.prototype.forEach.call(document.querySelectorAll("[data-gl]"), function(b){
+        b.classList.toggle("on", Number(b.dataset.gl) === gl);
+      });
+    }
+    var rng = document.getElementById("gl-rng");
+    if (rng) rng.addEventListener("input", function(){ pinta(Number(rng.value)); });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-gl]"), function(b){
+      b.addEventListener("click", function(){ pinta(Number(b.dataset.gl)); });
+    });
+    pinta(5);
+  })();
+
+
+  /* ---------- Scheer: intervalo sobre una recta ---------- */
+  (function(){
+    var svg = document.getElementById("schPlot");
+    if (!svg) return;
+    var XB=51.5, EE=1.529543, GL=19, W=660,H=160,L=40,R=30, base=96;
+    var lo=44, hi=59;
+    var X=function(v){ return L+(v-lo)/(hi-lo)*(W-L-R); };
+    function pinta(nivel){
+      var a=(100-nivel)/100, tc=tinv(1-a/2,GL), m=tc*EE, s="";
+      s += "<line x1='"+L+"' y1='"+base+"' x2='"+(W-R)+"' y2='"+base+"' class='axis'/>";
+      for (var v=lo; v<=hi; v+=2){
+        s += "<line x1='"+X(v)+"' y1='"+base+"' x2='"+X(v)+"' y2='"+(base+6)+"' class='axis'/>";
+        s += "<text x='"+X(v)+"' y='"+(base+22)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>"+v+"</text>";
+      }
+      s += "<text x='"+((L+W-R)/2)+"' y='"+(base+44)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12.5px;font-family:var(--sans)'>Días de capacitación</text>";
+      var y=base-34;
+      s += "<line x1='"+X(XB-m)+"' y1='"+y+"' x2='"+X(XB+m)+"' y2='"+y+"' stroke='var(--accent)' stroke-width='11' stroke-linecap='round'/>";
+      [XB-m, XB+m].forEach(function(v){
+        s += "<line x1='"+X(v)+"' y1='"+(y-15)+"' x2='"+X(v)+"' y2='"+(y+15)+"' stroke='var(--accent)' stroke-width='3'/>";
+        s += "<text x='"+X(v)+"' y='"+(y-23)+"' text-anchor='middle' style='fill:var(--accent);font-size:14px;font-weight:700;font-family:var(--sans)'>"+v.toFixed(2)+"</text>";
+      });
+      s += "<circle cx='"+X(XB)+"' cy='"+y+"' r='7' fill='var(--gold)'/>";
+      s += "<text x='"+X(XB)+"' y='"+(y+30)+"' text-anchor='middle' style='fill:var(--gold);font-size:13px;font-weight:700;font-family:var(--sans)'>x\u0304 = 51.50</text>";
+      svg.innerHTML = s;
+      document.getElementById("sch-t").innerHTML = "Intervalo de confianza del " + nivel.toFixed(nivel%1?1:0) + " % &nbsp;<span class='chip'>interactivo</span>";
+      document.getElementById("sch-s").textContent = "Valor crítico t con 19 grados de libertad · error estándar 1.5295 días";
+      document.getElementById("sch-out").innerHTML =
+        "<div><div class='k'>Valor crítico t</div><div class='v'>"+tc.toFixed(4)+"</div></div>" +
+        "<div><div class='k'>Margen de error</div><div class='v'>± "+m.toFixed(2)+"</div></div>" +
+        "<div><div class='k'>Intervalo</div><div class='v'>"+(XB-m).toFixed(2)+" a "+(XB+m).toFixed(2)+"</div></div>" +
+        "<div><div class='k'>Ancho total</div><div class='v'>"+(2*m).toFixed(2)+" días</div></div>";
+      var r=document.getElementById("sch-rng");
+      if (r && Math.abs(Number(r.value)-nivel)>1e-9) r.value=nivel;
+    }
+    var rng=document.getElementById("sch-rng");
+    if (rng) rng.addEventListener("input", function(){ pinta(Number(rng.value)); });
+    var btn=document.getElementById("sch-reset");
+    if (btn) btn.addEventListener("click", function(){ pinta(95); });
+    pinta(95);
+  })();
+
+  /* ---------- tamaño de muestra: n contra el margen ---------- */
+  (function(){
+    var svg = document.getElementById("tmPlot");
+    if (!svg) return;
+    var SG=6.84, W=660,H=260,L=56,R=26,base=212,T=22;
+    var eLo=0.5, eHi=6, nMax=800;
+    var X=function(e){ return L+(e-eLo)/(eHi-eLo)*(W-L-R); };
+    var Y=function(n){ return base - Math.min(n,nMax)/nMax*(base-T); };
+    function req(e,niv){ var z=zInvG(1-(100-niv)/200); return Math.pow(z*SG/e,2); }
+    function pinta(e, niv){
+      var s="", n=req(e,niv);
+      for (var g=0; g<=800; g+=200){
+        s += "<line x1='"+L+"' y1='"+Y(g)+"' x2='"+(W-R)+"' y2='"+Y(g)+"' stroke='var(--rule)' stroke-width='1'/>";
+        s += "<text x='"+(L-9)+"' y='"+(Y(g)+4)+"' text-anchor='end' style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>"+g+"</text>";
+      }
+      var d="";
+      for (var x=eLo; x<=eHi+1e-9; x+=0.02) d += (d?" L":"M") + X(x).toFixed(1) + " " + Y(req(x,niv)).toFixed(1);
+      s += "<path d='"+d+"' fill='none' stroke='var(--accent)' stroke-width='3'/>";
+      s += "<line x1='"+L+"' y1='"+base+"' x2='"+(W-R)+"' y2='"+base+"' class='axis'/>";
+      for (var v=1; v<=6; v++){
+        s += "<text x='"+X(v)+"' y='"+(base+22)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>"+v+"</text>";
+      }
+      s += "<text x='"+((L+W-R)/2)+"' y='"+(H-6)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12.5px;font-family:var(--sans)'>Margen de error E, en días</text>";
+      s += "<line x1='"+X(e)+"' y1='"+T+"' x2='"+X(e)+"' y2='"+base+"' stroke='var(--gold)' stroke-width='2' stroke-dasharray='5 4'/>";
+      s += "<circle cx='"+X(e)+"' cy='"+Y(n)+"' r='7' fill='var(--gold)'/>";
+      svg.innerHTML = s;
+      document.getElementById("tm-s").textContent =
+        "σ* = 6.84 días · confianza " + niv.toFixed(niv%1?1:0) + " % · la curva se dispara cuando E se acerca a cero";
+      document.getElementById("tm-out").innerHTML =
+        "<div><div class='k'>Margen de error E</div><div class='v'>± "+e.toFixed(1)+"</div></div>" +
+        "<div><div class='k'>Valor crítico z</div><div class='v'>"+zInvG(1-(100-niv)/200).toFixed(4)+"</div></div>" +
+        "<div><div class='k'>n calculado</div><div class='v'>"+n.toFixed(1)+"</div></div>" +
+        "<div><div class='k'>Muestra requerida</div><div class='v' style='color:var(--accent)'>"+Math.ceil(n)+"</div></div>";
+    }
+    var re=document.getElementById("tm-e"), rc=document.getElementById("tm-c");
+    function act(){ pinta(Number(re.value), Number(rc.value)); }
+    if (re) re.addEventListener("input", act);
+    if (rc) rc.addEventListener("input", act);
+    pinta(2, 95);
+  })();
+
+  /* ---------- Holiday Toys: qué media cambiaría la decisión ---------- */
+  (function(){
+    var svg = document.getElementById("htPlot");
+    if (!svg) return;
+    var MU0=40, EE=2.357958, GL=24, OBS=37.4;
+    var W=660,H=190,L=40,R=30, base=104, lo=30, hi=50;
+    var tc=tinv(0.975,GL), inf=MU0-tc*EE, sup=MU0+tc*EE;
+    var X=function(v){ return L+(v-lo)/(hi-lo)*(W-L-R); };
+    function pinta(xb){
+      xb = Math.max(lo, Math.min(hi, xb));
+      var t=(xb-MU0)/EE, p=2*(1-tcdf(Math.abs(t),GL)), rech = p<=0.05, s="";
+      s += "<line x1='"+X(lo)+"' y1='"+(base-34)+"' x2='"+X(inf)+"' y2='"+(base-34)+"' stroke='var(--amber)' stroke-width='9' stroke-linecap='round'/>";
+      s += "<line x1='"+X(sup)+"' y1='"+(base-34)+"' x2='"+X(hi)+"' y2='"+(base-34)+"' stroke='var(--amber)' stroke-width='9' stroke-linecap='round'/>";
+      s += "<line x1='"+X(inf)+"' y1='"+(base-34)+"' x2='"+X(sup)+"' y2='"+(base-34)+"' stroke='var(--rule)' stroke-width='9' stroke-linecap='round'/>";
+      [[inf,"35.13"],[sup,"44.87"]].forEach(function(q){
+        s += "<line x1='"+X(q[0])+"' y1='"+(base-48)+"' x2='"+X(q[0])+"' y2='"+(base-20)+"' stroke='var(--amber)' stroke-width='2.5'/>";
+        s += "<text x='"+X(q[0])+"' y='"+(base-56)+"' text-anchor='middle' style='fill:var(--amber-ink);font-size:13px;font-weight:700;font-family:var(--sans)'>"+q[1]+"</text>";
+      });
+      s += "<line x1='"+X(MU0)+"' y1='"+(base-52)+"' x2='"+X(MU0)+"' y2='"+base+"' stroke='var(--gold)' stroke-width='2' stroke-dasharray='5 4'/>";
+      s += "<text x='"+X(MU0)+"' y='"+(base-60)+"' text-anchor='middle' style='fill:var(--gold);font-size:13px;font-weight:700;font-family:var(--sans)'>\u03bc\u2080 = 40</text>";
+      s += "<line x1='"+X(lo)+"' y1='"+base+"' x2='"+X(hi)+"' y2='"+base+"' class='axis'/>";
+      for (var v=30; v<=50; v+=5){
+        s += "<line x1='"+X(v)+"' y1='"+base+"' x2='"+X(v)+"' y2='"+(base+6)+"' class='axis'/>";
+        s += "<text x='"+X(v)+"' y='"+(base+22)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12px;font-family:var(--sans)'>"+v+"</text>";
+      }
+      s += "<text x='"+((L+W-R)/2)+"' y='"+(base+44)+"' text-anchor='middle' style='fill:var(--ink-faint);font-size:12.5px;font-family:var(--sans)'>Media muestral de unidades pedidas</text>";
+      s += "<circle cx='"+X(xb)+"' cy='"+(base-34)+"' r='9' fill='var(--accent)' stroke='var(--surface)' stroke-width='2.5'/>";
+      svg.innerHTML = s;
+      document.getElementById("ht-s").textContent = "Franja gris: medias compatibles con H\u2080. Ámbar: medias que llevarían a rechazar";
+      document.getElementById("ht-out").innerHTML =
+        "<div><div class='k'>Media muestral</div><div class='v'>"+xb.toFixed(2)+"</div></div>" +
+        "<div><div class='k'>Estadístico t</div><div class='v'>"+(t<0?"\u2212":"+")+Math.abs(t).toFixed(4)+"</div></div>" +
+        "<div><div class='k'>Valor p bilateral</div><div class='v'>"+p.toFixed(4)+"</div></div>" +
+        "<div><div class='k'>Decisión con α = 0.05</div><div class='vd "+(rech?"si":"no")+"'>"+(rech?"Se rechaza H\u2080":"No se rechaza H\u2080")+"</div></div>";
+      var r=document.getElementById("ht-rng");
+      if (r && Math.abs(Number(r.value)-xb)>1e-6) r.value=xb;
+    }
+    function vDe(e){
+      var r=svg.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width*W;
+      return lo + (px-L)/(W-L-R)*(hi-lo);
+    }
+    var arr=false;
+    svg.addEventListener("pointerdown", function(e){ arr=true; svg.setPointerCapture(e.pointerId); pinta(vDe(e)); });
+    svg.addEventListener("pointermove", function(e){ if(arr) pinta(vDe(e)); });
+    svg.addEventListener("pointerup", function(){ arr=false; });
+    svg.addEventListener("pointercancel", function(){ arr=false; });
+    var rng=document.getElementById("ht-rng");
+    if (rng) rng.addEventListener("input", function(){ pinta(Number(rng.value)); });
+    var btn=document.getElementById("ht-reset");
+    if (btn) btn.addEventListener("click", function(){ pinta(OBS); });
+    pinta(OBS);
   })();
 
   var h = /^#d(\d+)$/.exec(location.hash);
