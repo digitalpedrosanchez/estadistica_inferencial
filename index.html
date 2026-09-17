@@ -1787,7 +1787,7 @@ EXECUTE.
 DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
   /STATISTICS=MEAN.</pre>
       <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Yards</span> y está en la hoja <span class="mono">Data</span>.</p>
-      <p class="fine"><a href="docs/MaxFlight_GolfTest.xlsx" download>⤓ Descargar MaxFlight_GolfTest.xlsx</a></p>
+      <p class="fine"><a href="docs/9_MaxFlight_GolfTest.xlsx" download>⤓ Descargar 9_MaxFlight_GolfTest.xlsx</a></p>
       <p class="fine">El 295 es μ₀ y el 12 es σ. <span class="mono">ABS</span> y el 2 son lo que vuelve bilateral la prueba: se suman las dos colas.</p>
     </div>
     <div class="card spss">
@@ -1821,7 +1821,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PBIL
         <p class="fine">Las pelotas promediaron 2.6 yardas de más. Con 50 pelotas eso todavía cabe dentro de la variación normal del proceso.</p>
         <p class="fine"><strong>Supuestos:</strong> muestreo aleatorio, independencia, σ = 12 conocida por control de calidad, y n = 50 ≥ 30.</p>
       </div>
-      <p class="src">Anderson, sección 9.3 · archivo MaxFlight_GolfTest.xlsx</p>
+      <p class="src">Anderson, sección 9.3 · archivo 9_MaxFlight_GolfTest.xlsx</p>
     </div>
   </div>
 </section>
@@ -1849,7 +1849,7 @@ EXECUTE.
 DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
   /STATISTICS=MEAN.</pre>
       <p class="fine">Compara con el ejercicio 1: desapareció el <span class="mono">ABS</span> y desapareció el 2. <strong>Eso es todo lo que distingue una cola de dos.</strong> Para la cola superior sería <span class="mono">1 - CDF.NORMAL(ZOBS,0,1)</span>.</p>
-      <p class="fine"><a href="docs/Hilltop_Coffee.xlsx" download>⤓ Descargar Hilltop_Coffee.xlsx</a></p>
+      <p class="fine"><a href="docs/9_Hilltop_Coffee.xlsx" download>⤓ Descargar 9_Hilltop_Coffee.xlsx</a></p>
     </div>
     <div class="card spss">
       <h3>Minitab · el mismo diálogo, otra opción</h3>
@@ -1887,7 +1887,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
         <p>Porque lo eligió quien carga con las consecuencias. El director del programa de pruebas declara que solo está dispuesto a asumir un <strong>1 % de riesgo</strong> de acusar a la empresa cuando en realidad cumple.</p>
         <p>Ese es el criterio: <strong>α se fija según lo caro que salga el error tipo I</strong>, no por costumbre. Acusar injustamente a una empresa cuesta más que ajustar un proceso de pelotas de golf, y por eso MaxFlight trabajaba al 0.05 y este caso al 0.01.</p>
       </div>
-      <p class="src">Anderson, sección 9.3 · archivo Hilltop_Coffee.xlsx</p>
+      <p class="src">Anderson, sección 9.3 · archivo 9_Hilltop_Coffee.xlsx</p>
     </div>
   </div>
 </section>
@@ -1903,7 +1903,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
     <div class="card spss">
       <h3>El procedimiento</h3>
       <ol style="padding-left:1.15em;line-height:1.65">
-        <li>Abre <span class="mono">Aeropuertos_AirRating.xlsx</span>.</li>
+        <li>Abre <span class="mono">9_Aeropuertos_AirRating.xlsx</span>.</li>
         <li><span class="mono">Analizar &gt; Comparar medias &gt; Prueba T para una muestra…</span></li>
         <li>Pasa <span class="mono">Rating</span> a <em>Variables de prueba</em>.</li>
         <li>En <strong>Valor de prueba</strong> escribe <strong>7</strong>. Este es μ₀, no cero: aquí sí se usa el valor afirmado.</li>
@@ -1911,7 +1911,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
       </ol>
       <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Rating</span> y toma valores de 0 a 10.</p>
       <p class="fine">Nota el contraste con el bloque 8: allá el valor de prueba era 0 porque queríamos el intervalo de la media. Aquí es 7 porque queremos contrastar contra 7.</p>
-      <p class="fine"><a href="docs/Aeropuertos_AirRating.xlsx" download>⤓ Descargar Aeropuertos_AirRating.xlsx</a></p>
+      <p class="fine"><a href="docs/9_Aeropuertos_AirRating.xlsx" download>⤓ Descargar 9_Aeropuertos_AirRating.xlsx</a></p>
     </div>
     <div class="card spss" style="margin-top:16px">
       <h3>Minitab · la misma prueba</h3>
@@ -1942,7 +1942,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
         <p class="fine"><strong>Supuestos:</strong> muestreo aleatorio, independencia y normalidad; con n = 60 ≥ 30 esta última la respalda el TLC, así que no hace falta revisar el histograma.</p>
         <p class="fine">Guarda bien este número. En la siguiente lámina vamos a usar exactamente la misma salida para responder la otra pregunta.</p>
       </div>
-      <p class="src">Anderson, sección 9.4 · archivo Aeropuertos_AirRating.xlsx</p>
+      <p class="src">Anderson, sección 9.4 · archivo 9_Aeropuertos_AirRating.xlsx</p>
     </div>
   </div>
 </section>
@@ -1995,7 +1995,7 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
         </ol>
         <p>La salida trae <span class="mono">P = 0.035</span> <strong>ya calculado para una cola</strong>, sin dividir ni revisar signos. Y en vez de intervalo reporta una <em>cota inferior</em> de confianza, que es la figura correcta para una prueba unilateral.</p>
         <p class="fine">Aquí se ve la diferencia de diseño entre los dos programas. Donde SPSS 25 te obliga a hacer dos pasos mentales, Minitab pregunta la dirección de antemano y hace la cuenta por ti. Vale la pena mostrarlo: no es que un programa sea mejor, es que uno te obliga a entender el procedimiento.</p>
-        <p class="fine"><a href="docs/Aeropuertos_AirRating.xlsx" download>⤓ Descargar Aeropuertos_AirRating.xlsx</a> · es el mismo archivo del ejercicio 3</p>
+        <p class="fine"><a href="docs/9_Aeropuertos_AirRating.xlsx" download>⤓ Descargar 9_Aeropuertos_AirRating.xlsx</a> · es el mismo archivo del ejercicio 3</p>
       </div>
       <div class="card edge">
         <h3>Por qué la cola se declara antes</h3>
@@ -2017,14 +2017,14 @@ DESCRIPTIVES VARIABLES=XBARRA EE ZOBS PINF
     <div class="card spss">
       <h3>El procedimiento</h3>
       <ol style="padding-left:1.15em;line-height:1.65">
-        <li>Importa <span class="mono">Holiday_Toys_Orders.xlsx</span>, hoja <span class="mono">Data</span>.</li>
+        <li>Importa <span class="mono">9_Holiday_Toys_Orders.xlsx</span>, hoja <span class="mono">Data</span>.</li>
         <li><span class="mono">Analizar &gt; Comparar medias &gt; Prueba T para una muestra…</span></li>
         <li>Pasa <span class="mono">Units</span> a <em>Variables de prueba</em>.</li>
         <li>En <strong>Valor de prueba</strong> escribe <strong>40</strong>.</li>
         <li><strong>Aceptar.</strong></li>
       </ol>
       <p class="fine">Este es el caso del libro que corresponde exactamente a esta casilla: σ desconocida y prueba bilateral.</p>
-      <p class="fine"><a href="docs/Holiday_Toys_Orders.xlsx" download>⤓ Descargar Holiday_Toys_Orders.xlsx</a></p>
+      <p class="fine"><a href="docs/9_Holiday_Toys_Orders.xlsx" download>⤓ Descargar 9_Holiday_Toys_Orders.xlsx</a></p>
     </div>
     <div class="card spss" style="margin-top:16px">
       <h3>Minitab · la misma prueba</h3>
@@ -2113,7 +2113,7 @@ EXECUTE.
 DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
   /STATISTICS=MEAN.</pre>
       <p class="fine" style="color:var(--amber-ink)"><strong>Nota del archivo:</strong> la variable se llama <span class="mono">Golfer</span> y es de texto, con valores <span class="mono">Female</span> y <span class="mono">Male</span>. La primera línea la convierte en 1 y 0; debes obtener 100 mujeres de 400.</p>
-      <p class="fine"><a href="docs/Pine_Creek_WomenGolf.xlsx" download>⤓ Descargar Pine_Creek_WomenGolf.xlsx</a></p>
+      <p class="fine"><a href="docs/9_Pine_Creek_WomenGolf.xlsx" download>⤓ Descargar 9_Pine_Creek_WomenGolf.xlsx</a></p>
     </div>
     <div class="card spss">
       <h3>Minitab · y una casilla que hay que marcar</h3>
@@ -2152,7 +2152,121 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
         <p>Minitab usa por omisión la <strong>prueba exacta binomial</strong>, que no aproxima nada: calcula directamente la probabilidad de observar 100 mujeres o más entre 400 si la proporción real fuera 0.20. Ese cálculo da <strong>0.0086</strong>, no 0.0062.</p>
         <p>Ninguno de los dos está mal. La exacta es más precisa; la normal es la que enseña el libro y la que aparece en la literatura. La conclusión no cambia, pero <strong>el número que reportes sí</strong>, y hay que saber cuál estás usando.</p>
       </div>
-      <p class="src">Anderson, sección 9.5 · archivo Pine_Creek_WomenGolf.xlsx</p>
+      <p class="src">Anderson, sección 9.5 · archivo 9_Pine_Creek_WomenGolf.xlsx</p>
+    </div>
+  </div>
+</section>
+
+<!-- 38a · ARTÍCULO 1 · KOCIU -->
+<section class="slide" data-label="Artículo 1 · Kociu y Kodra (2021)">
+  <p class="eyebrow">Aplicación en investigación · <span class="tag">Artículo 1 de 3</span></p>
+  <h2 class="title">Cuando el presupuesto decide el nivel de confianza</h2>
+  <div class="rule"></div>
+  <p class="lede">Koçiu, L., y Kodra, K. (2021). Using the Econometric Models for Identification of Risk Factors for Albanian SMEs. <em>WSEAS Transactions on Business and Economics</em>, 18, 163–170. Acceso abierto CC BY 4.0.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>De qué trata</h3>
+        <p>Encuesta a <strong>154 PYMES</strong> de la región de Gjirokastra, en Albania, para saber si son capaces de identificar los riesgos que enfrentan. Datos en escala Likert de cinco niveles, procesados en SPSS 21 con regresión logística binaria.</p>
+      </div>
+      <div class="card key" style="margin-top:16px">
+        <h3>El momento que hay que leer con calma</h3>
+        <p>Calculan el tamaño de muestra con la fórmula que despejamos en el bloque 8. Con una población de <strong>2 814</strong> empresas, 95 % de confianza y un margen del 5 %, les salen <strong>350 negocios</strong>.</p>
+        <p>Y entonces escriben algo que casi nadie se atreve a publicar: encuestar esa cantidad les resultó imposible, así que <strong>bajaron el nivel de confianza a 92.15 % y subieron el margen de error de 5 % a 7.85 %</strong>. Con ese margen la fórmula devuelve 154, y esa fue la muestra.</p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>Qué técnica de la sesión usa</h3>
+        <ul>
+          <li><strong>Tamaño de muestra</strong>, con nivel de confianza y margen de error declarados, y despejado en las dos direcciones.</li>
+          <li><strong>Prueba de hipótesis</strong> con H₀ y H₁ enunciadas desde el objetivo del artículo.</li>
+          <li><strong>Valor crítico</strong>: comparan su ji cuadrada de 222.389 contra el valor de tabla de 11.070 con 5 grados de libertad, igual que hicimos con el 1.96.</li>
+        </ul>
+      </div>
+      <div class="card warn">
+        <h3>Lo que se lleva a su propia tesis</h3>
+        <p>La ecuación del tamaño de muestra se usa <em>en los dos sentidos</em>. El libro fija el margen y despeja n; ellos tenían n fijo por presupuesto y despejaron qué confianza podían pagar.</p>
+        <p>Esa es la situación real de la mayoría de las tesis. Lo honesto no es fingir el 95 %, es reportar el nivel que de verdad alcanzaste.</p>
+      </div>
+      <p class="fine"><a href="docs/Kociu_2021.pdf" download>⤓ Descargar Kociu_2021.pdf</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 38b · ARTÍCULO 2 · WOOD -->
+<section class="slide" data-label="Artículo 2 · Wood (2013)">
+  <p class="eyebrow">Aplicación en investigación · <span class="tag">Artículo 2 de 3</span></p>
+  <h2 class="title">El mismo estudio, contado con intervalos</h2>
+  <div class="rule"></div>
+  <p class="lede">Wood, M. (2013). Making Statistical Methods More Useful: Some Suggestions From a Case Study. <em>SAGE Open</em>, 3(1). Acceso abierto.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>De qué trata</h3>
+        <p>Toma un artículo publicado en <em>Academy of Management Journal</em> sobre rotación de personal y desempeño en 110 oficinas de una agencia de empleo, y <strong>lo reanaliza con intervalos de confianza</strong> en lugar de valores p.</p>
+      </div>
+      <div class="card key" style="margin-top:16px">
+        <h3>Su tabla 2, en una línea</h3>
+        <table style="margin-top:6px">
+          <thead><tr><th>Predicción del efecto de +1 %</th><th class="num">Estimación</th><th class="num">IC 95 %</th></tr></thead>
+          <tbody>
+            <tr><td>Rotación de personal</td><td class="num">−1 778</td><td class="num">−3 060 a −495</td></tr>
+            <tr><td>Ausentismo</td><td class="num">−3 389</td><td class="num">−6 767 a −10</td></tr>
+            <tr><td>Edad promedio (+1 año)</td><td class="num">−731</td><td class="num">−3 716 a 2 254</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">El intervalo de la rotación <strong>excluye al cero</strong>, así que la significancia es menor al 5 %. El de la edad <strong>incluye valores positivos y negativos</strong>, así que no se puede rechazar la hipótesis nula. Es la equivalencia del cierre del bloque 8, con datos de empresas.</p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card edge">
+        <h3>Su argumento central</h3>
+        <p>El valor p responde una pregunta que nadie hizo: qué tan probable es tu dato <em>suponiendo</em> una hipótesis nula casi siempre falsa. El intervalo responde la que sí importa: <strong>de qué tamaño es el efecto y con cuánta precisión lo mediste</strong>.</p>
+        <p class="fine">Y señala que toda la información del valor p se puede deducir del intervalo, pero no al revés.</p>
+      </div>
+      <div class="card warn">
+        <h3>El dato incómodo</h3>
+        <p>Revisó un número de <em>British Journal of Management</em>: diez de once artículos reportaban valores p y ocho estaban organizados alrededor de hipótesis formales. En medicina ocurre lo contrario, y varias revistas exigen intervalos.</p>
+      </div>
+      <p class="fine"><a href="docs/Wood_2003.pdf" download>⤓ Descargar Wood_2003.pdf</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 38c · ARTÍCULO 3 · CUMMING Y FINCH -->
+<section class="slide" data-label="Artículo 3 · Cumming y Finch (2005)">
+  <p class="eyebrow">Aplicación en investigación · <span class="tag">Artículo 3 de 3</span></p>
+  <h2 class="title">Cómo se leen las figuras con intervalos</h2>
+  <div class="rule"></div>
+  <p class="lede">Cumming, G., y Finch, S. (2005). Inference by Eye: Confidence Intervals and How to Read Pictures of Data. <em>American Psychologist</em>, 60(2), 170–180.</p>
+
+  <div class="cols c2w">
+    <div>
+      <div class="card">
+        <h3>De qué trata</h3>
+        <p>Es un artículo metodológico sobre <strong>cómo interpretar una gráfica con barras de error</strong>. Propone siete reglas prácticas y advierte de las confusiones más comunes.</p>
+        <p>Su ejemplo de arranque es exactamente el caso de σ desconocida del bloque 8: n = 36, media 62, desviación 30, error estándar 5, valor crítico t con 35 grados de libertad igual a 2.03, margen de error 10.15 e intervalo de <strong>51.85 a 72.15</strong>.</p>
+      </div>
+      <div class="card key" style="margin-top:16px">
+        <h3>Confirma dos cosas que dijimos hoy</h3>
+        <p><strong>La equivalencia.</strong> Cualquier valor <em>fuera</em> del intervalo, tomado como hipótesis nula, da un valor p bilateral menor a .05; cualquier valor <em>dentro</em> lo da mayor. Con su intervalo, μ = 50 se rechazaría y μ = 60 no.</p>
+        <p><strong>La cobertura.</strong> Su figura 2 dibuja 20 repeticiones del mismo estudio: <strong>18 de los 20 intervalos contienen a μ</strong>. Es la misma cuenta que hicimos en la lámina 12 con nuestros 125 resultados.</p>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="card warn">
+        <h3>Las dos advertencias que más sirven</h3>
+        <p><strong>No digas que tu intervalo tiene .95 de probabilidad de contener a μ.</strong> Eso sugiere que μ varía, y μ es fijo aunque desconocido. Lo que varían son tus dos límites.</p>
+        <p><strong>Barras de error no es lo mismo que intervalo.</strong> Una barra de error estándar equivale a un intervalo de apenas 68 %, así que hay que declarar siempre qué representa cada barra de una figura.</p>
+      </div>
+      <div class="card edge">
+        <h3>Por qué cierra bien la sesión</h3>
+        <p>Los otros dos artículos muestran las técnicas en acción. Este enseña a <strong>leer</strong> los resultados de otros, que es lo que van a hacer el resto del doctorado.</p>
+      </div>
+      <p class="fine"><a href="docs/Cumming_2005.pdf" download>⤓ Descargar Cumming_2005.pdf</a></p>
     </div>
   </div>
 </section>
@@ -2214,11 +2328,11 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
             <tr><td><a href="docs/8_NewBalance.xlsx" download>8_NewBalance.xlsx</a></td><td><span class="mono">NewBalance</span></td><td class="num">70</td><td>Bloque 8 · ejercicio 2</td></tr>
             <tr><td><a href="docs/8_Scheer.xlsx" download>8_Scheer.xlsx</a></td><td><span class="mono">Days</span></td><td class="num">20</td><td>Bloque 8 · ejercicio 3 y tamaño de muestra</td></tr>
             <tr><td><a href="docs/8_TeeTimes_golf.xlsx" download>8_TeeTimes_golf.xlsx</a></td><td><span class="mono">Response (Yes / No)</span></td><td class="num">900</td><td>Bloque 8 · ejercicio 4</td></tr>
-            <tr><td><a href="docs/MaxFlight_GolfTest.xlsx" download>MaxFlight_GolfTest.xlsx</a></td><td><span class="mono">Yards</span></td><td class="num">50</td><td>Bloque 9 · ejercicio 1</td></tr>
-            <tr><td><a href="docs/Hilltop_Coffee.xlsx" download>Hilltop_Coffee.xlsx</a></td><td><span class="mono">Weight</span></td><td class="num">36</td><td>Bloque 9 · ejercicio 2</td></tr>
-            <tr><td><a href="docs/Aeropuertos_AirRating.xlsx" download>Aeropuertos_AirRating.xlsx</a></td><td><span class="mono">Rating</span></td><td class="num">60</td><td>Bloque 9 · ejercicios 3 y 4</td></tr>
-            <tr><td><a href="docs/Holiday_Toys_Orders.xlsx" download>Holiday_Toys_Orders.xlsx</a></td><td><span class="mono">Units</span></td><td class="num">25</td><td>Bloque 9 · ejercicio 5</td></tr>
-            <tr><td><a href="docs/Pine_Creek_WomenGolf.xlsx" download>Pine_Creek_WomenGolf.xlsx</a></td><td><span class="mono">Golfer (Female / Male)</span></td><td class="num">400</td><td>Bloque 9 · ejercicio 6</td></tr>
+            <tr><td><a href="docs/9_MaxFlight_GolfTest.xlsx" download>9_MaxFlight_GolfTest.xlsx</a></td><td><span class="mono">Yards</span></td><td class="num">50</td><td>Bloque 9 · ejercicio 1</td></tr>
+            <tr><td><a href="docs/9_Hilltop_Coffee.xlsx" download>9_Hilltop_Coffee.xlsx</a></td><td><span class="mono">Weight</span></td><td class="num">36</td><td>Bloque 9 · ejercicio 2</td></tr>
+            <tr><td><a href="docs/9_Aeropuertos_AirRating.xlsx" download>9_Aeropuertos_AirRating.xlsx</a></td><td><span class="mono">Rating</span></td><td class="num">60</td><td>Bloque 9 · ejercicios 3 y 4</td></tr>
+            <tr><td><a href="docs/9_Holiday_Toys_Orders.xlsx" download>9_Holiday_Toys_Orders.xlsx</a></td><td><span class="mono">Units</span></td><td class="num">25</td><td>Bloque 9 · ejercicio 5</td></tr>
+            <tr><td><a href="docs/9_Pine_Creek_WomenGolf.xlsx" download>9_Pine_Creek_WomenGolf.xlsx</a></td><td><span class="mono">Golfer (Female / Male)</span></td><td class="num">400</td><td>Bloque 9 · ejercicio 6</td></tr>
         </tbody>
       </table>
     </div>
@@ -2265,11 +2379,11 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
             <tr><td><a href="docs/8_NewBalance.xlsx" download>8_NewBalance.xlsx</a></td><td><span class="mono">NewBalance</span></td><td class="num">70</td><td>Bloque 8 · ejercicio 2</td></tr>
             <tr><td><a href="docs/8_Scheer.xlsx" download>8_Scheer.xlsx</a></td><td><span class="mono">Days</span></td><td class="num">20</td><td>Bloque 8 · ejercicio 3 y tamaño de muestra</td></tr>
             <tr><td><a href="docs/8_TeeTimes_golf.xlsx" download>8_TeeTimes_golf.xlsx</a></td><td><span class="mono">Response (Yes / No)</span></td><td class="num">900</td><td>Bloque 8 · ejercicio 4</td></tr>
-            <tr><td><a href="docs/MaxFlight_GolfTest.xlsx" download>MaxFlight_GolfTest.xlsx</a></td><td><span class="mono">Yards</span></td><td class="num">50</td><td>Bloque 9 · ejercicio 1</td></tr>
-            <tr><td><a href="docs/Hilltop_Coffee.xlsx" download>Hilltop_Coffee.xlsx</a></td><td><span class="mono">Weight</span></td><td class="num">36</td><td>Bloque 9 · ejercicio 2</td></tr>
-            <tr><td><a href="docs/Aeropuertos_AirRating.xlsx" download>Aeropuertos_AirRating.xlsx</a></td><td><span class="mono">Rating</span></td><td class="num">60</td><td>Bloque 9 · ejercicios 3 y 4</td></tr>
-            <tr><td><a href="docs/Holiday_Toys_Orders.xlsx" download>Holiday_Toys_Orders.xlsx</a></td><td><span class="mono">Units</span></td><td class="num">25</td><td>Bloque 9 · ejercicio 5</td></tr>
-            <tr><td><a href="docs/Pine_Creek_WomenGolf.xlsx" download>Pine_Creek_WomenGolf.xlsx</a></td><td><span class="mono">Golfer (Female / Male)</span></td><td class="num">400</td><td>Bloque 9 · ejercicio 6</td></tr>
+            <tr><td><a href="docs/9_MaxFlight_GolfTest.xlsx" download>9_MaxFlight_GolfTest.xlsx</a></td><td><span class="mono">Yards</span></td><td class="num">50</td><td>Bloque 9 · ejercicio 1</td></tr>
+            <tr><td><a href="docs/9_Hilltop_Coffee.xlsx" download>9_Hilltop_Coffee.xlsx</a></td><td><span class="mono">Weight</span></td><td class="num">36</td><td>Bloque 9 · ejercicio 2</td></tr>
+            <tr><td><a href="docs/9_Aeropuertos_AirRating.xlsx" download>9_Aeropuertos_AirRating.xlsx</a></td><td><span class="mono">Rating</span></td><td class="num">60</td><td>Bloque 9 · ejercicios 3 y 4</td></tr>
+            <tr><td><a href="docs/9_Holiday_Toys_Orders.xlsx" download>9_Holiday_Toys_Orders.xlsx</a></td><td><span class="mono">Units</span></td><td class="num">25</td><td>Bloque 9 · ejercicio 5</td></tr>
+            <tr><td><a href="docs/9_Pine_Creek_WomenGolf.xlsx" download>9_Pine_Creek_WomenGolf.xlsx</a></td><td><span class="mono">Golfer (Female / Male)</span></td><td class="num">400</td><td>Bloque 9 · ejercicio 6</td></tr>
         </tbody>
       </table>
     </div>
@@ -2293,7 +2407,7 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       <div class="card warn">
         <h3>Y dos donde hay que tener cuidado</h3>
         <p><strong>El método por omisión en proporciones.</strong> Minitab usa la prueba y el intervalo <em>exactos</em>, no la aproximación normal. Para reproducir los números del libro hay que entrar a <span class="mono">Opciones</span> y elegir <em>Normal approximation</em>.</p>
-        <p><strong>La hoja equivocada.</strong> Varios archivos traen hojas auxiliares; <span class="mono">Hilltop_Coffee.xlsx</span> tiene nueve y la primera no es la de datos.</p>
+        <p><strong>La hoja equivocada.</strong> Varios archivos traen hojas auxiliares; <span class="mono">9_Hilltop_Coffee.xlsx</span> tiene nueve y la primera no es la de datos.</p>
       </div>
     </div>
   </div>
@@ -2321,7 +2435,8 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
     <button class="blk" data-go="2"><span class="k">Bloque 7</span><span class="t">Muestreo y distribuciones muestrales</span><span class="m">13 láminas · ~28 min</span></button>
     <button class="blk" data-go="15"><span class="k">Bloque 8</span><span class="t">Intervalos de confianza y tamaño de muestra</span><span class="m">14 láminas · ~55 min</span></button>
     <button class="blk" data-go="29"><span class="k">Bloque 9</span><span class="t">Prueba de hipótesis</span><span class="m">9 láminas · ~30 min</span></button>
-    <button class="blk" data-go="38"><span class="k">Materiales</span><span class="t">Archivos para descargar</span><span class="m">SPSS y Minitab · tecla 0</span></button>
+    <button class="blk" data-go="37"><span class="k">Artículos</span><span class="t">Aplicación en investigación</span><span class="m">3 láminas · tecla A</span></button>
+    <button class="blk" data-go="41"><span class="k">Materiales</span><span class="t">Archivos para descargar</span><span class="m">SPSS y Minitab · tecla 0</span></button>
   </div>
   <p class="src">Universidad de Sonora · Doctorado en Ciencias Económicas y Administrativas · Septiembre 2026</p>
 </div>
@@ -2517,8 +2632,9 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
     else if (e.key === "f" || e.key === "F"){ pantalla(); }
     else if (e.key === "7"){ ir(2); alternarMenu(false); }
     else if (e.key === "8"){ ir(15); alternarMenu(false); }
-    else if (e.key === "0"){ ir(38); alternarMenu(false); }
+    else if (e.key === "0"){ ir(41); alternarMenu(false); }
     else if (e.key === "9"){ ir(29); alternarMenu(false); }
+    else if (e.key === "a" || e.key === "A"){ ir(37); alternarMenu(false); }
   });
 
 
