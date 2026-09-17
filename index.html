@@ -1086,11 +1086,11 @@ input[type=range]{accent-color:var(--accent);height:26px}
       <div class="lectura" id="cum-out"></div>
       <div class="ctrls" style="margin:10px 0 4px;align-items:center">
         <span style="font-size:13px;color:var(--ink-faint)">Área acumulada:</span>
-        <input type="range" id="cum-rng" min="0.01" max="0.99" step="0.005" value="0.95"
+        <input type="range" id="cum-rng" min="0.001" max="0.999" step="0.001" value="0.95"
                aria-label="Área acumulada" style="flex:1;min-width:150px">
         <button class="btn" id="cum-reset">Volver a 0.9500</button>
       </div>
-      <p class="fine">El área azul es todo lo que queda a la izquierda de z, que es exactamente lo que trae la tabla del libro. Puedes arrastrar sobre la curva o mover el deslizador.</p>
+      <p class="fine">El área azul es todo lo que queda a la izquierda de z, que es exactamente lo que trae la tabla del libro. El recorrido va de 0.001 a 0.999, así que alcanza los extremos de z = ±3.09. Puedes arrastrar sobre la curva o mover el deslizador.</p>
     </div>
     <div class="cols">
       <div class="card edge">
@@ -2854,7 +2854,7 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       return d + " L" + X(b).toFixed(1) + " " + base + " Z";
     }
     function pinta(p){
-      p = Math.max(0.01, Math.min(0.99, p));
+      p = Math.max(0.001, Math.min(0.999, p));
       var zc = zInvG(p), s = "";
       s += "<path d='" + tramo(zLo, zc) + "' fill='var(--accent)' opacity='.28'/>";
       s += "<path d='" + tramo(zc, zHi) + "' fill='var(--amber)' opacity='.45'/>";
@@ -2870,9 +2870,11 @@ DESCRIPTIVES VARIABLES=PBARRA EE ZOBS PSUP
       s += "<text x='" + X(zc) + "' y='" + (Y(phi(zc)) - 14) + "' text-anchor='middle' " +
            "style='fill:var(--gold);font-size:16px;font-weight:800;font-family:var(--sans)'>z = " +
            (zc < 0 ? "\u2212" : "+") + Math.abs(zc).toFixed(4) + "</text>";
-      var xi = Math.max(zLo + 0.5, Math.min(zc - 0.9, 1.2));
-      s += "<text x='" + X(xi) + "' y='" + (base - 26) + "' text-anchor='middle' " +
-           "style='fill:var(--accent);font-size:15px;font-weight:800;font-family:var(--sans)'>" + p.toFixed(4) + "</text>";
+      if (p > 0.02){
+        var xi = Math.max(zLo + 0.5, Math.min(zc - 0.9, 1.2));
+        s += "<text x='" + X(xi) + "' y='" + (base - 26) + "' text-anchor='middle' " +
+             "style='fill:var(--accent);font-size:15px;font-weight:800;font-family:var(--sans)'>" + p.toFixed(4) + "</text>";
+      }
       if (1 - p > 0.02){
         s += "<text x='" + X(Math.min(zHi - 0.5, zc + 0.9)) + "' y='" + (base - 26) + "' text-anchor='middle' " +
              "style='fill:var(--amber-ink);font-size:13px;font-weight:700;font-family:var(--sans)'>" + (1-p).toFixed(4) + "</text>";
